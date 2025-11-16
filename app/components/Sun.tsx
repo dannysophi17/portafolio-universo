@@ -148,17 +148,6 @@ export default function Sun({
   return (
     <group position={position}>
 
-      {/* AURA (más dorada ahora) */}
-      <mesh ref={glowRef}>
-        <sphereGeometry args={[size * 1.22, 64, 64]} />
-        <meshBasicMaterial
-          color="#FFDB81"
-          transparent
-          opacity={0.25}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-
       {/* NÚCLEO */}
       <mesh ref={coreRef}>
         <sphereGeometry args={[size, 128, 128]} />
@@ -172,6 +161,7 @@ export default function Sun({
         distance={size * 15}
         color="#FFEEC5"
       />
+
     </group>
   );
 }
