@@ -25,8 +25,8 @@ export default function ContactForm() {
         'service_p2yyi81',
         'template_mp3zngs',
         {
-          from_name: formData.name,
-          from_email: formData.email,
+          name: formData.name,
+          email: formData.email,
           message: formData.message,
         },
         'nmNZ6cxIiVwm_Cwxt'
