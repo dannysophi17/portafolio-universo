@@ -6,19 +6,21 @@ import * as THREE from "three";
 import PlanetShader from "./PlanetShader";
 import Sun from "./Sun";
 
+/** Configuración de cada planeta en el sistema orbital */
 interface PlanetInfo {
   name: string;
-  color: string;
-  size: number;
-  orbitRadius: number;
-  orbitSpeed: number;
+  color: string;       // Hex color del planeta
+  size: number;        // Radio del planeta
+  orbitRadius: number; // Distancia desde el centro
+  orbitSpeed: number;  // Velocidad de rotación orbital
 }
 
+/** Props del componente OrbitingPlanets */
 interface OrbitingPlanetsProps {
   planets: any[];
-  focusMode: boolean;
-  zoomMode?: boolean;
-  planetIndex: number;
+  focusMode: boolean;   // Modo enfoque (panel abierto)
+  zoomMode?: boolean;   // Modo zoom temporal
+  planetIndex: number;  // Índice del planeta activo
   onPlanetClick?: (index: number) => void;
   onPlanetPositionUpdate?: (position: [number, number, number]) => void;
 }
@@ -31,13 +33,18 @@ export default function OrbitingPlanets({
   onPlanetClick,
   onPlanetPositionUpdate,
 }: OrbitingPlanetsProps) {
+  // Referencias 3D
   const groupRef = useRef<THREE.Group>(null);
-  const planetRefs = useRef<(THREE.Group | null)[]>([]);
-  const rotationOffset = useRef(0);
+  const planetRefs = useRef<(THREE.Group | null)[]>([]); // Array de refs para cada planeta
+  
+  // Control de rotación orbital
+  const rotationOffset = useRef(0); // Ángulo actual de rotación del sistema
+  
+  // Estado anterior para detectar transiciones
   const previousFocusMode = useRef(focusMode);
   const previousPlanetIndex = useRef(planetIndex);
 
-  // Configuración de órbitas para cada planeta - Órbitas más grandes y brillantes
+  /** Configuración orbital de cada planeta (posición, tamaño, velocidad) */
   const orbitConfig: PlanetInfo[] = [
     { name: "Sobre mí", color: "#FFD700", size: 3.2, orbitRadius: 0, orbitSpeed: 0 }, // Sol dorado
     { name: "Trayectoria", color: "#6A4FA3", size: 1.6, orbitRadius: 10, orbitSpeed: 0.15 },
@@ -68,7 +75,7 @@ export default function OrbitingPlanets({
       rotationOffset.current += delta * 0.08;
     }
 
-    // Detectar cambios de estado globales
+    // Detectar transiciones de estado para optimizar animaciones
     const justEnteredFocus = !previousFocusMode.current && (focusMode || zoomMode);
     const justExitedFocus = previousFocusMode.current && !focusMode && !zoomMode;
 
@@ -97,7 +104,7 @@ export default function OrbitingPlanets({
         const targetY = i === 0 ? 0 : floatY;  // Sol sin flotación en Y
         const targetZ = swayZ;         // Balanceo suave
         
-        // Si acabamos de entrar en focus o cambiar de planeta, colocar inmediatamente
+        // Transición instantánea al entrar en focus para evitar movimiento brusco
         if (justEnteredFocus || changedPlanet) {
           ref.position.set(targetX, targetY, targetZ);
           const targetScale = i === 0 ? 2.2 : 2.8;

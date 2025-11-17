@@ -1,3 +1,8 @@
+/**
+ * Componente del sol animado que representa la sección "Sobre mí".
+ * Usa shaders GLSL personalizados para textura de superficie procedural tipo fuego con ruido FBM.
+ * Incluye efectos de brillo dinámicos y animaciones pulsantes que se intensifican al enfocarse.
+ */
 "use client";
 
 import * as THREE from "three";
@@ -5,11 +10,11 @@ import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 
 interface SunProps {
-  position: [number, number, number];
-  size: number;
-  isFocused?: boolean;
-  isDimmed?: boolean;
-  onSelect?: () => void;
+  position: [number, number, number]; // Posición 3D en la escena
+  size: number; // Radio de la esfera
+  isFocused?: boolean; // Aumenta brillo y resplandor cuando es verdadero
+  isDimmed?: boolean; // Reduce opacidad para estados no activos
+  onSelect?: () => void; // Manejador de click para selección de planeta
 }
 
 export default function Sun({
@@ -25,11 +30,12 @@ export default function Sun({
   const light2Ref = useRef<THREE.PointLight>(null);
   const glowMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
 
+  // Material shader personalizado con ruido procedural para textura de superficie del sol
   const shaderMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {
-        time: { value: 0.0 },
-        brightness: { value: 1.0 },
+        time: { value: 0.0 }, // Reloj de animación
+        brightness: { value: 1.0 }, // Multiplicador de intensidad (aumenta al enfocarse)
       },
 
       vertexShader: `
@@ -84,6 +90,7 @@ export default function Sun({
           float v = 0.0;
           float a = 0.55;
 
+          // Fractal Brownian Motion: ruido en capas para detalle orgánico de superficie
           for(int i=0;i<5;i++){
             v += a * noise(p);
             p *= 2.3;
@@ -122,9 +129,11 @@ export default function Sun({
   useFrame((state) => {
     const t = state.clock.elapsedTime;
 
+    // Actualizar uniform de tiempo del shader para textura de superficie animada
     if (coreRef.current?.material instanceof THREE.ShaderMaterial) {
       coreRef.current.material.uniforms.time.value = t;
       
+      // Transición suave de brillo al enfocar/desenfocar
       const targetBrightness = isFocused ? 1.2 : 1.0;
       coreRef.current.material.uniforms.brightness.value += 
         (targetBrightness - coreRef.current.material.uniforms.brightness.value) * 0.02;

@@ -3,6 +3,10 @@
 import { useState, FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
 
+/**
+ * Formulario de contacto integrado con EmailJS
+ * Maneja validación, envío y estados de UI (enviando, éxito, error)
+ */
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -16,21 +20,22 @@ export default function ContactForm() {
     setStatus('sending');
 
     try {
-      // Configura estos valores en tu cuenta de EmailJS
+      // Envío a través de EmailJS - Credenciales configuradas en EMAILJS_CONFIG.md
       await emailjs.send(
-        'service_p2yyi81', // Reemplazar con tu Service ID
-        'template_o2vpzod', // Reemplazar con tu Template ID
+        'service_p2yyi81',
+        'template_o2vpzod',
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-        'nmNZ6cxIiVwm_Cwxt' // Reemplazar con tu Public Key
+        'nmNZ6cxIiVwm_Cwxt'
       );
       
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
       
+      // Reset automático después de 5 segundos
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
       console.error('Error sending email:', error);

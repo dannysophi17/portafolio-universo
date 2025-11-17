@@ -1,10 +1,14 @@
+/**
+ * Página principal del portafolio con sistema de navegación 3D planetaria interactiva.
+ * Cada planeta representa una sección del portafolio (Sobre mí, Trayectoria, Habilidades, Proyectos, Certificaciones, Contacto).
+ * Características: tres modos de navegación - overview (vista amplia), navegación (selección de planeta), y focus (contenido detallado).
+ */
 "use client";
 
 import React, { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
-import Planet from "./components/Planet";
 import Sun from "./components/Sun";
 import CameraController from "./components/CameraController";
 import IntroStars from "./components/IntroStars";
@@ -13,8 +17,12 @@ import ParallaxBackground from "./components/ParallaxBackground";
 import ContactForm from "./components/ContactForm";
 import SkillsCarousel from "./components/SkillsCarousel";
 
-// Componente para los proyectos con carrusel de imágenes
+/**
+ * Sección de proyectos con carrusel automático de imágenes.
+ * Muestra tarjetas de proyectos con stack tecnológico, demos, enlaces de GitHub y capturas rotativas.
+ */
 function ProjectsContent() {
+  // Estado del carrusel para cada proyecto con múltiples imágenes
   const [arcadeImageIndex, setArcadeImageIndex] = useState(0);
   const [workcangoImageIndex, setWorkcangoImageIndex] = useState(0);
   const arcadeImages = ["/projects/arcade1.png", "/projects/arcade2.png"];
@@ -221,15 +229,23 @@ function ProjectsContent() {
   );
 }
 
+/**
+ * Estructura de datos del planeta conteniendo posición, configuración de cámara y contenido de sección.
+ */
 type PlanetInfo = {
-  name: string;
-  planetPos: [number, number, number];
-  cameraPos: [number, number, number];
-  title: string;
-  content: React.ReactNode;
-  focusDepth: number;
+  name: string; // Nombre de la sección mostrado en UI
+  planetPos: [number, number, number]; // Posición 3D en la escena [x, y, z]
+  cameraPos: [number, number, number]; // Posición objetivo de cámara cuando está enfocado
+  title: string; // Título de sección (opcional, usado en algunas vistas)
+  content: React.ReactNode; // Componente React o JSX a mostrar en el panel
+  focusDepth: number; // Valor de profundidad de campo para modo focus
 };
 
+/**
+ * Datos de las secciones del portafolio mapeados a posiciones planetarias.
+ * Índice 0: Sol (Sobre mí) en el origen [0,0,0]
+ * Los demás planetas orbitan en posiciones calculadas con colores y contenido únicos.
+ */
 const planetsData: PlanetInfo[] = [
   {
     name: "Sobre mí",
@@ -715,12 +731,16 @@ const planetsData: PlanetInfo[] = [
   },
 ];
 
+/**
+ * Componente principal que gestiona el estado de navegación y renderizado de la escena 3D.
+ * Flujo de estados: start → overviewMode → navegación (selección planeta) → zoomMode → focusMode (mostrar contenido).
+ */
 export default function Home() {
-  const [start, setStart] = useState(false);
-  const [overviewMode, setOverviewMode] = useState(true); // Vista amplia inicial del universo
-  const [planetIndex, setPlanetIndex] = useState(0);
-  const [focusMode, setFocusMode] = useState(false);
-  const [zoomMode, setZoomMode] = useState(false); // Zoom antes de ver info
+  const [start, setStart] = useState(false); // Pantalla de entrada con botón "Comenzar"
+  const [overviewMode, setOverviewMode] = useState(true); // Vista amplia del universo mostrando todos los planetas
+  const [planetIndex, setPlanetIndex] = useState(0); // Planeta actualmente seleccionado (0-5)
+  const [focusMode, setFocusMode] = useState(false); // Panel de contenido visible en lado derecho
+  const [zoomMode, setZoomMode] = useState(false); // Estado de transición antes de mostrar contenido
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentPlanetPosition, setCurrentPlanetPosition] = useState<[number, number, number]>([0, 0, 0]);
 
@@ -870,7 +890,7 @@ export default function Home() {
                 setOverviewMode(false);
                 setPlanetIndex(0);
               }}
-              className="group absolute left-10 top-10 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-5 py-2.5 text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-opacity duration-200 hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer"
+              className="group absolute left-10 top-10 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-5 py-2.5 text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 ease-out hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer"
               aria-label="Empezar recorrido"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

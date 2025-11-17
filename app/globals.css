@@ -1,11 +1,13 @@
-/* ---------------------------------------------
-   TAILWIND PRIMERO
---------------------------------------------- */
+/**
+ * Estilos globales y animaciones para la aplicación de portafolio 3D.
+ * Incluye keyframes personalizados para interacciones planetarias, transiciones de UI y efectos espaciales.
+ * Construido con utilidades de Tailwind CSS extendidas con animaciones personalizadas.
+ */
+
+/* Importaciones base de Tailwind CSS */
 @import "tailwindcss";
 
-/* ---------------------------------------------
-   FONDO ESPACIAL PREMIUM
---------------------------------------------- */
+/* Gradiente de fondo de espacio profundo - radial desde azul oscuro hasta casi negro */
 body {
   margin: 0;
   padding: 0;
@@ -13,32 +15,33 @@ body {
   overflow: hidden;
 
   background: radial-gradient(circle at center,
-    #0b102e 0%,
-    #050816 50%,
-    #02010a 100%
+    #0b102e 0%,    /* Centro azul oscuro */
+    #050816 50%,   /* Medio púrpura profundo */
+    #02010a 100%   /* Bordes casi negros */
   );
   background-attachment: fixed;
   font-family: 'Inter', sans-serif;
   color: white;
 }
 
-/* Fix para Next.js */
+/* Configuración de contenedor full-screen para Next.js y React Three Fiber */
 html, body, #__next, #root {
   height: 100%;
   overflow: hidden;
 }
 
-/* Canvas R3F */
+/* Configuración de canvas Three.js - previene scroll táctil en móvil */
 canvas {
   display: block;
   touch-action: none;
 }
 
-/* ---------------------------------------------
-   🔥 ANIMACIONES GLOBALES
---------------------------------------------- */
+/* ==============================================
+   ANIMACIONES GLOBALES
+   Keyframes personalizados para transiciones de UI
+============================================== */
 
-/* Fade in suave */
+/* Fade in general con efecto blur - usado para revelar contenido */
 @keyframes fadeIn {
   from { opacity: 0; filter: blur(5px); }
   to   { opacity: 1; filter: blur(0px); }
@@ -48,19 +51,19 @@ canvas {
   animation: fadeIn 1.3s ease-out forwards;
 }
 
-/* Floating 3D para iconos - estilo estrellas */
+/* Animación flotante 3D para iconos de habilidades - movimiento sutil (rango 5-7px) */
 @keyframes float3D {
   0%, 100% { 
     transform: translateY(0) translateZ(0) rotateY(0deg);
   }
   25% { 
-    transform: translateY(-15px) translateZ(20px) rotateY(90deg);
+    transform: translateY(-5px) translateZ(7px) rotateY(90deg);
   }
   50% { 
-    transform: translateY(-8px) translateZ(-10px) rotateY(180deg);
+    transform: translateY(-3px) translateZ(-4px) rotateY(180deg);
   }
   75% { 
-    transform: translateY(-20px) translateZ(15px) rotateY(270deg);
+    transform: translateY(-7px) translateZ(6px) rotateY(270deg);
   }
 }
 
@@ -100,7 +103,7 @@ canvas {
   animation: fadeSlideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Slide in desde la izquierda para el panel */
+/* Animaciones de slide-in del panel para contenido de sección "Sobre mí" */
 @keyframes slideInLeft {
   from { 
     transform: translateX(-100%);
@@ -116,7 +119,7 @@ canvas {
   animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Slide desde la izquierda - Ultra suave y delicado */
+/* Deslizamiento suave desde la izquierda - animación principal del panel */
 @keyframes slideInRight {
   from { 
     transform: translateX(-15%);
@@ -132,7 +135,7 @@ canvas {
   animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Fade in suave para contenido del panel - Ultra delicado */
+/* Fade-in de contenido con ligero movimiento ascendente - retrasado para efecto escalonado */
 @keyframes fadeInContent {
   from {
     opacity: 0;
@@ -210,7 +213,7 @@ canvas {
   animation: buttonFloat 4.5s ease-in-out infinite;
 }
 
-/* Animación para el botón de inicio */
+/* "Comenzar" button animations - floating and pulsing effects */
 @keyframes startFloat {
   0%, 100% {
     transform: translateY(0px) scale(1);
@@ -226,6 +229,23 @@ canvas {
   animation: startFloat 3.5s ease-in-out infinite;
 }
 
+/* Intro star canvas pulsing effect */
+@keyframes introStarPulse {
+  0%   { opacity: 0.8; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+canvas {
+  animation: introStarPulse 4s ease-in-out infinite;
+}
+
+/* ==============================================
+   UTILITY ANIMATIONS
+   Additional effects for cards, buttons, etc.
+============================================== */
+
+/* Timeline/list item entrance animation */
 @keyframes timelineItem {
   0% {
     opacity: 0;
@@ -243,6 +263,7 @@ canvas {
   animation: timelineItem 0.8s ease forwards;
 }
 
+/* Slow opacity pulse for ambient elements */
 @keyframes pulseSlow {
   0% { opacity: 0.6; }
   50% { opacity: 1; }
@@ -253,7 +274,7 @@ canvas {
   animation: pulseSlow 4s ease-in-out infinite;
 }
 
-/* Animación de pulso lento para glows */
+/* Glow pulse animation */
 @keyframes pulse-slow {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.8; }
@@ -263,16 +284,22 @@ canvas {
   animation: pulse-slow 3s ease-in-out infinite;
 }
 
-/* Perspectiva 3D para tarjetas */
+/* ==============================================
+   EFECTOS 3D Y UTILIDADES
+   Helpers de perspectiva y transformación
+============================================== */
+
+/* Perspectiva 3D para efectos hover en tarjetas */
 .perspective-1000 {
   perspective: 1000px;
 }
 
-/* Efectos de rotación 3D en hover */
+/* Transformaciones aceleradas por GPU para mejor rendimiento */
 .transform-gpu {
   transform: translateZ(0);
 }
 
+/* Utilidades de rotación 3D para interacciones hover */
 .hover\:rotateX-2:hover {
   transform: rotateX(2deg);
 }
@@ -281,7 +308,11 @@ canvas {
   transform: rotateY(1deg);
 }
 
-/* Gradientes lineales - alias para bg-gradient-to */
+/* ==============================================
+   UTILIDADES DE GRADIENTE
+   Direcciones personalizadas de gradiente lineal
+============================================== */
+
 .bg-linear-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -327,7 +358,12 @@ canvas {
 
 
 
-/* Scrollbar panel info - elegante y sutil */
+/* ==============================================
+   ESTILOS DE SCROLLBAR
+   Scrollbar personalizado para paneles de contenido
+============================================== */
+
+/* Navegadores WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -350,9 +386,9 @@ canvas {
   background-clip: padding-box;
 }
 
-/* Firefox */
+/* Firefox y navegadores modernos (Chrome 121+) */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: thin; /* No soportado por Safari, Chrome antiguo */
   scrollbar-color: rgba(99, 102, 241, 0.25) transparent;
 }
 

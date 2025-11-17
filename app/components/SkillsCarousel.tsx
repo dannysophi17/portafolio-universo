@@ -3,9 +3,15 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 
+/**
+ * Carousel interactivo de habilidades técnicas
+ * Muestra categorías (Frontend, Backend, Cloud, etc.) con navegación por pestañas
+ * Incluye iconos flotantes animados de tecnologías
+ */
+
 interface Skill {
   name: string;
-  level?: string;
+  level?: string; // Opcional, usado para idiomas
 }
 
 interface SkillCategory {
@@ -13,14 +19,14 @@ interface SkillCategory {
   title: string;
   icon: React.ReactElement;
   skills: Skill[];
-  color: string;
-  gridCols: string;
+  color: string;      // Color theme de la categoría
+  gridCols: string;   // Layout responsivo del grid
 }
 
 export default function SkillsCarousel() {
   const [activeTab, setActiveTab] = useState(0);
-  const [isAutoPlaying] = useState(false); // Manual para tabs
-  const [currentIconIndex, setCurrentIconIndex] = useState(0);
+  const [isAutoPlaying] = useState(false);           // Auto-play deshabilitado para control manual
+  const [currentIconIndex, setCurrentIconIndex] = useState(0); // Índice del carousel de iconos
 
   const categories: SkillCategory[] = [
     {

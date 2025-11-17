@@ -4,13 +4,18 @@ import * as THREE from "three";
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 
+/**
+ * Componente de planeta con shaders personalizados y efectos visuales
+ * Cada planeta tiene un tipo específico que determina sus efectos (anillos, partículas, wireframes)
+ */
+
 interface PlanetShaderProps {
-  color: string;
-  position: [number, number, number];
-  size: number;
-  onSelect?: () => void;
-  isDimmed?: boolean;
-  isFocused?: boolean;
+  color: string;                      // Color hex del planeta
+  position: [number, number, number]; // Posición 3D [x, y, z]
+  size: number;                       // Radio del planeta
+  onSelect?: () => void;              // Callback al hacer click
+  isDimmed?: boolean;                 // Estado atenuado (no enfocado)
+  isFocused?: boolean;                // Estado enfocado (panel abierto)
 }
 
 export default function PlanetShader({
@@ -25,10 +30,9 @@ export default function PlanetShader({
   const glowRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
 
-  // Convertir color hex a RGB
   const colorObj = new THREE.Color(color);
   
-  // Determinar tipo de planeta según color para efectos especiales
+  /** Mapeo de color a tipo de planeta para efectos visuales específicos */
   const planetType = useMemo(() => {
     if (color === '#FFD700') return 'sun';           // Sol - dorado brillante
     if (color === '#6A4FA3') return 'rocky';         // Trayectoria - rocoso púrpura

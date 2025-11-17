@@ -1,3 +1,7 @@
+/**
+ * Campo de estrellas con parallax que responde al movimiento del mouse para percepción de profundidad.
+ * Mejora la conciencia espacial creando separación de capas de fondo.
+ */
 "use client";
 
 import { useRef } from "react";
@@ -6,7 +10,7 @@ import { Stars } from "@react-three/drei";
 import * as THREE from "three";
 
 interface ParallaxBackgroundProps {
-  mousePosition: { x: number; y: number };
+  mousePosition: { x: number; y: number }; // Coordenadas normalizadas del mouse (-0.5 a 0.5)
 }
 
 export default function ParallaxBackground({ mousePosition }: ParallaxBackgroundProps) {
@@ -14,7 +18,7 @@ export default function ParallaxBackground({ mousePosition }: ParallaxBackground
 
   useFrame(() => {
     if (groupRef.current) {
-      // Smooth parallax movement - aumentado para más efecto
+      // Movimiento parallax suave - aumentado para más efecto
       const targetX = mousePosition.x * 5;
       const targetY = mousePosition.y * 5;
       

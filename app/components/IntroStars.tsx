@@ -1,3 +1,7 @@
+/**
+ * Campo de estrellas cinemático mostrado en la pantalla de entrada inicial antes de que el usuario haga clic en "Comenzar".
+ * Incluye parallax suave con el mouse y animación de pulso respiratorio para efecto inmersivo.
+ */
 "use client";
 
 import * as THREE from "three";
@@ -14,12 +18,12 @@ function CinematicSpace() {
 
     time.current = clock.elapsedTime;
 
-    // 🎥 Parallax ultra suave (no brusco)
+    // Parallax ultra suave (no brusco)
     const smoothFactor = 0.045;
     group.current.rotation.y += (mouse.x * 0.15 - group.current.rotation.y) * smoothFactor;
     group.current.rotation.x += (mouse.y * 0.1 - group.current.rotation.x) * smoothFactor;
 
-    // 🌌 Movimiento interno del universo (respiración)
+    // Movimiento interno del universo (respiración)
     const pulse = Math.sin(time.current * 0.35) * 0.02;
     group.current.scale.set(1 + pulse, 1 + pulse, 1 + pulse);
   });

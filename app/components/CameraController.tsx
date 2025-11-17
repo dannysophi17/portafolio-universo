@@ -1,3 +1,8 @@
+/**
+ * Controlador de cámara dinámico que maneja transiciones suaves entre modos de navegación.
+ * Gestiona la posición de cámara y el objetivo lookAt basado en el enfoque actual del planeta y modo de vista.
+ * Usa interpolación lerp para movimientos de cámara suaves y cinemáticos.
+ */
 "use client";
 
 import { useFrame, useThree } from "@react-three/fiber";
@@ -5,12 +10,12 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 interface Props {
-  start: boolean;
-  overviewMode?: boolean;
-  focusMode: boolean;
-  zoomMode?: boolean;
-  planetIndex: number;
-  focusedPlanetPos?: [number, number, number];
+  start: boolean; // Si la pantalla de intro ha sido cerrada
+  overviewMode?: boolean; // Vista amplia del universo mostrando todos los planetas
+  focusMode: boolean; // Panel de contenido visible con planeta posicionado a la izquierda
+  zoomMode?: boolean; // Estado de transición antes del focus
+  planetIndex: number; // Planeta actualmente seleccionado (0-5)
+  focusedPlanetPos?: [number, number, number]; // Posición 3D del planeta enfocado
 }
 
 export default function CameraController({
@@ -29,9 +34,9 @@ export default function CameraController({
     if (!start) return;
 
     if (overviewMode) {
-      // Vista del universo completo - más cercana
-      targetPos.current.set(0, 12, 45); // Más cerca que antes
-      targetLookAt.current.set(0, 0, 0); // Mirando al centro del sistema
+      // Vista amplia del universo - cámara posicionada para mostrar todos los planetas en órbita
+      targetPos.current.set(0, 12, 45);
+      targetLookAt.current.set(0, 0, 0); // Mirando al centro del sistema (sol)
       
       // Transición muy suave hacia la vista amplia
       camera.position.lerp(targetPos.current, 0.02);
@@ -42,9 +47,9 @@ export default function CameraController({
       currentLookAt.lerp(targetLookAt.current, 0.02);
       camera.lookAt(currentLookAt);
     } else if (!focusMode && !zoomMode) {
-      // Vista general - ENFOQUE DIRECTO AL PLANETA seleccionado
+      // Modo navegación - cámara mira directamente al planeta seleccionado para vista clara
       if (focusedPlanetPos) {
-        // Calcular el ángulo del planeta respecto al centro para posicionar cámara de frente
+        // Calcular ángulo del planeta desde el centro para colocación óptima de cámara
         const planetX = focusedPlanetPos[0];
         const planetZ = focusedPlanetPos[2];
         const distanceFromCenter = Math.sqrt(planetX * planetX + planetZ * planetZ);
@@ -54,10 +59,9 @@ export default function CameraController({
           targetPos.current.set(0, 5, 20);
           targetLookAt.current.set(0, 0, 0);
         } else {
-          // Para planetas orbitando: cámara FRENTE al planeta
-          // Calculamos el ángulo del planeta y nos posicionamos en la dirección opuesta
+          // Para planetas en órbita: cámara FRENTE al planeta
           const angle = Math.atan2(planetZ, planetX);
-          const cameraDistance = 16; // Distancia de la cámara al planeta
+          const cameraDistance = 16;
           
           // Posicionar cámara en el lado opuesto del planeta (mirando hacia el centro)
           targetPos.current.set(
