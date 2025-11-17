@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
@@ -12,6 +12,214 @@ import OrbitingPlanets from "./components/OrbitingPlanets";
 import ParallaxBackground from "./components/ParallaxBackground";
 import ContactForm from "./components/ContactForm";
 import SkillsCarousel from "./components/SkillsCarousel";
+
+// Componente para los proyectos con carrusel de imágenes
+function ProjectsContent() {
+  const [arcadeImageIndex, setArcadeImageIndex] = useState(0);
+  const [workcangoImageIndex, setWorkcangoImageIndex] = useState(0);
+  const arcadeImages = ["/projects/arcade1.png", "/projects/arcade2.png"];
+  const workcangoImages = ["/projects/workcango1.png", "/projects/workcango2.png", "/projects/workcango3.png"];
+
+  useEffect(() => {
+    const arcadeInterval = setInterval(() => {
+      setArcadeImageIndex((prev) => (prev + 1) % arcadeImages.length);
+    }, 3000);
+    
+    const workcangoInterval = setInterval(() => {
+      setWorkcangoImageIndex((prev) => (prev + 1) % workcangoImages.length);
+    }, 3000);
+
+    return () => {
+      clearInterval(arcadeInterval);
+      clearInterval(workcangoInterval);
+    };
+  }, []);
+
+  const projects = [
+    {
+      title: "WorkCango — Plataforma Completa",
+      tech: ["React", "Tailwind CSS", "Netlify"],
+      year: "2025",
+      images: workcangoImages,
+      currentImageIndex: workcangoImageIndex,
+      description:
+        "Plataforma web integral para gestión de proyectos, productos y servicios. Navegación fluida, diseño limpio y enfoque responsivo. Desplegado en Netlify.",
+      demos: [
+        { label: "Productos", url: "https://productallworkcango.netlify.app/" },
+        { label: "Proyectos", url: "https://proyectosallworkcango.netlify.app/" },
+        { label: "Servicios", url: "https://serviciosallworkcango.netlify.app/" },
+      ],
+      github: null,
+      color: "from-blue-500/20 via-indigo-500/20",
+      borderColor: "border-blue-500/30",
+      glowColor: "shadow-blue-500/20",
+      hasCarousel: true,
+      hasMultipleDemos: true,
+    },
+    {
+      title: "Arcade Task Manager",
+      tech: ["Angular", "Node.js", "MongoDB", "Express"],
+      year: "2025",
+      images: arcadeImages,
+      currentImageIndex: arcadeImageIndex,
+      description:
+        "SPA con autenticación JWT, CRUD avanzado, guards, servicios y backend RESTful integrado con Express. Despliegue en Vercel.",
+      demo: "https://tareas-arcade-final-git-main-daniela-coavas-projects.vercel.app/login",
+      github: "https://github.com/dannysophi17/Tareas-arcade-final",
+      color: "from-red-500/20 via-pink-500/20",
+      borderColor: "border-red-500/30",
+      glowColor: "shadow-red-500/20",
+      hasCarousel: true,
+      hasMultipleDemos: false,
+    },
+    {
+      title: "TechForge Solutions — Sitio Web",
+      tech: ["HTML5", "CSS3", "JavaScript", "Dominio Propio"],
+      year: "2024",
+      images: ["/projects/techforges.png"],
+      description:
+        "Landing corporativa modular, responsiva y optimizada para empresa tecnológica con dominio personalizado.",
+      demo: "https://www.techforges.com/",
+      github: "https://github.com/dannysophi17/TechForge_Front_end",
+      color: "from-purple-500/20 via-violet-500/20",
+      borderColor: "border-purple-500/30",
+      glowColor: "shadow-purple-500/20",
+      hasCarousel: false,
+      hasMultipleDemos: false,
+    },
+  ];
+
+  return (
+    <div className="relative h-full overflow-y-auto px-4 md:px-6 py-4 pb-14 space-y-6">
+      {projects.map((p, i) => {
+        const currentImage = p.hasCarousel ? p.images[p.currentImageIndex!] : p.images[0];
+        
+        return (
+          <div
+            key={i}
+            className="group relative animate-fadeIn overflow-visible"
+            style={{ animationDelay: `${i * 0.15}s` }}
+          >
+            {/* Glow effect - Ahora con overflow visible */}
+            <div className={`absolute -inset-1 bg-linear-to-r ${p.color} to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10`} />
+            
+            <div className={`relative rounded-2xl p-4 md:p-5 bg-white/5 border ${p.borderColor} backdrop-blur-xl hover:border-opacity-50 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${p.glowColor} overflow-hidden`}>
+              
+              {/* Header con título y año */}
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex items-start gap-3 flex-1">
+                  <div className={`w-12 h-12 rounded-xl bg-linear-to-br ${p.color} to-transparent border ${p.borderColor} flex items-center justify-center backdrop-blur-sm shrink-0`}>
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-1 group-hover:text-opacity-90 transition-colors">
+                      {p.title}
+                    </h3>
+                    <div className="flex flex-wrap gap-1.5 mb-2">
+                      {p.tech.map((t, idx) => (
+                        <span key={idx} className="px-2 py-0.5 rounded-md bg-white/10 border border-white/20 text-white/70 text-xs backdrop-blur-sm">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/20 text-white/70 text-xs font-medium shrink-0">
+                  {p.year}
+                </span>
+              </div>
+
+              {/* Imagen del proyecto con carrusel */}
+              <div className="relative rounded-xl overflow-hidden border border-white/10 mb-4 group-hover:shadow-lg transition-shadow duration-500">
+                {p.hasCarousel && (
+                  <div className="absolute bottom-2 right-2 z-10 flex gap-1.5">
+                    {p.images.map((_, idx) => {
+                      const isWorkCango = i === 0;
+                      const activeColor = isWorkCango ? 'bg-blue-500' : 'bg-white';
+                      const inactiveColor = isWorkCango ? 'bg-blue-300/60' : 'bg-white/40';
+                      return (
+                        <div
+                          key={idx}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 shadow-lg ${
+                            idx === p.currentImageIndex ? `${activeColor} w-6` : inactiveColor
+                          }`}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+                <div className="aspect-video bg-linear-to-br from-white/5 to-white/10">
+                  <img
+                    src={currentImage}
+                    alt={p.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+
+              {/* Descripción */}
+              <p className="text-white/80 text-sm leading-relaxed mb-4">{p.description}</p>
+
+              {/* Botones */}
+              <div className="flex gap-2 flex-wrap">
+                {p.hasMultipleDemos ? (
+                  // Múltiples demos para WorkCango
+                  <>
+                    {p.demos?.map((demo, idx) => (
+                      <a
+                        key={idx}
+                        href={demo.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/15 border border-white/25 text-white text-sm font-semibold backdrop-blur-xl hover:bg-white/25 hover:-translate-y-0.5 transition-all duration-300"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        {demo.label}
+                      </a>
+                    ))}
+                  </>
+                ) : (
+                  // Demo único para otros proyectos
+                  <a
+                    href={p.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/15 border border-white/25 text-white text-sm font-semibold backdrop-blur-xl hover:bg-white/25 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    Ver demo
+                  </a>
+                )}
+
+                {p.github && (
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm font-semibold backdrop-blur-xl hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                    </svg>
+                    Código
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 type PlanetInfo = {
   name: string;
@@ -30,81 +238,108 @@ const planetsData: PlanetInfo[] = [
     focusDepth: 0.018,
     title: "",
     content: (
-      <div className="flex h-full flex-col justify-center gap-8">
-        {/* Header */}
-        <div className="flex items-start gap-5">
-          <div className="relative shrink-0">
-            <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-2xl">
-              <span className="text-5xl font-bold">D</span>
-            </div>
-            <div className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full bg-emerald-400 border-[3px] border-black shadow-lg" />
-          </div>
-          
-          <div className="flex-1">
-            <h1 className="text-4xl font-bold text-white mb-2 tracking-tight">Daniela Sophia Coavas Barboza</h1>
-            <p className="text-white/70 text-lg mb-4">Desarrolladora Full Stack Junior | Freelancer</p>
-            <div className="flex flex-wrap gap-2">
-              <span className="px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-400/25 text-indigo-200 text-sm font-medium backdrop-blur-sm">
-                • Disponible para trabajar
-              </span>
-              <span className="px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/20 text-violet-200 text-sm backdrop-blur-sm">
-                Bogotá, Colombia
-              </span>
+      <div className="relative h-full overflow-y-auto px-4 md:px-6 py-4 space-y-6">
+        {/* Header con foto */}
+        <div className="group relative animate-fadeIn overflow-visible">
+          <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl hover:border-white/20 transition-all duration-500">
+            <div className="flex items-start gap-5">
+              <div className="relative shrink-0">
+                <div className="h-20 w-20 md:h-24 md:w-24 rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/50">
+                  <img 
+                    src="/projects/imagenDaniela.jpg" 
+                    alt="Daniela Sophia Coavas Barboza" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-1 -right-1 h-6 w-6 md:h-7 md:w-7 rounded-full bg-emerald-400 border-[3px] border-black shadow-lg" />
+              </div>
+              
+              <div className="flex-1">
+                <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Daniela Sophia Coavas Barboza</h1>
+                <p className="text-slate-300 text-sm md:text-base mb-3">Desarrolladora Full Stack Junior | Freelancer</p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold animate-pulse">
+                    • Disponible para trabajar
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-violet-500/10 border border-violet-400/20 text-violet-200 text-xs">
+                    Bogotá, Colombia
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Resumen profesional */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-indigo-300/70 flex items-center gap-2">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            Resumen
-          </h3>
-          <p className="text-white/80 text-sm md:text-base leading-relaxed">
-            Desarrolladora Full Stack Junior certificada AWS Cloud Practitioner. Estudiante de Ingeniería de Sistemas (3er semestre) en la Universidad EAN. Líder Women in Cloud y Core Team del AWS Cloud Club EAN. Graduada del Bootcamp Full Stack de BIT Institute.
-          </p>
+        <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
+          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 transition-all duration-500">
+            <div className="flex items-center gap-2 mb-3">
+              <svg className="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <h3 className="text-base font-bold text-white uppercase tracking-wider">Resumen</h3>
+            </div>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Actualmente estoy en mi tercer semestre de Ingeniería de Sistemas en la Universidad EAN, donde lidero la iniciativa Women in Cloud del AWS Cloud Club y hago parte del core team. Recientemente completé mi certificación como AWS Cloud Practitioner y un intenso bootcamp Full Stack de 400 horas en BIT Institute. Busco oportunidades donde pueda seguir aprendiendo y creciendo de manera profesional y personal. Dispuesta a asumir nuevos retos y contribuir con mi pasión por la tecnología y el desarrollo web.
+            </p>
+          </div>
         </div>
         
-        {/* Grid de logros con iconos SVG */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-          <div className="group p-3 rounded-xl bg-indigo-500/5 border border-indigo-400/20 hover:bg-indigo-500/10 hover:border-indigo-400/30 transition-all duration-500 hover:-translate-y-1 backdrop-blur-sm animate-fadeIn">
-            <svg className="w-8 h-8 mb-2 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-            </svg>
-            <p className="text-xs text-white/50">Estudiante</p>
-            <p className="text-base text-white font-semibold">Ingeniería de Sistemas</p>
-            <p className="text-sm text-white/60">Universidad EAN</p>
+        {/* Grid de logros */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Universidad EAN */}
+          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
+            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
+              <svg className="w-8 h-8 mb-3 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+              </svg>
+              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Estudiante</p>
+              <p className="text-white font-semibold mb-1">Ingeniería de Sistemas</p>
+              <p className="text-sm text-slate-400">Universidad EAN</p>
+            </div>
           </div>
           
-          <div className="group p-3 rounded-xl bg-violet-500/5 border border-violet-400/20 hover:bg-violet-500/10 hover:border-violet-400/30 transition-all duration-500 hover:-translate-y-1 backdrop-blur-sm animate-fadeIn" style={{animationDelay: '0.1s'}}>
-            <svg className="w-8 h-8 mb-2 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-            </svg>
-            <p className="text-xs text-white/50">Certificación</p>
-            <p className="text-base text-white font-semibold">AWS Certified</p>
-            <p className="text-sm text-white/60">Cloud Practitioner 2025</p>
+          {/* AWS Certification */}
+          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
+            <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/20 via-purple-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
+              <svg className="w-8 h-8 mb-3 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+              </svg>
+              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Certificación</p>
+              <p className="text-white font-semibold mb-1">AWS Certified</p>
+              <p className="text-sm text-slate-400">Cloud Practitioner 2025</p>
+            </div>
           </div>
           
-          <div className="group p-3 rounded-xl bg-blue-600/5 border border-blue-500/20 hover:bg-blue-600/10 hover:border-blue-500/30 transition-all duration-500 hover:-translate-y-1 backdrop-blur-sm animate-fadeIn" style={{animationDelay: '0.2s'}}>
-            <svg className="w-8 h-8 mb-2 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-            </svg>
-            <p className="text-xs text-white/50">Bootcamp</p>
-            <p className="text-base text-white font-semibold">Full Stack Developer</p>
-            <p className="text-sm text-white/60">BIT Institute 2024</p>
+          {/* Full Stack Bootcamp */}
+          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.4s'}}>
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
+              <svg className="w-8 h-8 mb-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Bootcamp</p>
+              <p className="text-white font-semibold mb-1">Full Stack Developer</p>
+              <p className="text-sm text-slate-400">BIT Institute 2025</p>
+            </div>
           </div>
           
-          <div className="group p-3 rounded-xl bg-purple-600/5 border border-purple-500/20 hover:bg-purple-600/10 hover:border-purple-500/30 transition-all duration-500 hover:-translate-y-1 backdrop-blur-sm animate-fadeIn" style={{animationDelay: '0.3s'}}>
-            <svg className="w-8 h-8 mb-2 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <p className="text-xs text-white/50">Liderazgo</p>
-            <p className="text-base text-white font-semibold">Women in Cloud</p>
-            <p className="text-sm text-white/60">AWS Cloud Club EAN</p>
+          {/* Women in Cloud */}
+          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.5s'}}>
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
+              <svg className="w-8 h-8 mb-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Liderazgo</p>
+              <p className="text-white font-semibold mb-1">Women in Cloud</p>
+              <p className="text-sm text-slate-400">AWS Cloud Club EAN</p>
+            </div>
           </div>
         </div>
       </div>
@@ -112,7 +347,7 @@ const planetsData: PlanetInfo[] = [
   },
   {
   name: "Trayectoria",
-  planetPos: [-6, 3, -1],
+  planetPos: [-12, 3, 0],
   cameraPos: [-6, 3, 8],
   focusDepth: 0.02,
   title: "Mi Trayectoria",
@@ -160,7 +395,7 @@ const planetsData: PlanetInfo[] = [
         {
           title: "Bootcamp Full Stack Developer",
           subtitle: "BIT Institute",
-          year: "febrero 2025 - julio 2025",
+          year: "febrero 2025 - agosto 2025",
           desc: "Bootcamp intensivo de 400 horas orientado al desarrollo web Full Stack con el ecosistema MEAN (MongoDB, ExpressJS, Angular y NodeJS). Aplicación de metodologías ágiles (SCRUM), control de versiones con Git y desarrollo de aplicación web completa.",
           icon: (
             <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -238,237 +473,136 @@ const planetsData: PlanetInfo[] = [
     content: <SkillsCarousel />,
   },
   {
-    name: "Proyectos",
-    planetPos: [-6, 3, -1],
-    cameraPos: [-6, 3, 8],
-    focusDepth: 0.02,
-    title: "Proyectos Destacados",
-    content: (
-      <div className="relative h-full overflow-y-auto overflow-x-hidden pr-4 md:pr-6 py-4 space-y-6 md:space-y-7">
-        {/* Arcade Task Manager - Tarjeta espacial 3D */}
-        <div className="group relative perspective-1000 animate-fadeIn">
-          <div className="absolute -inset-1 bg-linear-to-r from-slate-600 via-indigo-600 to-slate-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-50 transition-all duration-700 animate-pulse-slow" />
-          <div className="relative bg-slate-900/30 border border-slate-700/40 rounded-2xl p-5 md:p-6 backdrop-blur-2xl transition-all duration-700 hover:scale-[1.02] hover:-translate-y-3 hover:border-slate-600/60 hover:shadow-2xl hover:shadow-indigo-600/40 transform-gpu hover:rotateX-2 hover:rotateY-1">
-            {/* Efecto 3D interno */}
-            <div className="absolute inset-0 bg-linear-to-br from-slate-700/20 via-transparent to-indigo-700/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            
-            {/* Partículas flotantes */}
-            <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-indigo-400/60 animate-ping" />
-            <div className="absolute bottom-8 right-12 w-1.5 h-1.5 rounded-full bg-slate-400/50 animate-pulse" />
-            
-            <div className="relative z-10">
-              <div className="flex flex-col sm:flex-row items-start justify-between mb-4 md:mb-5 gap-3">
-                <div className="flex items-center gap-3 md:gap-4">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-slate-800/70 border border-slate-700/70 flex items-center justify-center backdrop-blur-sm shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                    <svg className="w-7 h-7 md:w-9 md:h-9 text-slate-300 group-hover:text-indigo-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1 group-hover:text-indigo-100 transition-colors">Arcade Task Manager</h3>
-                    <p className="text-xs md:text-sm text-slate-400">Angular + Node.js + MongoDB</p>
-                  </div>
-                </div>
-                <span className="px-3 py-1.5 rounded-full bg-indigo-900/50 border border-indigo-700/60 text-indigo-300 text-xs font-bold shadow-lg">2025</span>
-              </div>
-              
-              <p className="text-white/85 mb-5 leading-relaxed">
-                Aplicación web de una sola página (SPA) desarrollada en Angular 17 con autenticación JWT, protección de rutas con AuthGuard y operaciones CRUD completas para gestión de tareas. Integré APIs RESTful con Express.js y Axios, implementé estilos con SCSS y realicé el despliegue en Vercel.
-              </p>
-              
-              <div className="flex flex-wrap gap-2 mb-5">
-                {['Angular', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'SCSS', 'Axios'].map((tech) => (
-                  <span key={tech} className="px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 text-slate-300 text-xs font-semibold hover:bg-slate-700/70 hover:border-slate-600/70 hover:scale-105 transition-all duration-300">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex gap-3">
-                <a href="https://github.com/dannysophi17/arcade-task-manager" target="_blank" rel="noopener noreferrer" className="flex-1 group/btn relative">
-                  <div className="absolute -inset-0.5 bg-linear-to-r from-slate-600 to-slate-500 rounded-xl blur opacity-0 group-hover/btn:opacity-70 transition duration-300" />
-                  <div className="relative flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800/70 border border-slate-700/70 hover:bg-slate-700/80 hover:border-slate-600/80 transition-all duration-300">
-                    <svg className="w-4 h-4 text-slate-300 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                    </svg>
-                    <span className="text-sm font-bold text-slate-200">GitHub</span>
-                  </div>
-                </a>
-                <a href="https://arcade-task-manager.vercel.app" target="_blank" rel="noopener noreferrer" className="flex-1 group/btn relative">
-                  <div className="absolute -inset-0.5 bg-linear-to-r from-indigo-600 to-indigo-500 rounded-xl blur opacity-60 group-hover/btn:opacity-100 transition duration-300" />
-                  <div className="relative flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigo-900/60 border border-indigo-700/70 hover:bg-indigo-800/70 hover:border-indigo-600/80 transition-all duration-300">
-                    <svg className="w-4 h-4 text-indigo-300 group-hover/btn:scale-110 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    <span className="text-sm font-bold text-indigo-200">Demo</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+  name: "Proyectos",
+  planetPos: [-6, 3, -1],
+  cameraPos: [-6, 3, 8],
+  focusDepth: 0.02,
+  title: "Proyectos Destacados",
 
-        {/* TechForge Solutions - Tarjeta espacial 3D */}
-        <div className="group relative perspective-1000 animate-fadeIn" style={{animationDelay: '0.15s'}}>
-          <div className="absolute -inset-1 bg-linear-to-r from-zinc-600 via-slate-600 to-zinc-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-50 transition-all duration-700 animate-pulse-slow" />
-          <div className="relative bg-zinc-900/30 border border-zinc-700/40 rounded-2xl p-5 md:p-6 backdrop-blur-2xl transition-all duration-700 hover:scale-[1.02] hover:-translate-y-3 hover:border-zinc-600/60 hover:shadow-2xl hover:shadow-zinc-600/40 transform-gpu hover:rotateX-2 hover:rotateY-1">
-            <div className="absolute inset-0 bg-linear-to-br from-zinc-700/20 via-transparent to-slate-700/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            
-            <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-zinc-400/60 animate-ping" />
-            <div className="absolute bottom-8 right-12 w-1.5 h-1.5 rounded-full bg-slate-400/50 animate-pulse" />
-            
-            <div className="relative z-10">
-              <div className="flex flex-col sm:flex-row items-start justify-between mb-4 md:mb-5 gap-3">
-                <div className="flex items-center gap-3 md:gap-4">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-zinc-800/70 border border-zinc-700/70 flex items-center justify-center backdrop-blur-sm shadow-lg group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
-                    <svg className="w-7 h-7 md:w-9 md:h-9 text-zinc-300 group-hover:text-slate-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1 group-hover:text-zinc-100 transition-colors">TechForge Solutions</h3>
-                    <p className="text-xs md:text-sm text-slate-400">HTML5 + CSS3 + JavaScript</p>
-                  </div>
-                </div>
-                <span className="px-3 py-1.5 rounded-full bg-indigo-900/50 border border-indigo-700/60 text-indigo-300 text-xs font-bold shadow-lg">2025</span>
-              </div>
-              
-              <p className="text-white/85 mb-5 leading-relaxed">
-                Página web estática desarrollada para TechForge Solutions, empresa de servicios tecnológicos, con el objetivo de mostrar su portafolio y fortalecer su presencia digital. Construido con HTML, CSS y JavaScript, usando estructura modular con componentes reutilizables. Diseño responsivo adaptable a distintos dispositivos y desplegado en Vercel.
-              </p>
-              
-              <div className="flex flex-wrap gap-2 mb-5">
-                {['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'UI/UX'].map((tech) => (
-                  <span key={tech} className="px-3 py-1.5 rounded-lg bg-zinc-800/60 border border-zinc-700/60 text-zinc-300 text-xs font-semibold hover:bg-zinc-700/70 hover:border-zinc-600/70 hover:scale-105 transition-all duration-300">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex gap-3">
-                <a href="https://github.com/dannysophi17/techforge-solutions" target="_blank" rel="noopener noreferrer" className="flex-1 group/btn relative">
-                  <div className="absolute -inset-0.5 bg-linear-to-r from-zinc-600 to-zinc-500 rounded-xl blur opacity-0 group-hover/btn:opacity-70 transition duration-300" />
-                  <div className="relative flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-zinc-800/70 border border-zinc-700/70 hover:bg-zinc-700/80 hover:border-zinc-600/80 transition-all duration-300">
-                    <svg className="w-4 h-4 text-zinc-300 group-hover/btn:scale-110 group-hover/btn:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                    </svg>
-                    <span className="text-sm font-bold text-zinc-200">GitHub</span>
-                  </div>
-                </a>
-                <a href="https://techforge-solutions.vercel.app" target="_blank" rel="noopener noreferrer" className="flex-1 group/btn relative">
-                  <div className="absolute -inset-0.5 bg-linear-to-r from-indigo-600 to-indigo-500 rounded-xl blur opacity-60 group-hover/btn:opacity-100 transition duration-300" />
-                  <div className="relative flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigo-900/60 border border-indigo-700/70 hover:bg-indigo-800/70 hover:border-indigo-600/80 transition-all duration-300">
-                    <svg className="w-4 h-4 text-indigo-300 group-hover/btn:scale-110 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    <span className="text-sm font-bold text-indigo-200">Sitio Web</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
-  },
+  content: (
+    <ProjectsContent />
+  ),
+}
+,
   {
     name: "Certificaciones",
-    planetPos: [0, -6, 1],
-    cameraPos: [0, -6, 9],
+    planetPos: [6, -3, 1],
+    cameraPos: [6, -3, 9],
     focusDepth: 0.021,
     title: "Certificaciones Profesionales",
     content: (
-      <div className="relative h-full overflow-y-auto overflow-x-hidden pr-4 py-4 space-y-4 md:space-y-5">
+      <div className="relative h-full flex flex-col justify-center px-4 md:px-6 py-3 space-y-2.5">
         {/* AWS Cloud Practitioner */}
-        <a href="https://www.credly.com/badges/your-aws-badge-id" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn">
-          <div className="absolute -inset-0.5 bg-linear-to-r from-indigo-700 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500" />
-          <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-indigo-950/25 border border-indigo-800/40 backdrop-blur-xl hover:border-indigo-700/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-700/30">
-            <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-indigo-900/60 border border-indigo-700/60 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:rotate-3 transition-all duration-500">
-              <svg className="w-7 h-7 md:w-9 md:h-9 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+        <a href="https://www.credly.com/badges/5e711328-7f2e-4b42-b67e-84e69f017ff1/linked_in_profile" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible">
+          <div className="absolute -inset-1 bg-linear-to-r from-orange-500/20 via-amber-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-orange-500/20 transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-4 mb-2.5">
+              <div>
+                <h3 className="text-base font-bold text-white mb-1">AWS Certified Cloud Practitioner</h3>
+                <p className="text-slate-300 text-sm mb-0.5">Amazon Web Services</p>
+                <p className="text-slate-500 text-xs">2025</p>
+              </div>
+              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                Vigente
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-600/20 border border-orange-500/40 text-orange-200 text-sm font-medium hover:bg-orange-600/30 hover:border-orange-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-base md:text-lg font-bold text-white mb-1 group-hover:text-indigo-200 transition-colors">AWS Certified Cloud Practitioner</h3>
-              <p className="text-xs md:text-sm text-slate-400 mb-1">Amazon Web Services</p>
-              <p className="text-xs text-slate-500">2025</p>
-            </div>
-            <div className="px-3 py-1.5 rounded-full bg-emerald-900/40 border border-emerald-700/50 text-emerald-300 text-xs font-medium shrink-0">
-              Vigente
+              Ver Badge en Credly
             </div>
           </div>
         </a>
 
-        {/* Bootcamp Full Stack */}
-        <a href="https://bitinstitute.cl/certificados/your-certificate-id" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn" style={{animationDelay: '0.1s'}}>
-          <div className="absolute -inset-0.5 bg-linear-to-r from-slate-700 to-zinc-700 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500" />
-          <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-slate-900/25 border border-slate-700/40 backdrop-blur-xl hover:border-slate-600/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-700/30">
-            <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-slate-800/60 border border-slate-700/60 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:-rotate-3 transition-all duration-500">
-              <svg className="w-7 h-7 md:w-9 md:h-9 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
+        {/* Full Stack Developer - BIT Institute */}
+        <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
+          <div className="absolute -inset-1 bg-linear-to-r from-indigo-500/20 via-violet-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-indigo-500/20 transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-4 mb-2.5">
+              <div>
+                <h3 className="text-base font-bold text-white mb-1">Full Stack Software Developer</h3>
+                <p className="text-slate-300 text-sm mb-0.5">BIT Institute</p>
+                <p className="text-slate-500 text-xs">2024</p>
+              </div>
+              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                Vigente
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className="text-base md:text-lg font-bold text-white mb-1 group-hover:text-slate-200 transition-colors">Bootcamp Full Stack Developer</h3>
-              <p className="text-xs md:text-sm text-slate-400 mb-1">BIT Institute</p>
-              <p className="text-xs text-slate-500">2025</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium hover:bg-indigo-600/30 hover:border-indigo-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Ver Certificado
             </div>
           </div>
         </a>
 
-        {/* IBM AI Development */}
-        <a href="https://www.coursera.org/account/accomplishments/verify/your-certificate-id" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn" style={{animationDelay: '0.2s'}}>
-          <div className="absolute -inset-0.5 bg-linear-to-r from-zinc-700 to-slate-700 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500" />
-          <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-zinc-900/25 border border-zinc-700/40 backdrop-blur-xl hover:border-zinc-600/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-700/30">
-            <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-zinc-800/60 border border-zinc-700/60 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:rotate-3 transition-all duration-500">
-              <svg className="w-7 h-7 md:w-9 md:h-9 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
+        {/* AI Developer - IBM */}
+        <a href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
+          <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-4 mb-2.5">
+              <div>
+                <h3 className="text-base font-bold text-white mb-1">AI Developer Professional Certificate</h3>
+                <p className="text-slate-300 text-sm mb-0.5">IBM / Coursera</p>
+                <p className="text-slate-500 text-xs">2024</p>
+              </div>
+              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                Vigente
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className="text-base md:text-lg font-bold text-white mb-1 group-hover:text-zinc-200 transition-colors">Desarrollo con Inteligencia Artificial</h3>
-              <p className="text-xs md:text-sm text-slate-400 mb-1">IBM / Coursera</p>
-              <p className="text-xs text-slate-500">2024</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-200 text-sm font-medium hover:bg-blue-600/30 hover:border-blue-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Ver Badge en Credly
             </div>
           </div>
         </a>
 
-        {/* Certificado Inglés C1 */}
-        <a href="#" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn" style={{animationDelay: '0.3s'}}>
-          <div className="absolute -inset-0.5 bg-linear-to-r from-blue-700 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500" />
-          <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-blue-950/25 border border-blue-800/40 backdrop-blur-xl hover:border-blue-700/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-700/30">
-            <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-blue-900/60 border border-blue-700/60 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:-rotate-3 transition-all duration-500">
-              <svg className="w-7 h-7 md:w-9 md:h-9 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+        {/* Inglés C1 - Duolingo */}
+        <a href="https://certs.duolingo.com/czfbtrq4pns5am5u" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
+          <div className="absolute -inset-1 bg-linear-to-r from-green-500/20 via-emerald-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-green-500/20 transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-4 mb-2.5">
+              <div>
+                <h3 className="text-base font-bold text-white mb-1">Inglés C1 - Upper Advanced</h3>
+                <p className="text-slate-300 text-sm mb-0.5">Duolingo English Test</p>
+                <p className="text-slate-500 text-xs">2024</p>
+              </div>
+              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                Vigente
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600/20 border border-green-500/40 text-green-200 text-sm font-medium hover:bg-green-600/30 hover:border-green-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-base md:text-lg font-bold text-white mb-1 group-hover:text-blue-200 transition-colors">Inglés Nivel C1 - Avanzado</h3>
-              <p className="text-xs md:text-sm text-slate-400 mb-1">Duolingo English Test</p>
-              <p className="text-xs text-slate-500">Certificado 2024</p>
-            </div>
-            <div className="px-3 py-1.5 rounded-full bg-emerald-900/40 border border-emerald-700/50 text-emerald-300 text-xs font-medium shrink-0">
-              Vigente
+              Ver Certificado
             </div>
           </div>
         </a>
 
-        {/* Certificado Francés A2 */}
-        <a href="#" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn" style={{animationDelay: '0.4s'}}>
-          <div className="absolute -inset-0.5 bg-linear-to-r from-purple-700 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500" />
-          <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-purple-950/25 border border-purple-800/40 backdrop-blur-xl hover:border-purple-700/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-700/30">
-            <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-purple-900/60 border border-purple-700/60 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:rotate-3 transition-all duration-500">
-              <svg className="w-7 h-7 md:w-9 md:h-9 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+        {/* Francés B1 - SMART */}
+        <a href="/projects/Frances.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.4s'}}>
+          <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-4 mb-2.5">
+              <div>
+                <h3 className="text-base font-bold text-white mb-1">Francés B1 - Intermediate</h3>
+                <p className="text-slate-300 text-sm mb-0.5">SMART Language Institute</p>
+                <p className="text-slate-500 text-xs">2023</p>
+              </div>
+              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                Vigente
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-200 text-sm font-medium hover:bg-rose-600/30 hover:border-rose-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-base md:text-lg font-bold text-white mb-1 group-hover:text-purple-200 transition-colors">Francés Nivel A2 - Básico</h3>
-              <p className="text-xs md:text-sm text-slate-400 mb-1">Educación EAN</p>
-              <p className="text-xs text-slate-500">En progreso</p>
-            </div>
-            <div className="px-3 py-1.5 rounded-full bg-emerald-900/40 border border-emerald-700/50 text-emerald-300 text-xs font-medium shrink-0">
-              Vigente
+              Ver PDF
             </div>
           </div>
         </a>
@@ -482,91 +616,99 @@ const planetsData: PlanetInfo[] = [
     focusDepth: 0.02,
     title: "Contacto",
     content: (
-      <div className="relative h-full overflow-y-auto overflow-x-hidden pr-6 py-4 space-y-8">
-        {/* Formulario de contacto funcional */}
-        <ContactForm />
-
-        {/* Separador visual */}
-        <div className="relative my-8">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-700/50"></div>
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-transparent px-4 text-slate-500">O contáctame directamente</span>
-          </div>
+      <div className="relative h-full overflow-y-auto px-4 md:px-6 py-4 space-y-6">
+        {/* Título de sección */}
+        <div className="space-y-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-white">Hablemos</h2>
+          <p className="text-slate-400 text-sm md:text-base">¿Tienes un proyecto en mente? Estoy dispuesta a escucharte y a hacerlo realidad.</p>
         </div>
 
-        {/* Información de Contacto - Tarjetas mejoradas */}
+        {/* Información de Contacto - Tarjetas modernas */}
         <div className="space-y-4">
-          <a href="mailto:danielacoavas@gmail.com" className="group relative block">
-            <div className="absolute -inset-0.5 bg-linear-to-r from-indigo-700 to-indigo-600 rounded-2xl blur opacity-20 group-hover:opacity-50 transition duration-500" />
-            <div className="relative flex items-center gap-4 p-4 rounded-xl bg-indigo-950/60 border border-indigo-900/70 backdrop-blur-xl hover:border-indigo-800/80 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-700/30">
-              <div className="w-14 h-14 rounded-xl bg-indigo-900/70 border border-indigo-800/70 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:rotate-3 transition-all duration-500">
-                <svg className="w-7 h-7 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+          {/* Email */}
+          <a href="mailto:danielacoavas@gmail.com" className="group relative block animate-fadeIn overflow-visible">
+            <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center shrink-0">
+                  <svg className="w-6 h-6 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">Email</p>
+                  <p className="text-white font-medium">danielacoavas@gmail.com</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider">Email</p>
-                <p className="text-base font-bold text-white group-hover:text-indigo-200 transition-colors">danielacoavas@gmail.com</p>
-              </div>
-              <svg className="w-5 h-5 text-indigo-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
             </div>
           </a>
 
-          <a href="https://linkedin.com/in/daniela-coavas" target="_blank" rel="noopener noreferrer" className="group relative block">
-            <div className="absolute -inset-0.5 bg-linear-to-r from-slate-600 to-zinc-600 rounded-2xl blur opacity-20 group-hover:opacity-50 transition duration-500" />
-            <div className="relative flex items-center gap-4 p-4 rounded-xl bg-slate-900/70 border border-slate-800/70 backdrop-blur-xl hover:border-slate-700/80 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-700/30">
-              <div className="w-14 h-14 rounded-xl bg-slate-800/70 border border-slate-700/70 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:-rotate-3 transition-all duration-500">
-                <svg className="w-7 h-7 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+          {/* LinkedIn */}
+          <a href="https://www.linkedin.com/in/daniela-coavas-desarrolladoraweb/" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
+            <div className="absolute -inset-1 bg-linear-to-r from-blue-600/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-600/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <svg className="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">LinkedIn</p>
+                  <p className="text-white font-medium">daniela-coavas-desarrolladoraweb</p>
+                </div>
+                <svg className="w-5 h-5 text-blue-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </div>
-              <div className="flex-1">
-                <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider">LinkedIn</p>
-                <p className="text-base font-bold text-white group-hover:text-slate-200 transition-colors">linkedin.com/in/daniela-coavas</p>
-              </div>
-              <svg className="w-5 h-5 text-slate-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
             </div>
           </a>
 
-          <a href="https://github.com/dannysophi17" target="_blank" rel="noopener noreferrer" className="group relative block">
-            <div className="absolute -inset-0.5 bg-linear-to-r from-zinc-600 to-slate-600 rounded-2xl blur opacity-20 group-hover:opacity-50 transition duration-500" />
-            <div className="relative flex items-center gap-4 p-4 rounded-xl bg-zinc-900/70 border border-zinc-800/70 backdrop-blur-xl hover:border-zinc-700/80 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-zinc-700/30">
-              <div className="w-14 h-14 rounded-xl bg-zinc-800/70 border border-zinc-700/70 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:rotate-3 transition-all duration-500">
-                <svg className="w-7 h-7 text-zinc-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          {/* GitHub */}
+          <a href="https://github.com/dannysophi17" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
+            <div className="absolute -inset-1 bg-linear-to-r from-purple-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-purple-500/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0">
+                  <svg className="w-6 h-6 text-purple-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">GitHub</p>
+                  <p className="text-white font-medium">dannysophi17</p>
+                </div>
+                <svg className="w-5 h-5 text-purple-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </div>
-              <div className="flex-1">
-                <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider">GitHub</p>
-                <p className="text-base font-bold text-white group-hover:text-zinc-200 transition-colors">github.com/dannysophi17</p>
-              </div>
-              <svg className="w-5 h-5 text-zinc-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
             </div>
           </a>
 
-          <div className="group relative">
-            <div className="absolute -inset-0.5 bg-linear-to-r from-slate-600 to-zinc-600 rounded-2xl blur opacity-20 group-hover:opacity-50 transition duration-500" />
-            <div className="relative flex items-center gap-4 p-4 rounded-xl bg-slate-900/70 border border-slate-800/70 backdrop-blur-xl hover:border-slate-700/80 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-slate-700/30">
-              <div className="w-14 h-14 rounded-xl bg-slate-800/70 border border-slate-700/70 flex items-center justify-center backdrop-blur-sm shrink-0 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
-                <svg className="w-7 h-7 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider">Ubicación</p>
-                <p className="text-base font-bold text-white">Bogotá, Colombia</p>
+          {/* Ubicación */}
+          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
+            <div className="absolute -inset-1 bg-linear-to-r from-emerald-500/20 via-green-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-emerald-500/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0">
+                  <svg className="w-6 h-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">Ubicación</p>
+                  <p className="text-white font-medium">Bogotá, Colombia</p>
+                </div>
               </div>
             </div>
           </div>
+
+        {/* Formulario de contacto */}
+        <div className="mt-8">
+          <h3 className="text-xl font-bold text-white mb-4">Envíame un mensaje</h3>
+          <ContactForm />
+        </div>
         </div>
       </div>
     ),
@@ -659,9 +801,10 @@ export default function Home() {
               animate-startFloat
               transition-all duration-700
               hover:scale-[1.08]
+              cursor-pointer
             "
           >
-            ✦ Comenzar ✦
+            Comenzar 
           </button>
         </>
       )}
@@ -670,8 +813,8 @@ export default function Home() {
       {start && (
         <>
           {/* TÍTULO PRINCIPAL — APPLE VISION PRO STYLE */}
-          <div className={`absolute left-1/2 top-20 z-40 -translate-x-1/2 transition-opacity duration-100 ${
-            focusMode ? 'opacity-0 pointer-events-none' : 'opacity-100 animate-fadeIn'
+          <div className={`absolute left-1/2 top-20 z-40 -translate-x-1/2 transition-all duration-500 ease-out ${
+            focusMode ? 'opacity-0 -translate-y-8 pointer-events-none' : 'opacity-100 translate-y-0 animate-fadeIn'
           }`}>
     <div className="text-center space-y-5 select-none">
 
@@ -727,7 +870,7 @@ export default function Home() {
                 setOverviewMode(false);
                 setPlanetIndex(0);
               }}
-              className="group absolute left-10 top-10 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-5 py-2.5 text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-opacity duration-200 hover:scale-105 hover:border-white/40 hover:bg-black/60"
+              className="group absolute left-10 top-10 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-5 py-2.5 text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-opacity duration-200 hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer"
               aria-label="Empezar recorrido"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -741,8 +884,8 @@ export default function Home() {
           {/* Botón para volver a vista amplia */}
           <button
             onClick={returnToOverview}
-            className={`group absolute left-4 top-4 md:left-10 md:top-10 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-3 py-2 md:px-5 md:py-2.5 text-xs md:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-opacity duration-150 hover:scale-105 hover:border-white/40 hover:bg-black/60 ${
-              focusMode || overviewMode ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            className={`group absolute left-4 top-4 md:left-10 md:top-10 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-3 py-2 md:px-5 md:py-2.5 text-xs md:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 ease-out hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer ${
+              focusMode || overviewMode ? 'opacity-0 -translate-x-8 pointer-events-none' : 'opacity-100 translate-x-0'
             }`}
             aria-label="Vista del universo"
           >
@@ -759,14 +902,14 @@ export default function Home() {
               <div className="absolute bottom-4 md:bottom-10 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 md:gap-4">
                 <button
                   onClick={() => setPlanetIndex((prev) => (prev === 0 ? planets.length - 1 : prev - 1))}
-                  className="group flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60"
+                  className="group flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
                 >
                   <span className="transition-transform duration-300 group-hover:-translate-x-1">‹</span>
                 </button>
 
                 <button
                   onClick={enterPlanet}
-                  className="group flex items-center gap-2 md:gap-3 rounded-full border border-white/15 bg-black/40 px-4 py-2 md:px-8 md:py-4 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-105 hover:border-white/30 hover:bg-black/60"
+                  className="group flex items-center gap-2 md:gap-3 rounded-full border border-white/15 bg-black/40 px-4 py-2 md:px-8 md:py-4 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-105 hover:border-white/30 hover:bg-black/60 cursor-pointer"
                 >
                   <div 
                     className="h-3 w-3 rounded-full animate-pulse transition-all duration-300 group-hover:scale-125" 
@@ -774,14 +917,14 @@ export default function Home() {
                       backgroundColor: planetIndex === 0 ? '#FFD700' : 
                                      planetIndex === 1 ? '#6A4FA3' : 
                                      planetIndex === 2 ? '#A18BCF' : 
-                                     planetIndex === 3 ? '#4F3D7A' : 
-                                     planetIndex === 4 ? '#B8A5D8' : 
+                                     planetIndex === 3 ? '#5D9A9A' : 
+                                     planetIndex === 4 ? '#D4A5A5' : 
                                      planetIndex === 5 ? '#E4C88A' : '#DCD6F7',
                       boxShadow: `0 0 15px ${planetIndex === 0 ? '#FFD700' : 
                                             planetIndex === 1 ? '#6A4FA3' : 
                                             planetIndex === 2 ? '#A18BCF' : 
-                                            planetIndex === 3 ? '#4F3D7A' : 
-                                            planetIndex === 4 ? '#B8A5D8' : 
+                                            planetIndex === 3 ? '#5D9A9A' : 
+                                            planetIndex === 4 ? '#D4A5A5' : 
                                             planetIndex === 5 ? '#E4C88A' : '#DCD6F7'}`
                     }} 
                   />
@@ -797,7 +940,7 @@ export default function Home() {
                 {/* Flecha Derecha - al lado de la barra */}
                 <button
                   onClick={() => setPlanetIndex((prev) => (prev === planets.length - 1 ? 0 : prev + 1))}
-                  className="group flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60"
+                  className="group flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
                 >
                   <span className="transition-transform duration-300 group-hover:translate-x-1">›</span>
                 </button>
@@ -814,17 +957,17 @@ export default function Home() {
                 WebkitMaskImage: 'linear-gradient(to right, transparent, black 100%)'
               }} />
               
-              {/* Fondo del panel con difuminado suave */}
-              <div className="absolute inset-0 bg-linear-to-br from-indigo-950/15 via-purple-950/10 to-black/15 backdrop-blur-xl" />
+              {/* Fondo del panel con difuminado suave - Más transparente y espacial */}
+              <div className="absolute inset-0 bg-linear-to-br from-indigo-950/3 via-purple-950/2 to-black/5 backdrop-blur-md" />
               
               {/* Gradiente de fondo sutil que se integra con el universo */}
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.06),_transparent_50%),radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.06),_transparent_50%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.02),_transparent_50%),radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.02),_transparent_50%)]" />
               
-              {/* Header con botón volver y nombre de sección */}
-              <div className="absolute left-4 md:left-8 top-4 md:top-8 z-50 flex items-center gap-3">
+              {/* Header con botón volver y nombre de sección - STICKY */}
+              <div className="sticky top-0 left-0 right-0 z-50 flex items-center gap-3 px-4 md:px-8 py-4 md:py-6 bg-linear-to-b from-black/80 via-black/60 to-transparent backdrop-blur-xl pointer-events-auto">
                 <button
                   onClick={exitPlanet}
-                  className="group flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:border-white/40 hover:bg-black/60"
+                  className="group flex items-center gap-2 rounded-full border border-white/20 bg-black/60 px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:border-white/40 hover:bg-black/80 cursor-pointer"
                   aria-label="Volver"
                 >
                   <svg className="h-3 w-3 md:h-4 md:w-4 transition-transform duration-500 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -833,15 +976,15 @@ export default function Home() {
                 </button>
                 
                 {/* Nombre de la sección */}
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl">
-                  <div className="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse" />
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 border border-white/10 backdrop-blur-xl shadow-lg">
+                  <div className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-pulse" />
                   <span className="text-xs md:text-sm font-medium text-white/90">{planets[planetIndex].name}</span>
                 </div>
               </div>
 
               {/* Contenido con scroll */}
-              <div className="relative flex h-full flex-col justify-start px-16 md:px-20 lg:px-24 py-20 md:py-24 animate-fadeInContent overflow-y-auto">
-                <div className="pb-8">
+              <div className="relative flex-1 overflow-y-auto px-16 md:px-20 lg:px-24 pb-8 animate-fadeInContent">
+                <div>
                   {planets[planetIndex].content}
                 </div>
               </div>

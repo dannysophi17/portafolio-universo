@@ -34,14 +34,16 @@ export default function OrbitingPlanets({
   const groupRef = useRef<THREE.Group>(null);
   const planetRefs = useRef<(THREE.Group | null)[]>([]);
   const rotationOffset = useRef(0);
+  const previousFocusMode = useRef(focusMode);
+  const previousPlanetIndex = useRef(planetIndex);
 
   // Configuración de órbitas para cada planeta - Órbitas más grandes y brillantes
   const orbitConfig: PlanetInfo[] = [
     { name: "Sobre mí", color: "#FFD700", size: 3.2, orbitRadius: 0, orbitSpeed: 0 }, // Sol dorado
     { name: "Trayectoria", color: "#6A4FA3", size: 1.6, orbitRadius: 10, orbitSpeed: 0.15 },
     { name: "Habilidades", color: "#A18BCF", size: 1.7, orbitRadius: 15, orbitSpeed: 0.12 },
-    { name: "Proyectos", color: "#4F3D7A", size: 1.5, orbitRadius: 20, orbitSpeed: 0.1 },
-    { name: "Certificaciones", color: "#B8A5D8", size: 1.4, orbitRadius: 25, orbitSpeed: 0.08 },
+    { name: "Proyectos", color: "#5D9A9A", size: 1.6, orbitRadius: 20, orbitSpeed: 0.1 }, // Teal suave
+    { name: "Certificaciones", color: "#D4A5A5", size: 1.4, orbitRadius: 25, orbitSpeed: 0.08 }, // Coral suave
     { name: "Contacto", color: "#E4C88A", size: 1.4, orbitRadius: 30, orbitSpeed: 0.07 },
   ];
 
@@ -66,12 +68,17 @@ export default function OrbitingPlanets({
       rotationOffset.current += delta * 0.08;
     }
 
+    // Detectar cambios de estado globales
+    const justEnteredFocus = !previousFocusMode.current && (focusMode || zoomMode);
+    const justExitedFocus = previousFocusMode.current && !focusMode && !zoomMode;
+
     // Actualizar posiciones de cada planeta
     planetRefs.current.forEach((ref, i) => {
       if (!ref) return;
 
       const config = orbitConfig[i];
       const angle = rotationOffset.current * config.orbitSpeed + (i * Math.PI * 2) / (orbitConfig.length - 1);
+      const changedPlanet = previousPlanetIndex.current !== planetIndex;
 
       if ((focusMode || zoomMode) && i === planetIndex) {
         // Planeta/Sol seleccionado - posicionar a la izquierda CON MOVIMIENTO
@@ -87,36 +94,55 @@ export default function OrbitingPlanets({
         const swayZ = Math.sin(time * 0.5) * 0.15;
         
         const targetX = -12 + driftX;  // Más a la izquierda con drift
-        const targetY = floatY;        // Flotación dinámica
+        const targetY = i === 0 ? 0 : floatY;  // Sol sin flotación en Y
         const targetZ = swayZ;         // Balanceo suave
         
-        ref.position.x = THREE.MathUtils.lerp(ref.position.x, targetX, 0.05);
-        ref.position.y = THREE.MathUtils.lerp(ref.position.y, targetY, 0.05);
-        ref.position.z = THREE.MathUtils.lerp(ref.position.z, targetZ, 0.05);
+        // Si acabamos de entrar en focus o cambiar de planeta, colocar inmediatamente
+        if (justEnteredFocus || changedPlanet) {
+          ref.position.set(targetX, targetY, targetZ);
+          const targetScale = i === 0 ? 2.2 : 2.8;
+          ref.scale.set(targetScale, targetScale, targetScale);
+        } else {
+          // Interpolación suave solo cuando ya está en focus
+          ref.position.x = THREE.MathUtils.lerp(ref.position.x, targetX, 0.05);
+          ref.position.y = THREE.MathUtils.lerp(ref.position.y, targetY, 0.05);
+          ref.position.z = THREE.MathUtils.lerp(ref.position.z, targetZ, 0.05);
+          
+          // Aumentar tamaño suavemente
+          const targetScale = i === 0 ? 2.2 : 2.8;
+          ref.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.05);
+        }
         
         // Rotación suave del planeta sobre sí mismo
         ref.rotation.y += delta * 0.3;
         ref.rotation.x = Math.sin(time * 0.2) * 0.1; // Balanceo en X
-        
-        // Aumentar tamaño
-        const targetScale = i === 0 ? 2.2 : 2.8; // Sol un poco más pequeño
-        ref.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.05);
       } else if (i === 0) {
-        // El sol siempre en el centro cuando no está seleccionado
-        ref.position.lerp(new THREE.Vector3(0, 0, 0), 0.05);
-        ref.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+        // El sol volviendo al centro
+        if (justExitedFocus) {
+          // Transición rápida al salir
+          ref.position.lerp(new THREE.Vector3(0, 0, 0), 0.2);
+          ref.scale.lerp(new THREE.Vector3(1, 1, 1), 0.2);
+        } else {
+          ref.position.lerp(new THREE.Vector3(0, 0, 0), 0.05);
+          ref.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+        }
       } else {
         // Planetas en órbita normal
+        const wasJustFocused = justExitedFocus && previousPlanetIndex.current === i;
+        
         const x = Math.cos(angle) * config.orbitRadius;
         const z = Math.sin(angle) * config.orbitRadius;
         const y = Math.sin(angle * 2) * 0.5; // Ligera variación vertical
 
-        ref.position.x = THREE.MathUtils.lerp(ref.position.x, x, 0.05);
-        ref.position.y = THREE.MathUtils.lerp(ref.position.y, y, 0.05);
-        ref.position.z = THREE.MathUtils.lerp(ref.position.z, z, 0.05);
+        // Transición más rápida al salir de focus
+        const lerpFactor = wasJustFocused ? 0.25 : 0.05;
+        
+        ref.position.x = THREE.MathUtils.lerp(ref.position.x, x, lerpFactor);
+        ref.position.y = THREE.MathUtils.lerp(ref.position.y, y, lerpFactor);
+        ref.position.z = THREE.MathUtils.lerp(ref.position.z, z, lerpFactor);
 
         // Tamaño normal
-        ref.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+        ref.scale.lerp(new THREE.Vector3(1, 1, 1), lerpFactor);
       }
     });
 
@@ -125,6 +151,10 @@ export default function OrbitingPlanets({
       const pos = planetRefs.current[planetIndex]!.position;
       onPlanetPositionUpdate([pos.x, pos.y, pos.z]);
     }
+    
+    // Actualizar referencias de estado anterior
+    previousFocusMode.current = focusMode;
+    previousPlanetIndex.current = planetIndex;
   });
 
   return (

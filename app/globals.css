@@ -48,6 +48,58 @@ canvas {
   animation: fadeIn 1.3s ease-out forwards;
 }
 
+/* Floating 3D para iconos - estilo estrellas */
+@keyframes float3D {
+  0%, 100% { 
+    transform: translateY(0) translateZ(0) rotateY(0deg);
+  }
+  25% { 
+    transform: translateY(-15px) translateZ(20px) rotateY(90deg);
+  }
+  50% { 
+    transform: translateY(-8px) translateZ(-10px) rotateY(180deg);
+  }
+  75% { 
+    transform: translateY(-20px) translateZ(15px) rotateY(270deg);
+  }
+}
+
+.animate-float3D {
+  animation: float3D 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* Fade slide para transiciones */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeSlideIn {
+  animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.animate-fadeSlideOut {
+  animation: fadeSlideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* Slide in desde la izquierda para el panel */
 @keyframes slideInLeft {
   from { 
@@ -64,10 +116,10 @@ canvas {
   animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Slide desde la izquierda - Más delicado */
+/* Slide desde la izquierda - Ultra suave y delicado */
 @keyframes slideInRight {
   from { 
-    transform: translateX(-30%);
+    transform: translateX(-15%);
     opacity: 0;
   }
   to { 
@@ -77,14 +129,14 @@ canvas {
 }
 
 .animate-slideInRight {
-  animation: slideInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Fade in suave para contenido del panel */
+/* Fade in suave para contenido del panel - Ultra delicado */
 @keyframes fadeInContent {
   from {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -93,7 +145,7 @@ canvas {
 }
 
 .animate-fadeInContent {
-  animation: fadeInContent 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  animation: fadeInContent 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
   opacity: 0;
 }
 
