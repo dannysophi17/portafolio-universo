@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Fondo circular con degradado espacial -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="letter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FBBF24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Círculo de fondo -->
+  <circle cx="50" cy="50" r="48" fill="url(#bg)"/>
+  
+  <!-- Anillo exterior -->
+  <circle cx="50" cy="50" r="45" fill="none" stroke="#A78BFA" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Letra D estilizada -->
+  <text x="50" y="72" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="url(#letter)" text-anchor="middle">D</text>
+  
+  <!-- Pequeñas estrellas decorativas -->
+  <circle cx="25" cy="25" r="2" fill="#FBBF24" opacity="0.8"/>
+  <circle cx="75" cy="30" r="1.5" fill="#F59E0B" opacity="0.6"/>
+  <circle cx="30" cy="75" r="1.5" fill="#FBBF24" opacity="0.7"/>
+</svg>
