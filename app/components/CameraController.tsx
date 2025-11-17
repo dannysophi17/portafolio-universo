@@ -29,16 +29,27 @@ export default function CameraController({
   const { camera } = useThree();
   const targetPos = useRef(new THREE.Vector3(0, 8, 50));
   const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
+  const panAngle = useRef(0); // Ángulo para rotación suave en overview
 
   useFrame(() => {
     if (!start) return;
 
     if (overviewMode) {
-      // Vista amplia del universo - cámara posicionada para mostrar todos los planetas en órbita
-      targetPos.current.set(0, 12, 45);
-      targetLookAt.current.set(0, 0, 0); // Mirando al centro del sistema (sol)
+      // Vista amplia del universo con movimiento circular suave alrededor del sistema
+      const radius = 45;
+      const height = 12;
       
-      // Transición muy suave hacia la vista amplia
+      // Incrementar ángulo muy lentamente para rotación suave
+      panAngle.current += 0.0005; // Velocidad muy lenta, completa rotación en ~200 segundos
+      
+      // Calcular posición de cámara en círculo
+      const x = Math.sin(panAngle.current) * radius;
+      const z = Math.cos(panAngle.current) * radius;
+      
+      targetPos.current.set(x, height, z);
+      targetLookAt.current.set(0, 0, 0); // Siempre mirando al centro del sistema (sol)
+      
+      // Transición muy suave hacia la posición calculada
       camera.position.lerp(targetPos.current, 0.02);
       
       const currentLookAt = new THREE.Vector3();

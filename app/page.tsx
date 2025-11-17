@@ -111,18 +111,18 @@ function ProjectsContent() {
             {/* Glow effect - Ahora con overflow visible */}
             <div className={`absolute -inset-1 bg-linear-to-r ${p.color} to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10`} />
             
-            <div className={`relative rounded-2xl p-4 md:p-5 bg-white/5 border ${p.borderColor} backdrop-blur-xl hover:border-opacity-50 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${p.glowColor} overflow-hidden`}>
+            <div className={`relative rounded-2xl p-3 sm:p-4 md:p-5 bg-white/5 border ${p.borderColor} backdrop-blur-xl hover:border-opacity-50 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl ${p.glowColor} overflow-hidden`}>
               
               {/* Header con título y año */}
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <div className="flex items-start gap-3 flex-1">
-                  <div className={`w-12 h-12 rounded-xl bg-linear-to-br ${p.color} to-transparent border ${p.borderColor} flex items-center justify-center backdrop-blur-sm shrink-0`}>
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-start justify-between gap-2 sm:gap-3 mb-3">
+                <div className="flex items-start gap-2 sm:gap-3 flex-1">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-linear-to-br ${p.color} to-transparent border ${p.borderColor} flex items-center justify-center backdrop-blur-sm shrink-0`}>
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-1 group-hover:text-opacity-90 transition-colors">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 group-hover:text-opacity-90 transition-colors">
                       {p.title}
                     </h3>
                     <div className="flex flex-wrap gap-1.5 mb-2">
@@ -181,9 +181,9 @@ function ProjectsContent() {
                         href={demo.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/15 border border-white/25 text-white text-sm font-semibold backdrop-blur-xl hover:bg-white/25 hover:-translate-y-0.5 transition-all duration-300"
+                        className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-semibold backdrop-blur-xl hover:bg-white/25 hover:-translate-y-0.5 transition-all duration-300"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
@@ -197,9 +197,9 @@ function ProjectsContent() {
                     href={p.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/15 border border-white/25 text-white text-sm font-semibold backdrop-blur-xl hover:bg-white/25 hover:-translate-y-0.5 transition-all duration-300"
+                    className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-white/15 border border-white/25 text-white text-xs sm:text-sm font-semibold backdrop-blur-xl hover:bg-white/25 hover:-translate-y-0.5 transition-all duration-300"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
@@ -212,9 +212,9 @@ function ProjectsContent() {
                     href={p.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm font-semibold backdrop-blur-xl hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
+                    className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-white/10 border border-white/20 text-white text-xs sm:text-sm font-semibold backdrop-blur-xl hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-300"
                   >
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
                     </svg>
                     Código
@@ -254,26 +254,26 @@ const planetsData: PlanetInfo[] = [
     focusDepth: 0.018,
     title: "",
     content: (
-      <div className="relative h-full overflow-y-auto px-4 md:px-6 py-4 space-y-6">
+      <div className="relative h-full overflow-y-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 space-y-4 sm:space-y-6">
         {/* Header con foto */}
         <div className="group relative animate-fadeIn overflow-visible">
           <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl hover:border-white/20 transition-all duration-500">
-            <div className="flex items-start gap-5">
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 md:p-6 shadow-2xl hover:border-white/20 transition-all duration-500">
+            <div className="flex items-start gap-3 sm:gap-4 md:gap-5">
               <div className="relative shrink-0">
-                <div className="h-20 w-20 md:h-24 md:w-24 rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/50">
+                <div className="h-20 w-20 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/50">
                   <img 
                     src="/projects/imagenDaniela.jpg" 
                     alt="Daniela Sophia Coavas Barboza" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
-                <div className="absolute -bottom-1 -right-1 h-6 w-6 md:h-7 md:w-7 rounded-full bg-emerald-400 border-[3px] border-black shadow-lg" />
+                <div className="absolute -bottom-1 -right-1 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 rounded-full bg-emerald-400 border-[3px] border-black shadow-lg" />
               </div>
               
-              <div className="flex-1">
-                <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">Daniela Sophia Coavas Barboza</h1>
-                <p className="text-slate-300 text-sm md:text-base mb-3">Desarrolladora Full Stack Junior | Freelancer</p>
+              <div className="flex-1 min-w-0">
+                <h1 className="text-xl sm:text-2xl md:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2">Daniela Sophia Coavas Barboza</h1>
+                <p className="text-slate-300 text-xs sm:text-sm md:text-xs lg:text-sm mb-2 sm:mb-3">Desarrolladora Full Stack Junior | Freelancer</p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold animate-pulse">
                     • Disponible para trabajar
@@ -304,39 +304,39 @@ const planetsData: PlanetInfo[] = [
         </div>
         
         {/* Grid de logros */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           {/* Universidad EAN */}
           <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
-              <svg className="w-8 h-8 mb-3 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
+              <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
               </svg>
               <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Estudiante</p>
-              <p className="text-white font-semibold mb-1">Ingeniería de Sistemas</p>
-              <p className="text-sm text-slate-400">Universidad EAN</p>
+              <p className="text-white font-semibold mb-1 text-sm sm:text-base">Ingeniería de Sistemas</p>
+              <p className="text-xs sm:text-sm text-slate-400">Universidad EAN</p>
             </div>
           </div>
           
           {/* AWS Certification */}
           <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
             <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/20 via-purple-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
-              <svg className="w-8 h-8 mb-3 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
+              <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
               </svg>
               <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Certificación</p>
-              <p className="text-white font-semibold mb-1">AWS Certified</p>
-              <p className="text-sm text-slate-400">Cloud Practitioner 2025</p>
+              <p className="text-white font-semibold mb-1 text-sm sm:text-base">AWS Certified</p>
+              <p className="text-xs sm:text-sm text-slate-400">Cloud Practitioner 2025</p>
             </div>
           </div>
           
           {/* Full Stack Bootcamp */}
           <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.4s'}}>
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
-              <svg className="w-8 h-8 mb-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
+              <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
               <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Bootcamp</p>
@@ -368,7 +368,7 @@ const planetsData: PlanetInfo[] = [
   focusDepth: 0.02,
   title: "Mi Trayectoria",
   content: (
-    <div className="relative h-full overflow-y-auto overflow-x-hidden pr-4 py-6 space-y-6">
+    <div className="relative h-full overflow-y-auto overflow-x-hidden pr-2 sm:pr-3 md:pr-4 py-3 sm:py-4 md:py-6 space-y-4 sm:space-y-5 md:space-y-6">
       {/* Cards horizontales modernas */}
       {[
         {
@@ -442,17 +442,17 @@ const planetsData: PlanetInfo[] = [
           <div className={`absolute -inset-0.5 bg-linear-to-r from-${item.color}-600 to-${item.color}-500 rounded-2xl blur opacity-0 group-hover:opacity-60 transition duration-500`} />
           
           {/* Card - más transparente */}
-          <div className={`relative bg-${item.color}-950/20 border border-${item.color}-800/30 rounded-2xl p-5 md:p-6 backdrop-blur-xl transition-all duration-500 hover:border-${item.color}-700/50 hover:shadow-2xl hover:shadow-${item.color}-600/20 hover:-translate-y-2`}>
+          <div className={`relative bg-${item.color}-950/20 border border-${item.color}-800/30 rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 backdrop-blur-xl transition-all duration-500 hover:border-${item.color}-700/50 hover:shadow-2xl hover:shadow-${item.color}-600/20 hover:-translate-y-2`}>
             
             {/* Header con icono y badge */}
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center gap-4">
-                <div className={`w-14 h-14 rounded-xl bg-${item.color}-900/60 border border-${item.color}-700/60 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 text-${item.color}-300`}>
+            <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
+              <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl bg-${item.color}-900/60 border border-${item.color}-700/60 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 text-${item.color}-300 shrink-0`}>
                   {item.icon}
                 </div>
-                <div>
-                  <h3 className={`text-lg font-bold text-white mb-1 group-hover:text-${item.color}-200 transition-colors`}>{item.title}</h3>
-                  <p className="text-sm text-slate-400">{item.subtitle}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className={`text-base sm:text-lg font-bold text-white mb-0.5 sm:mb-1 group-hover:text-${item.color}-200 transition-colors`}>{item.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-400 truncate">{item.subtitle}</p>
                 </div>
               </div>
               {item.badge && (
@@ -463,13 +463,13 @@ const planetsData: PlanetInfo[] = [
             </div>
 
             {/* Descripción */}
-            <p className="text-sm text-slate-300 leading-relaxed mb-3">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-2 sm:mb-3">
               {item.desc}
             </p>
 
             {/* Año */}
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-slate-500">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               {item.year}
@@ -507,23 +507,23 @@ const planetsData: PlanetInfo[] = [
     focusDepth: 0.021,
     title: "Certificaciones Profesionales",
     content: (
-      <div className="relative h-full flex flex-col justify-center px-4 md:px-6 py-3 space-y-2.5">
+      <div className="relative h-full flex flex-col justify-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 space-y-2 sm:space-y-2.5">
         {/* AWS Cloud Practitioner */}
         <a href="https://www.credly.com/badges/5e711328-7f2e-4b42-b67e-84e69f017ff1/linked_in_profile" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible">
           <div className="absolute -inset-1 bg-linear-to-r from-orange-500/20 via-amber-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-orange-500/20 transition-all duration-500 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-4 mb-2.5">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">AWS Certified Cloud Practitioner</h3>
-                <p className="text-slate-300 text-sm mb-0.5">Amazon Web Services</p>
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-orange-500/20 transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5">
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm sm:text-base font-bold text-white mb-0.5 sm:mb-1">AWS Certified Cloud Practitioner</h3>
+                <p className="text-slate-300 text-xs sm:text-sm mb-0.5">Amazon Web Services</p>
                 <p className="text-slate-500 text-xs">2025</p>
               </div>
-              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+              <div className="shrink-0 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                 Vigente
               </div>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-600/20 border border-orange-500/40 text-orange-200 text-sm font-medium hover:bg-orange-600/30 hover:border-orange-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-orange-600/20 border border-orange-500/40 text-orange-200 text-xs sm:text-sm font-medium hover:bg-orange-600/30 hover:border-orange-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Ver Badge en Credly
@@ -534,10 +534,10 @@ const planetsData: PlanetInfo[] = [
         {/* Full Stack Developer - BIT Institute */}
         <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
           <div className="absolute -inset-1 bg-linear-to-r from-indigo-500/20 via-violet-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-indigo-500/20 transition-all duration-500 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-4 mb-2.5">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">Full Stack Software Developer</h3>
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-indigo-500/20 transition-all duration-500 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5">
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm sm:text-base font-bold text-white mb-0.5 sm:mb-1">Full Stack Software Developer</h3>
                 <p className="text-slate-300 text-sm mb-0.5">BIT Institute</p>
                 <p className="text-slate-500 text-xs">2024</p>
               </div>
@@ -632,11 +632,11 @@ const planetsData: PlanetInfo[] = [
     focusDepth: 0.02,
     title: "Contacto",
     content: (
-      <div className="relative h-full overflow-y-auto px-4 md:px-6 py-4 space-y-6">
+      <div className="relative h-full overflow-y-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 space-y-4 sm:space-y-6">
         {/* Título de sección */}
         <div className="space-y-2">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">Hablemos</h2>
-          <p className="text-slate-400 text-sm md:text-base">¿Tienes un proyecto en mente? Estoy dispuesta a escucharte y a hacerlo realidad.</p>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white">Hablemos</h2>
+          <p className="text-slate-400 text-sm sm:text-base md:text-lg leading-relaxed">¿Tienes un proyecto en mente? Estoy dispuesta a escucharte y a hacerlo realidad.</p>
         </div>
 
         {/* Información de Contacto - Tarjetas modernas */}
@@ -644,16 +644,16 @@ const planetsData: PlanetInfo[] = [
           {/* Email */}
           <a href="mailto:danielacoavas@gmail.com" className="group relative block animate-fadeIn overflow-visible">
             <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center shrink-0">
-                  <svg className="w-6 h-6 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">Email</p>
-                  <p className="text-white font-medium">danielacoavas@gmail.com</p>
+                  <p className="text-white font-medium text-sm sm:text-base truncate">danielacoavas@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -662,18 +662,18 @@ const planetsData: PlanetInfo[] = [
           {/* LinkedIn */}
           <a href="https://www.linkedin.com/in/daniela-coavas-desarrolladoraweb/" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
             <div className="absolute -inset-1 bg-linear-to-r from-blue-600/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-600/20 transition-all duration-500 hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center shrink-0">
-                  <svg className="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-600/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                   </svg>
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">LinkedIn</p>
-                  <p className="text-white font-medium">daniela-coavas-desarrolladoraweb</p>
+                  <p className="text-white font-medium text-sm sm:text-base truncate">daniela-coavas-desarrolladoraweb</p>
                 </div>
-                <svg className="w-5 h-5 text-blue-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </div>
@@ -683,10 +683,10 @@ const planetsData: PlanetInfo[] = [
           {/* GitHub */}
           <a href="https://github.com/dannysophi17" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
             <div className="absolute -inset-1 bg-linear-to-r from-purple-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-purple-500/20 transition-all duration-500 hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0">
-                  <svg className="w-6 h-6 text-purple-300" fill="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-purple-500/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-purple-300" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                   </svg>
                 </div>
@@ -704,10 +704,10 @@ const planetsData: PlanetInfo[] = [
           {/* Ubicación */}
           <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
             <div className="absolute -inset-1 bg-linear-to-r from-emerald-500/20 via-green-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 hover:shadow-emerald-500/20 transition-all duration-500 hover:-translate-y-1">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0">
-                  <svg className="w-6 h-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-emerald-500/20 transition-all duration-500 hover:-translate-y-1">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -849,9 +849,10 @@ export default function Home() {
           relative text-transparent bg-clip-text
           bg-gradient-to-b from-white via-white/90 to-white/60
           font-['SF_Pro_Display'] tracking-tight font-semibold
-          text-4xl sm:text-5xl md:text-6xl lg:text-7xl
+          text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl
           drop-shadow-[0_0_30px_rgba(255,255,255,0.15)]
           animate-[titlePop_1.4s_ease-out]
+          px-4
         ">
           Daniela Coavas
         </h1>
@@ -865,10 +866,11 @@ export default function Home() {
 
         {/* SUBTITULO */}
         <p className="
-          mt-3 text-base sm:text-lg md:text-xl
+          mt-3 text-base xs:text-lg sm:text-xl md:text-2xl
           bg-gradient-to-r from-purple-300 via-pink-200 to-blue-300 text-transparent bg-clip-text
           animate-[fadeIn_1.6s_ease-out]
           font-light tracking-wide
+          px-4 text-center
         ">
           Full Stack Developer · Freelancer · Cloud Enthusiast
         </p>
@@ -878,9 +880,9 @@ export default function Home() {
   </div>
 
 
-          {/* Overlay derecha en focus */}
+          {/* Overlay derecha en focus - Oculto en móvil con transición suave */}
           {focusMode && (
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/2 bg-black/40 backdrop-blur-xl" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/2 bg-black/40 backdrop-blur-xl hidden md:block transition-opacity duration-700 ease-in-out animate-fadeIn" />
           )}
 
           {/* Botón para empezar recorrido en overview mode */}
@@ -890,10 +892,10 @@ export default function Home() {
                 setOverviewMode(false);
                 setPlanetIndex(0);
               }}
-              className="group absolute left-10 top-10 z-40 flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-5 py-2.5 text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 ease-out hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer"
+              className="group absolute left-4 top-4 sm:left-6 sm:top-6 md:left-10 md:top-10 z-40 flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-black/40 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-2.5 text-xs sm:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 ease-out hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer"
               aria-label="Empezar recorrido"
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -919,20 +921,20 @@ export default function Home() {
           {/* NAVEGACIÓN CON FLECHAS */}
           {!focusMode && !zoomMode && !overviewMode && (
             <>
-              <div className="absolute bottom-4 md:bottom-10 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 md:gap-4">
+              <div className="absolute bottom-20 sm:bottom-16 md:bottom-10 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 md:gap-4">
                 <button
                   onClick={() => setPlanetIndex((prev) => (prev === 0 ? planets.length - 1 : prev - 1))}
-                  className="group flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
+                  className="group flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
                 >
                   <span className="transition-transform duration-300 group-hover:-translate-x-1">‹</span>
                 </button>
 
                 <button
                   onClick={enterPlanet}
-                  className="group flex items-center gap-2 md:gap-3 rounded-full border border-white/15 bg-black/40 px-4 py-2 md:px-8 md:py-4 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-105 hover:border-white/30 hover:bg-black/60 cursor-pointer"
+                  className="group flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full border border-white/15 bg-black/40 px-3 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-105 hover:border-white/30 hover:bg-black/60 cursor-pointer"
                 >
                   <div 
-                    className="h-3 w-3 rounded-full animate-pulse transition-all duration-300 group-hover:scale-125" 
+                    className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full animate-pulse transition-all duration-300 group-hover:scale-125" 
                     style={{ 
                       backgroundColor: planetIndex === 0 ? '#FFD700' : 
                                      planetIndex === 1 ? '#6A4FA3' : 
@@ -948,11 +950,11 @@ export default function Home() {
                                             planetIndex === 5 ? '#E4C88A' : '#DCD6F7'}`
                     }} 
                   />
-                  <div className="flex flex-col items-start">
-                    <span className="text-sm md:text-base font-semibold text-white group-hover:text-white/90">{planets[planetIndex].name}</span>
-                    <span className="text-[10px] md:text-xs text-white/50"><span className="hidden sm:inline">{planetIndex + 1} de {planets.length} • </span>Click para explorar</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-xs sm:text-sm md:text-base font-semibold text-white group-hover:text-white/90">{planets[planetIndex].name}</span>
+                    <span className="text-[9px] sm:text-[10px] md:text-xs text-white/50"><span className="hidden sm:inline">{planetIndex + 1} de {planets.length} • </span>Click para explorar</span>
                   </div>
-                  <svg className="h-4 w-4 md:h-5 md:w-5 text-white/70 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 text-white/70 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -960,7 +962,7 @@ export default function Home() {
                 {/* Flecha Derecha - al lado de la barra */}
                 <button
                   onClick={() => setPlanetIndex((prev) => (prev === planets.length - 1 ? 0 : prev + 1))}
-                  className="group flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
+                  className="group flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
                 >
                   <span className="transition-transform duration-300 group-hover:translate-x-1">›</span>
                 </button>
@@ -968,42 +970,42 @@ export default function Home() {
             </>
           )}
 
-          {/* PANEL DE INFORMACIÓN - MITAD DERECHA */}
+          {/* PANEL DE INFORMACIÓN - Pantalla completa en móvil, mitad derecha en desktop */}
           {focusMode && (
-            <div className="absolute right-0 top-0 z-40 flex h-full w-full md:w-2/3 lg:w-1/2 flex-col animate-slideInRight">
-              {/* Máscara de difuminado hacia el universo */}
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-transparent via-transparent to-transparent" style={{
+            <div className="absolute inset-0 md:right-0 md:left-auto z-40 flex h-full w-full md:w-2/3 lg:w-1/2 flex-col animate-slideInRight bg-black md:bg-transparent">
+              {/* Máscara de difuminado hacia el universo - Solo en desktop */}
+              <div className="hidden md:block pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-transparent via-transparent to-transparent transition-opacity duration-700 ease-in-out" style={{
                 maskImage: 'linear-gradient(to right, transparent, black 100%)',
                 WebkitMaskImage: 'linear-gradient(to right, transparent, black 100%)'
               }} />
               
-              {/* Fondo del panel con difuminado suave - Más transparente y espacial */}
-              <div className="absolute inset-0 bg-linear-to-br from-indigo-950/3 via-purple-950/2 to-black/5 backdrop-blur-md" />
+              {/* Fondo del panel con difuminado suave - Más opaco en móvil para legibilidad */}
+              <div className="absolute inset-0 bg-linear-to-br from-indigo-950/95 via-purple-950/90 to-black/95 md:from-indigo-950/3 md:via-purple-950/2 md:to-black/5 backdrop-blur-md transition-all duration-700 ease-in-out" />
               
               {/* Gradiente de fondo sutil que se integra con el universo */}
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.02),_transparent_50%),radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.02),_transparent_50%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.02),_transparent_50%),radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.02),_transparent_50%)] transition-opacity duration-700" />
               
               {/* Header con botón volver y nombre de sección - STICKY */}
-              <div className="sticky top-0 left-0 right-0 z-50 flex items-center gap-3 px-4 md:px-8 py-4 md:py-6 bg-linear-to-b from-black/80 via-black/60 to-transparent backdrop-blur-xl pointer-events-auto">
+              <div className="sticky top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-start gap-2 sm:gap-3 px-3 sm:px-4 md:px-8 py-3 sm:py-4 md:py-6 bg-linear-to-b from-black/95 md:from-black/80 via-black/90 md:via-black/60 to-transparent backdrop-blur-xl pointer-events-auto transition-all duration-500 ease-in-out">
                 <button
                   onClick={exitPlanet}
-                  className="group flex items-center gap-2 rounded-full border border-white/20 bg-black/60 px-4 md:px-5 py-2 md:py-2.5 text-xs md:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:border-white/40 hover:bg-black/80 cursor-pointer"
+                  className="group flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-black/60 px-3 sm:px-4 md:px-5 py-2 md:py-2.5 text-xs sm:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:border-white/40 hover:bg-black/80 cursor-pointer min-h-11"
                   aria-label="Volver"
                 >
-                  <svg className="h-3 w-3 md:h-4 md:w-4 transition-transform duration-500 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-500 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
                 
                 {/* Nombre de la sección */}
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 border border-white/10 backdrop-blur-xl shadow-lg">
+                <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-black/60 border border-white/10 backdrop-blur-xl shadow-lg flex-1 md:flex-initial justify-center md:justify-start">
                   <div className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-pulse" />
-                  <span className="text-xs md:text-sm font-medium text-white/90">{planets[planetIndex].name}</span>
+                  <span className="text-xs sm:text-sm font-medium text-white/90">{planets[planetIndex].name}</span>
                 </div>
               </div>
 
               {/* Contenido con scroll */}
-              <div className="relative flex-1 overflow-y-auto px-16 md:px-20 lg:px-24 pb-8 animate-fadeInContent">
+              <div className="relative flex-1 overflow-y-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pb-6 sm:pb-8 animate-fadeInContent">
                 <div>
                   {planets[planetIndex].content}
                 </div>
@@ -1011,8 +1013,8 @@ export default function Home() {
             </div>
           )}
 
-          {/* CANVAS PRINCIPAL */}
-          <Canvas camera={{ position: [0, 8, 50], fov: 55 }}>
+          {/* CANVAS PRINCIPAL - Oculto en móvil cuando está en focus con transición suave */}
+          <Canvas className={focusMode ? 'hidden md:block transition-opacity duration-700 ease-out' : 'transition-opacity duration-700 ease-in'} camera={{ position: [0, 8, 50], fov: 55 }}>
             <CameraController
               start={start}
               overviewMode={overviewMode}

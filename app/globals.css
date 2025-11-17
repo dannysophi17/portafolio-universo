@@ -122,7 +122,7 @@ canvas {
 /* Deslizamiento suave desde la izquierda - animación principal del panel */
 @keyframes slideInRight {
   from { 
-    transform: translateX(-15%);
+    transform: translateX(-8%);
     opacity: 0;
   }
   to { 
@@ -132,14 +132,14 @@ canvas {
 }
 
 .animate-slideInRight {
-  animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Fade-in de contenido con ligero movimiento ascendente - retrasado para efecto escalonado */
 @keyframes fadeInContent {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -148,7 +148,7 @@ canvas {
 }
 
 .animate-fadeInContent {
-  animation: fadeInContent 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  animation: fadeInContent 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
   opacity: 0;
 }
 
@@ -238,6 +238,40 @@ canvas {
 
 canvas {
   animation: introStarPulse 4s ease-in-out infinite;
+}
+
+/* Carrusel horizontal de iconos para móvil */
+@keyframes scrollIcons {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scrollIcons {
+  animation: scrollIcons 30s linear infinite;
+}
+
+/* Movimiento suave de cámara en vista universo */
+@keyframes gentlePan {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(2%, 1%);
+  }
+  50% {
+    transform: translate(-1%, -2%);
+  }
+  75% {
+    transform: translate(-2%, 1%);
+  }
+}
+
+.animate-gentlePan {
+  animation: gentlePan 60s ease-in-out infinite;
 }
 
 /* ==============================================

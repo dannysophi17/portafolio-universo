@@ -45,20 +45,20 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-xl font-bold text-slate-200 flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-xl bg-slate-700/40 border border-slate-600/50 flex items-center justify-center">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="space-y-3 sm:space-y-4">
+      <h3 className="text-lg sm:text-xl font-bold text-slate-200 flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-slate-700/40 border border-slate-600/50 flex items-center justify-center">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
           </svg>
         </div>
         Envíame un mensaje
       </h3>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
         {/* Nombre */}
         <div className="group relative">
-          <label className="block text-sm font-medium text-slate-300 mb-2">
+          <label className="block text-xs sm:text-sm font-medium text-slate-300 mb-1.5 sm:mb-2">
             Nombre
           </label>
           <input
@@ -66,7 +66,7 @@ export default function ContactForm() {
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 text-sm sm:text-base
                      focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 
                      transition-all duration-300 hover:border-slate-600/60"
             placeholder="Tu nombre"
@@ -75,7 +75,7 @@ export default function ContactForm() {
 
         {/* Email */}
         <div className="group relative">
-          <label className="block text-sm font-medium text-slate-300 mb-2">
+          <label className="block text-xs sm:text-sm font-medium text-slate-300 mb-1.5 sm:mb-2">
             Email
           </label>
           <input
@@ -83,7 +83,7 @@ export default function ContactForm() {
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 text-sm sm:text-base
                      focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 
                      transition-all duration-300 hover:border-slate-600/60"
             placeholder="tu@email.com"
@@ -92,7 +92,7 @@ export default function ContactForm() {
 
         {/* Mensaje */}
         <div className="group relative">
-          <label className="block text-sm font-medium text-slate-300 mb-2">
+          <label className="block text-xs sm:text-sm font-medium text-slate-300 mb-1.5 sm:mb-2">
             Mensaje
           </label>
           <textarea
@@ -100,7 +100,7 @@ export default function ContactForm() {
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             rows={4}
-            className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl bg-slate-800/50 border border-slate-700/50 text-white placeholder-slate-500 text-sm sm:text-base
                      focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 
                      transition-all duration-300 hover:border-slate-600/60 resize-none"
             placeholder="Escribe tu mensaje aquí..."
@@ -111,12 +111,12 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="group w-full rounded-lg bg-black/40 backdrop-blur-sm border border-white/10 px-6 py-3 font-medium text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 hover:border-white/20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          className="group w-full rounded-lg bg-black/40 backdrop-blur-sm border border-white/10 px-4 py-2.5 sm:px-6 sm:py-3 font-medium text-white text-sm sm:text-base transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 hover:border-white/20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2">
             {status === 'sending' ? (
               <>
-                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-4 w-4 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>

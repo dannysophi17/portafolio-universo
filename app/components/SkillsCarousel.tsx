@@ -247,10 +247,10 @@ export default function SkillsCarousel() {
   return (
     <div className="relative h-full flex flex-col items-center justify-end pt-24 md:pt-32 pb-16 md:pb-20">
       {/* Contenedor centrado verticalmente */}
-      <div className="w-full max-w-7xl flex flex-col items-center justify-center space-y-6 px-3 md:px-6">
+      <div className="w-full max-w-7xl flex flex-col items-center justify-center space-y-4 sm:space-y-5 md:space-y-6 px-2 sm:px-3 md:px-6">
         
         {/* Tabs Navigation - Estilo planetas */}
-        <div className="flex flex-wrap gap-2 justify-center">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
           {categories.map((category, index) => {
             const catColors = colorClasses[category.color as keyof typeof colorClasses];
             return (
@@ -258,19 +258,19 @@ export default function SkillsCarousel() {
                 key={category.id}
                 onClick={() => setActiveTab(index)}
                 className={`
-                  group relative flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 md:py-2 rounded-lg
+                  group relative flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 md:px-3 py-1.5 md:py-2 rounded-lg
                   transition-all duration-300 transform
                   ${activeTab === index 
                     ? `${catColors.tabActive} scale-105 shadow-lg ${catColors.glow}` 
                     : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
                   }
-                  border backdrop-blur-sm text-xs md:text-sm
+                  border backdrop-blur-sm text-xs md:text-sm min-h-11
                 `}
               >
-                <div className={`transition-colors ${activeTab === index ? 'text-white' : 'text-white/60 group-hover:text-white/90'}`}>
+                <div className={`transition-colors shrink-0 ${activeTab === index ? 'text-white' : 'text-white/60 group-hover:text-white/90'}`}>
                   {category.icon}
                 </div>
-                <span className={`font-medium transition-colors hidden sm:inline ${activeTab === index ? 'text-white' : 'text-white/60 group-hover:text-white/90'}`}>
+                <span className={`font-medium transition-colors hidden xs:inline sm:inline ${activeTab === index ? 'text-white' : 'text-white/60 group-hover:text-white/90'}`}>
                   {category.title}
                 </span>
               </button>
@@ -285,11 +285,11 @@ export default function SkillsCarousel() {
             className="w-full animate-fadeSlideIn"
           >
             {/* Category Header con gradiente de color */}
-            <div className={`relative flex items-center justify-center gap-3 mb-4 p-3 rounded-xl bg-linear-to-r ${colors.bg} border ${colors.border} backdrop-blur-sm`}>
-              <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg ${colors.icon} border flex items-center justify-center backdrop-blur-sm`}>
+            <div className={`relative flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4 p-2.5 sm:p-3 rounded-xl bg-linear-to-r ${colors.bg} border ${colors.border} backdrop-blur-sm`}>
+              <div className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-lg ${colors.icon} border flex items-center justify-center backdrop-blur-sm shrink-0`}>
                 {currentCategory.icon}
               </div>
-              <h3 className={`text-lg md:text-xl font-bold ${colors.text}`}>
+              <h3 className={`text-base sm:text-lg md:text-xl font-bold ${colors.text}`}>
                 {currentCategory.title}
               </h3>
             </div>
@@ -326,19 +326,15 @@ export default function SkillsCarousel() {
         </div>
 
         {/* Iconos flotantes 3D estilo estrellas - Carrusel automático */}
-        <div className="relative w-full h-16 overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
-          <div className="absolute inset-0 flex items-center justify-around px-4" style={{ perspective: '1000px' }}>
-            {/* Mostrar todos los iconos flotando */}
-            {techIcons.map((tech, index) => (
+        <div className="relative w-full h-16 sm:h-20 overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
+          <div className="absolute inset-0 flex items-center px-2 sm:px-4 gap-4 sm:gap-6 animate-scrollIcons" style={{ perspective: '1000px' }}>
+            {/* Duplicar iconos para loop infinito en todas las resoluciones */}
+            {[...techIcons, ...techIcons].map((tech, index) => (
               <div
                 key={`tech-${index}`}
-                className="animate-float3D opacity-30 hover:opacity-100 transition-opacity duration-500 cursor-pointer"
-                style={{ 
-                  animationDelay: `${index * 0.5}s`,
-                  animationDuration: `${6 + Math.random() * 4}s`
-                }}
+                className="opacity-30 hover:opacity-100 transition-opacity duration-500 cursor-pointer shrink-0"
               >
-                <div className="text-white/70 hover:text-white transition-colors">
+                <div className="text-white/70 hover:text-white transition-colors scale-75 sm:scale-100">
                   {tech.svg}
                 </div>
               </div>
