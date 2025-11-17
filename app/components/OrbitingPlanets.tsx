@@ -1,0 +1,203 @@
+"use client";
+
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+import PlanetShader from "./PlanetShader";
+import Sun from "./Sun";
+
+interface PlanetInfo {
+  name: string;
+  color: string;
+  size: number;
+  orbitRadius: number;
+  orbitSpeed: number;
+}
+
+interface OrbitingPlanetsProps {
+  planets: any[];
+  focusMode: boolean;
+  zoomMode?: boolean;
+  planetIndex: number;
+  onPlanetClick?: (index: number) => void;
+  onPlanetPositionUpdate?: (position: [number, number, number]) => void;
+}
+
+export default function OrbitingPlanets({
+  planets,
+  focusMode,
+  zoomMode = false,
+  planetIndex,
+  onPlanetClick,
+  onPlanetPositionUpdate,
+}: OrbitingPlanetsProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  const planetRefs = useRef<(THREE.Group | null)[]>([]);
+  const rotationOffset = useRef(0);
+
+  // Configuración de órbitas para cada planeta - Órbitas más grandes y brillantes
+  const orbitConfig: PlanetInfo[] = [
+    { name: "Sobre mí", color: "#FFD700", size: 3.2, orbitRadius: 0, orbitSpeed: 0 }, // Sol dorado
+    { name: "Trayectoria", color: "#6A4FA3", size: 1.6, orbitRadius: 10, orbitSpeed: 0.15 },
+    { name: "Habilidades", color: "#A18BCF", size: 1.7, orbitRadius: 15, orbitSpeed: 0.12 },
+    { name: "Proyectos", color: "#4F3D7A", size: 1.5, orbitRadius: 20, orbitSpeed: 0.1 },
+    { name: "Certificaciones", color: "#B8A5D8", size: 1.4, orbitRadius: 25, orbitSpeed: 0.08 },
+    { name: "Contacto", color: "#E4C88A", size: 1.4, orbitRadius: 30, orbitSpeed: 0.07 },
+  ];
+
+  // Función para obtener la posición actual del planeta
+  const getPlanetPosition = (index: number): [number, number, number] => {
+    if (index === 0) return [0, 0, 0]; // Sol en el centro
+    
+    const config = orbitConfig[index];
+    const angle = rotationOffset.current * config.orbitSpeed + (index * Math.PI * 2) / (orbitConfig.length - 1);
+    const x = Math.cos(angle) * config.orbitRadius;
+    const z = Math.sin(angle) * config.orbitRadius;
+    const y = Math.sin(angle * 2) * 0.5;
+    
+    return [x, y, z];
+  };
+
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+
+    if (!focusMode && !zoomMode) {
+      // Rotación suave del sistema completo tipo carousel
+      rotationOffset.current += delta * 0.08;
+    }
+
+    // Actualizar posiciones de cada planeta
+    planetRefs.current.forEach((ref, i) => {
+      if (!ref) return;
+
+      const config = orbitConfig[i];
+      const angle = rotationOffset.current * config.orbitSpeed + (i * Math.PI * 2) / (orbitConfig.length - 1);
+
+      if ((focusMode || zoomMode) && i === planetIndex) {
+        // Planeta/Sol seleccionado - posicionar a la izquierda CON MOVIMIENTO
+        const time = state.clock.elapsedTime;
+        
+        // Flotación suave y orgánica (movimiento en Y)
+        const floatY = Math.sin(time * 0.6) * 0.8 + Math.cos(time * 0.4) * 0.3;
+        
+        // Balanceo sutil lateral (movimiento en X)
+        const driftX = Math.sin(time * 0.3) * 0.4;
+        
+        // Rotación lenta en Z para efecto de balanceo
+        const swayZ = Math.sin(time * 0.5) * 0.15;
+        
+        const targetX = -12 + driftX;  // Más a la izquierda con drift
+        const targetY = floatY;        // Flotación dinámica
+        const targetZ = swayZ;         // Balanceo suave
+        
+        ref.position.x = THREE.MathUtils.lerp(ref.position.x, targetX, 0.05);
+        ref.position.y = THREE.MathUtils.lerp(ref.position.y, targetY, 0.05);
+        ref.position.z = THREE.MathUtils.lerp(ref.position.z, targetZ, 0.05);
+        
+        // Rotación suave del planeta sobre sí mismo
+        ref.rotation.y += delta * 0.3;
+        ref.rotation.x = Math.sin(time * 0.2) * 0.1; // Balanceo en X
+        
+        // Aumentar tamaño
+        const targetScale = i === 0 ? 2.2 : 2.8; // Sol un poco más pequeño
+        ref.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.05);
+      } else if (i === 0) {
+        // El sol siempre en el centro cuando no está seleccionado
+        ref.position.lerp(new THREE.Vector3(0, 0, 0), 0.05);
+        ref.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+      } else {
+        // Planetas en órbita normal
+        const x = Math.cos(angle) * config.orbitRadius;
+        const z = Math.sin(angle) * config.orbitRadius;
+        const y = Math.sin(angle * 2) * 0.5; // Ligera variación vertical
+
+        ref.position.x = THREE.MathUtils.lerp(ref.position.x, x, 0.05);
+        ref.position.y = THREE.MathUtils.lerp(ref.position.y, y, 0.05);
+        ref.position.z = THREE.MathUtils.lerp(ref.position.z, z, 0.05);
+
+        // Tamaño normal
+        ref.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+      }
+    });
+
+    // Reportar posición actual del planeta seleccionado
+    if (onPlanetPositionUpdate && planetRefs.current[planetIndex]) {
+      const pos = planetRefs.current[planetIndex]!.position;
+      onPlanetPositionUpdate([pos.x, pos.y, pos.z]);
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {/* Órbitas modernas con puntos luminosos */}
+      {!focusMode && !zoomMode && orbitConfig.slice(1).map((config, i) => (
+        <group key={`orbit-group-${i}`}>
+          {/* Órbita principal más visible */}
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[config.orbitRadius - 0.015, config.orbitRadius + 0.015, 128]} />
+            <meshBasicMaterial 
+              color={config.color} 
+              transparent 
+              opacity={0.2} 
+              side={THREE.DoubleSide}
+            />
+          </mesh>
+          {/* Glow sutil de órbita */}
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[config.orbitRadius - 0.08, config.orbitRadius + 0.08, 128]} />
+            <meshBasicMaterial 
+              color={config.color} 
+              transparent 
+              opacity={0.08} 
+              side={THREE.DoubleSide}
+            />
+          </mesh>
+        </group>
+      ))}
+
+      {/* Sol en el centro */}
+      <group 
+        ref={(el) => (planetRefs.current[0] = el)} 
+        position={[0, 0, 0]}
+        visible={!((zoomMode || focusMode) && planetIndex !== 0)}
+      >
+        <Sun
+          position={[0, 0, 0]}
+          size={orbitConfig[0].size}
+          isFocused={focusMode && planetIndex === 0}
+          isDimmed={false}
+          onSelect={() => onPlanetClick?.(0)}
+        />
+      </group>
+
+      {/* Planetas orbitando */}
+      {orbitConfig.slice(1).map((config, i) => {
+        const actualIndex = i + 1;
+        const angle = (actualIndex * Math.PI * 2) / (orbitConfig.length - 1);
+        const x = Math.cos(angle) * config.orbitRadius;
+        const z = Math.sin(angle) * config.orbitRadius;
+
+        // Ocultar otros planetas cuando está en zoom o focus mode
+        const shouldHide = (zoomMode || focusMode) && actualIndex !== planetIndex;
+
+        return (
+          <group
+            key={`planet-${actualIndex}`}
+            ref={(el) => (planetRefs.current[actualIndex] = el)}
+            position={[x, 0, z]}
+            visible={!shouldHide}
+          >
+            <PlanetShader
+              color={config.color}
+              position={[0, 0, 0]}
+              size={config.size}
+              isDimmed={false}
+              isFocused={(zoomMode || focusMode) && actualIndex === planetIndex}
+              onSelect={() => onPlanetClick?.(actualIndex)}
+            />
+          </group>
+        );
+      })}
+    </group>
+  );
+}

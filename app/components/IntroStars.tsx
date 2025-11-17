@@ -27,11 +27,13 @@ function CinematicSpace() {
   return (
     <group ref={group}>
       <Stars
-        radius={110}
-        depth={90}
-        count={6500}
-        factor={4}
-        fade speed={1}
+        radius={150}
+        depth={80}
+        count={8500}
+        factor={3.8}
+        saturation={0.4}
+        fade
+        speed={0.4}
       />
     </group>
   );
@@ -45,6 +47,7 @@ export default function IntroStars() {
     </Canvas>
   );
 }
+
 
 
 

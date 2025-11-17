@@ -1,7 +1,7 @@
 "use client";
 
 import * as THREE from "three";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 
 interface SunProps {
@@ -9,6 +9,7 @@ interface SunProps {
   size: number;
   isFocused?: boolean;
   isDimmed?: boolean;
+  onSelect?: () => void;
 }
 
 export default function Sun({
@@ -16,17 +17,19 @@ export default function Sun({
   size,
   isFocused = false,
   isDimmed = false,
+  onSelect,
 }: SunProps) {
   const coreRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
+  const light1Ref = useRef<THREE.PointLight>(null);
+  const light2Ref = useRef<THREE.PointLight>(null);
+  const glowMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
 
-  // ----------------------------------------------------------
-  // SHADER — Golden + White Core Glow
-  // ----------------------------------------------------------
   const shaderMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0.0 },
+        brightness: { value: 1.0 },
       },
 
       vertexShader: `
@@ -45,11 +48,11 @@ export default function Sun({
 
       fragmentShader: `
         uniform float time;
+        uniform float brightness;
 
         varying vec3 vNormal;
         varying vec3 vPos;
 
-        // ---------- NOISE ----------
         float hash(vec3 p) {
           p = fract(p * 0.3183099 + 0.1);
           p *= 17.0;
@@ -92,28 +95,21 @@ export default function Sun({
         void main() {
           float t = time * 0.3;
 
-          // Ruido suave dorado
           float n1 = fbm(vNormal * 2.5 + t);
           float n2 = fbm(vNormal * 6.0 - t * 1.5);
 
           float mixVal = n1 * 0.6 + n2 * 0.4;
 
-          // -------- COLORES --------
-          vec3 deepGold = vec3(1.0, 0.72, 0.18);   // oro profundo
-          vec3 softGold = vec3(1.0, 0.82, 0.42);   // dorado suave
-          vec3 whiteCore = vec3(1.0, 0.97, 0.92);  // BLANCO cálido (centro)
+          vec3 deepGold = vec3(1.0, 0.72, 0.18);
+          vec3 softGold = vec3(1.0, 0.82, 0.42);
+          vec3 whiteCore = vec3(1.0, 0.97, 0.92);
 
-          // brillo hacia el centro (muy blanco)
           float center = pow(n1, 2.0) * 1.0;
 
-          // mezcla base
           vec3 col = mix(deepGold, softGold, mixVal);
-
-          // integrar blanco del centro
           col = mix(col, whiteCore, center * 1.5);
-
-          // pequeño boost de brillo
           col += center * 0.08;
+          col *= brightness;
 
           gl_FragColor = vec4(col, 1.0);
         }
@@ -123,45 +119,96 @@ export default function Sun({
     });
   }, []);
 
-  // ----------------------------------------------------------
-  // ANIMACIÓN
-  // ----------------------------------------------------------
   useFrame((state) => {
     const t = state.clock.elapsedTime;
 
     if (coreRef.current?.material instanceof THREE.ShaderMaterial) {
       coreRef.current.material.uniforms.time.value = t;
+      
+      const targetBrightness = isFocused ? 1.2 : 1.0;
+      coreRef.current.material.uniforms.brightness.value += 
+        (targetBrightness - coreRef.current.material.uniforms.brightness.value) * 0.02;
     }
 
-    // Rotación muy suave
     if (coreRef.current) {
       coreRef.current.rotation.y = t * 0.12;
       coreRef.current.rotation.x = Math.sin(t * 0.1) * 0.05;
     }
 
-    // Aura respirando
     if (glowRef.current) {
-      glowRef.current.scale.setScalar(1 + Math.sin(t * 0.5) * 0.03);
+      glowRef.current.scale.setScalar(1 + Math.sin(t * 0.4) * 0.08);
+    }
+
+    const targetGlowOpacity = isFocused ? 0.18 : 0.12;
+    if (glowMaterialRef.current) {
+      glowMaterialRef.current.opacity += (targetGlowOpacity - glowMaterialRef.current.opacity) * 0.03;
+    }
+
+    const targetIntensity1 = isFocused ? 9 : 8;
+
+    if (light1Ref.current) {
+      light1Ref.current.intensity += (targetIntensity1 - light1Ref.current.intensity) * 0.08;
+    }
+
+    if (light2Ref.current) {
+      light2Ref.current.intensity += (2.5 - light2Ref.current.intensity) * 0.08;
     }
   });
 
+  const glowMaterial = useMemo(() => {
+    const mat = new THREE.MeshBasicMaterial({
+      color: "#FFD700",
+      transparent: true,
+      opacity: 0.12,
+      side: THREE.BackSide,
+      blending: THREE.AdditiveBlending,
+    });
+    return mat;
+  }, []);
+
+  useEffect(() => {
+    if (glowMaterial) {
+      glowMaterialRef.current = glowMaterial;
+    }
+  }, [glowMaterial]);
+
   return (
     <group position={position}>
-
-      {/* NÚCLEO */}
-      <mesh ref={coreRef}>
+      <mesh 
+        ref={coreRef}
+        onClick={() => onSelect?.()}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          document.body.style.cursor = 'pointer';
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = 'default';
+        }}
+      >
         <sphereGeometry args={[size, 128, 128]} />
         <primitive attach="material" object={shaderMaterial} />
       </mesh>
 
-      {/* LUZ DORADA */}
+      <mesh ref={glowRef}>
+        <sphereGeometry args={[size * 1.08, 64, 64]} />
+        <primitive attach="material" object={glowMaterial} />
+      </mesh>
+
       <pointLight
+        ref={light1Ref}
         position={[0, 0, 0]}
-        intensity={isFocused ? 9 : 6}
-        distance={size * 15}
+        intensity={5}
+        distance={size * 14}
         color="#FFEEC5"
       />
 
+      <pointLight
+        ref={light2Ref}
+        position={[0, 0, 0]}
+        intensity={2}
+        distance={size * 24}
+        color="#FFA500"
+      />
     </group>
   );
 }
