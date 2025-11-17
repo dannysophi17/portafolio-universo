@@ -23,7 +23,7 @@ export default function ContactForm() {
       // Envío a través de EmailJS - Credenciales configuradas en EMAILJS_CONFIG.md
       await emailjs.send(
         'service_p2yyi81',
-        'template_o2vpzod',
+        'template_mp3zngs',
         {
           from_name: formData.name,
           from_email: formData.email,
