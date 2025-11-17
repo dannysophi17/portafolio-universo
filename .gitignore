@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# EmailJS configuration (contains API keys)
+EMAILJS_CONFIG.md
+
 # vercel
 .vercel
 
