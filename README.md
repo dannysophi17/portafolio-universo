@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portafolio Interactivo 3D - Daniela Coavas
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+![Portafolio Preview](public/projects/preview-portfolio.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**[Ver Demo en Vivo](https://portafolio-universo.vercel.app/)**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
+![Three.js](https://img.shields.io/badge/Three.js-Latest-black?style=flat-square&logo=three.js)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38bdf8?style=flat-square&logo=tailwind-css)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+</div>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Español
 
-To learn more about Next.js, take a look at the following resources:
+### Descripción
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Portafolio interactivo desarrollado con Next.js 15 y Three.js que presenta una experiencia única de navegación espacial. Cada sección del portafolio está representada por un planeta en 3D, creando una interfaz inmersiva y memorable. El proyecto incluye animaciones suaves, diseño totalmente responsive y un sistema de contacto integrado con EmailJS.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Características
 
-## Deploy on Vercel
+- Navegación 3D Interactiva: Sistema solar navegable con planetas representando diferentes secciones
+- Diseño Responsive: Optimizado para móviles, tablets y escritorio
+- Animaciones Suaves: Transiciones fluidas entre secciones y efectos visuales
+- UX Mobile-First: Experiencia optimizada para dispositivos móviles
+- Formulario de Contacto: Integración con EmailJS para mensajes directos
+- Carrusel de Tecnologías: Scroll automático mostrando habilidades técnicas
+- Cámara Dinámica: Movimiento panorámico en modo vista universo
+- Rendimiento Optimizado: Carga rápida y animaciones a 60fps
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Tecnologías
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework:** Next.js 15 (App Router)
+- **UI Library:** React 18
+- **Language:** TypeScript
+- **3D Graphics:** Three.js + React Three Fiber
+- **Styling:** Tailwind CSS
+- **Email Service:** EmailJS
+- **Deployment:** Vercel
+
+---
+
+## English
+
+### Description
+
+Interactive portfolio built with Next.js 15 and Three.js featuring a unique spatial navigation experience. Each portfolio section is represented by a 3D planet, creating an immersive and memorable interface. The project includes smooth animations, fully responsive design, and an integrated contact system with EmailJS.
+
+### Features
+
+- Interactive 3D Navigation: Navigable solar system with planets representing different sections
+- Responsive Design: Optimized for mobile, tablet, and desktop
+- Smooth Animations: Fluid transitions between sections and visual effects
+- Mobile-First UX: Optimized experience for mobile devices
+- Contact Form: EmailJS integration for direct messaging
+- Tech Carousel: Auto-scroll showcasing technical skills
+- Dynamic Camera: Panoramic movement in universe view mode
+- Optimized Performance: Fast loading and 60fps animations
+
+### Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **UI Library:** React 18
+- **Language:** TypeScript
+- **3D Graphics:** Three.js + React Three Fiber
+- **Styling:** Tailwind CSS
+- **Email Service:** EmailJS
+- **Deployment:** Vercel
+
+---
+
+## Licencia | License
+
+© 2025 Daniela Sophia Coavas Barboza. Todos los derechos reservados.
+
+Este proyecto es de código cerrado y propietario. No está permitido copiar, modificar, distribuir o usar este código sin autorización explícita del autor.
+
+---
+
+© 2025 Daniela Sophia Coavas Barboza. All rights reserved.
+
+This project is closed source and proprietary. Copying, modifying, distributing, or using this code without explicit permission from the author is not allowed.
+
+---
+
+## Autor | Author
+
+**Daniela Sophia Coavas Barboza**
+
+- Portfolio: [https://portafolio-universo.vercel.app](https://portafolio-universo.vercel.app)
+- GitHub: [@dannysophi17](https://github.com/dannysophi17)
+- Email: danielacoavas@gmail.com
+
+---
+
+<div align="center">
+
+Made with 💜 by Daniela Coavas
+
+</div>
