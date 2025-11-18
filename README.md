@@ -1,10 +1,11 @@
-# Portafolio Interactivo 3D - Daniela Coavas
+# Portafolio Interactivo 3D 
+## Interactive 3D Portfolio
 
 <div align="center">
 
 ![Portafolio Preview](public/projects/preview-portfolio.png)
 
-**[Ver Demo en Vivo](https://portafolio-universo.vercel.app/)**
+**[Ver Demo en Vivo](https://portafolio-universo.vercel.app/) • [Live Demo](https://portafolio-universo.vercel.app/)**
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)
@@ -20,16 +21,16 @@
 
 ### Descripción
 
-Portafolio interactivo desarrollado con Next.js 15 y Three.js que presenta una experiencia única de navegación espacial. Cada sección del portafolio está representada por un planeta en 3D, creando una interfaz inmersiva y memorable. El proyecto incluye animaciones suaves, diseño totalmente responsive y un sistema de contacto integrado con EmailJS.
+Portafolio interactivo desarrollado con Next.js 15 y Three.js. Presenta una experiencia única de navegación espacial donde cada sección está representada por un planeta en 3D. El proyecto cuenta con animaciones suaves, diseño totalmente responsive y un sistema de contacto con EmailJS.
 
 ### Características
 
-- Navegación 3D Interactiva: Sistema solar navegable con planetas representando diferentes secciones
+- Navegación 3D Interactiva: Sistema solar navegable con planetas que representan diferentes secciones
 - Diseño Responsive: Optimizado para móviles, tablets y escritorio
 - Animaciones Suaves: Transiciones fluidas entre secciones y efectos visuales
 - UX Mobile-First: Experiencia optimizada para dispositivos móviles
 - Formulario de Contacto: Integración con EmailJS para mensajes directos
-- Carrusel de Tecnologías: Scroll automático mostrando habilidades técnicas
+- Carrusel de Tecnologías: Scroll automático que muestra habilidades técnicas
 - Cámara Dinámica: Movimiento panorámico en modo vista universo
 - Rendimiento Optimizado: Carga rápida y animaciones a 60fps
 
@@ -49,16 +50,16 @@ Portafolio interactivo desarrollado con Next.js 15 y Three.js que presenta una e
 
 ### Description
 
-Interactive portfolio built with Next.js 15 and Three.js featuring a unique spatial navigation experience. Each portfolio section is represented by a 3D planet, creating an immersive and memorable interface. The project includes smooth animations, fully responsive design, and an integrated contact system with EmailJS.
+Interactive portfolio built with Next.js 15 and Three.js. It features a unique spatial navigation experience where each section is represented by a 3D planet. The project includes smooth animations, fully responsive design, and a contact system with EmailJS.
 
 ### Features
 
-- Interactive 3D Navigation: Navigable solar system with planets representing different sections
+- Interactive 3D Navigation: Navigable solar system with planets that represent different sections
 - Responsive Design: Optimized for mobile, tablet, and desktop
 - Smooth Animations: Fluid transitions between sections and visual effects
 - Mobile-First UX: Optimized experience for mobile devices
 - Contact Form: EmailJS integration for direct messaging
-- Tech Carousel: Auto-scroll showcasing technical skills
+- Tech Carousel: Auto-scroll that showcases technical skills
 - Dynamic Camera: Panoramic movement in universe view mode
 - Optimized Performance: Fast loading and 60fps animations
 
