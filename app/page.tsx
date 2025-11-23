@@ -105,8 +105,8 @@ function ProjectsContent() {
         return (
           <div
             key={i}
-            className="group relative animate-fadeIn overflow-visible"
-            style={{ animationDelay: `${i * 0.15}s` }}
+            className="group relative animate-fadeIn overflow-visible opacity-0"
+            style={{ animation: `fadeIn 0.6s ease-out ${0.1 + i * 0.2}s forwards` }}
           >
             {/* Glow effect - Ahora con overflow visible */}
             <div className={`absolute -inset-1 bg-linear-to-r ${p.color} to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10`} />
@@ -256,7 +256,7 @@ const planetsData: PlanetInfo[] = [
     content: (
       <div className="relative h-full overflow-y-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 space-y-4 sm:space-y-6">
         {/* Header con foto */}
-        <div className="group relative animate-fadeIn overflow-visible">
+        <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.1s forwards'}}>
           <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
           <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 md:p-6 shadow-2xl hover:border-white/20 transition-all duration-500">
             <div className="flex items-start gap-3 sm:gap-4 md:gap-5">
@@ -288,7 +288,7 @@ const planetsData: PlanetInfo[] = [
         </div>
 
         {/* Resumen profesional */}
-        <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
+        <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.25s forwards'}}>
           <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
           <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 transition-all duration-500">
             <div className="flex items-center gap-2 mb-3">
@@ -306,7 +306,7 @@ const planetsData: PlanetInfo[] = [
         {/* Grid de logros */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           {/* Universidad EAN */}
-          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
+          <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.4s forwards'}}>
             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
               <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -320,7 +320,7 @@ const planetsData: PlanetInfo[] = [
           </div>
           
           {/* AWS Certification */}
-          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
+          <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.5s forwards'}}>
             <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/20 via-purple-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
               <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -333,7 +333,7 @@ const planetsData: PlanetInfo[] = [
           </div>
           
           {/* Full Stack Bootcamp */}
-          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.4s'}}>
+          <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.6s forwards'}}>
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
               <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -346,7 +346,7 @@ const planetsData: PlanetInfo[] = [
           </div>
           
           {/* Women in Cloud */}
-          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.5s'}}>
+          <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.7s forwards'}}>
             <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
               <svg className="w-8 h-8 mb-3 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -355,6 +355,52 @@ const planetsData: PlanetInfo[] = [
               <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Liderazgo</p>
               <p className="text-white font-semibold mb-1">Women in Cloud</p>
               <p className="text-sm text-slate-400">AWS Cloud Club EAN</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Sección de descarga de CV */}
+        <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.85s forwards'}}>
+          <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+          <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 transition-all duration-500">
+            <div className="flex items-center gap-2 mb-4">
+              <svg className="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <h3 className="text-base font-bold text-white uppercase tracking-wider">Curriculum Vitae</h3>
+            </div>
+            <p className="text-slate-300 text-sm mb-4">
+              Descarga mi CV para conocer más detalles sobre mi experiencia y formación.
+            </p>
+            
+            <div className="flex flex-wrap gap-3">
+              {/* CV en Español */}
+              <a
+                href="/Daniela_Coavas_CV_ES_2025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn relative flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30 rounded-xl text-white hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <span className="font-medium">CV Español</span>
+                <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">PDF</span>
+              </a>
+
+              {/* CV en Inglés */}
+              <a
+                href="/CV_DanielaCoavas_ENG.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/btn relative flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-violet-500/20 to-purple-500/20 border border-violet-400/30 rounded-xl text-white hover:border-violet-400/60 hover:shadow-lg hover:shadow-violet-500/20 transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <span className="font-medium">CV English</span>
+                <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">PDF</span>
+              </a>
             </div>
           </div>
         </div>
@@ -435,8 +481,8 @@ const planetsData: PlanetInfo[] = [
       ].map((item, index) => (
         <div
           key={index}
-          className="group relative perspective-1000 animate-fadeIn"
-          style={{animationDelay: `${index * 0.1}s`}}
+          className="group relative perspective-1000 animate-fadeIn opacity-0"
+          style={{animation: `fadeIn 0.6s ease-out ${0.1 + index * 0.12}s forwards`}}
         >
           {/* Glow effect */}
           <div className={`absolute -inset-0.5 bg-linear-to-r from-${item.color}-600 to-${item.color}-500 rounded-2xl blur opacity-0 group-hover:opacity-60 transition duration-500`} />
@@ -509,7 +555,7 @@ const planetsData: PlanetInfo[] = [
     content: (
       <div className="relative h-full flex flex-col justify-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 space-y-2 sm:space-y-2.5">
         {/* AWS Cloud Practitioner */}
-        <a href="https://www.credly.com/badges/5e711328-7f2e-4b42-b67e-84e69f017ff1/linked_in_profile" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible">
+        <a href="https://www.credly.com/badges/5e711328-7f2e-4b42-b67e-84e69f017ff1/linked_in_profile" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.1s forwards'}}>
           <div className="absolute -inset-1 bg-linear-to-r from-orange-500/20 via-amber-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
           <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-orange-500/20 transition-all duration-500 hover:-translate-y-1">
             <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5">
@@ -532,7 +578,7 @@ const planetsData: PlanetInfo[] = [
         </a>
 
         {/* Full Stack Developer - BIT Institute */}
-        <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
+        <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.25s forwards'}}>
           <div className="absolute -inset-1 bg-linear-to-r from-indigo-500/20 via-violet-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
           <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-indigo-500/20 transition-all duration-500 hover:-translate-y-1">
             <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5">
@@ -555,7 +601,7 @@ const planetsData: PlanetInfo[] = [
         </a>
 
         {/* AI Developer - IBM */}
-        <a href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
+        <a href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.4s forwards'}}>
           <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
           <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
             <div className="flex items-start justify-between gap-4 mb-2.5">
@@ -578,7 +624,7 @@ const planetsData: PlanetInfo[] = [
         </a>
 
         {/* Inglés C1 - Duolingo */}
-        <a href="https://certs.duolingo.com/czfbtrq4pns5am5u" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
+        <a href="https://certs.duolingo.com/czfbtrq4pns5am5u" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.55s forwards'}}>
           <div className="absolute -inset-1 bg-linear-to-r from-green-500/20 via-emerald-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
           <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-green-500/20 transition-all duration-500 hover:-translate-y-1">
             <div className="flex items-start justify-between gap-4 mb-2.5">
@@ -601,7 +647,7 @@ const planetsData: PlanetInfo[] = [
         </a>
 
         {/* Francés B1 - SMART */}
-        <a href="/projects/Frances.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.4s'}}>
+        <a href="/projects/Frances.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.7s forwards'}}>
           <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
           <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-500 hover:-translate-y-1">
             <div className="flex items-start justify-between gap-4 mb-2.5">
@@ -642,7 +688,7 @@ const planetsData: PlanetInfo[] = [
         {/* Información de Contacto - Tarjetas modernas */}
         <div className="space-y-4">
           {/* Email */}
-          <a href="mailto:danielacoavas@gmail.com" className="group relative block animate-fadeIn overflow-visible">
+          <a href="mailto:danielacoavas@gmail.com" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.1s forwards'}}>
             <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
               <div className="flex items-center gap-3 sm:gap-4">
@@ -660,7 +706,7 @@ const planetsData: PlanetInfo[] = [
           </a>
 
           {/* LinkedIn */}
-          <a href="https://www.linkedin.com/in/daniela-coavas-desarrolladoraweb/" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.1s'}}>
+          <a href="https://www.linkedin.com/in/daniela-coavas-desarrolladoraweb/" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.25s forwards'}}>
             <div className="absolute -inset-1 bg-linear-to-r from-blue-600/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-600/20 transition-all duration-500 hover:-translate-y-1">
               <div className="flex items-center gap-3 sm:gap-4">
@@ -681,7 +727,7 @@ const planetsData: PlanetInfo[] = [
           </a>
 
           {/* GitHub */}
-          <a href="https://github.com/dannysophi17" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible" style={{animationDelay: '0.2s'}}>
+          <a href="https://github.com/dannysophi17" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.4s forwards'}}>
             <div className="absolute -inset-1 bg-linear-to-r from-purple-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-purple-500/20 transition-all duration-500 hover:-translate-y-1">
               <div className="flex items-center gap-3 sm:gap-4">
@@ -702,7 +748,7 @@ const planetsData: PlanetInfo[] = [
           </a>
 
           {/* Ubicación */}
-          <div className="group relative animate-fadeIn overflow-visible" style={{animationDelay: '0.3s'}}>
+          <div className="group relative animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.55s forwards'}}>
             <div className="absolute -inset-1 bg-linear-to-r from-emerald-500/20 via-green-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
             <div className="relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-emerald-500/20 transition-all duration-500 hover:-translate-y-1">
               <div className="flex items-center gap-3 sm:gap-4">
