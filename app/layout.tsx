@@ -52,7 +52,11 @@ export const metadata: Metadata = {
     images: ["/projects/imagenDaniela.jpg"],
   },
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/star.png', sizes: '32x32', type: 'image/png' },
+      { url: '/star.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/star.png',
   },
   robots: {
     index: true,
