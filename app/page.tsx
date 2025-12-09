@@ -1526,7 +1526,7 @@ export default function Home() {
           {/* NAVEGACIÓN CON FLECHAS */}
           {!focusMode && !zoomMode && !overviewMode && (
             <>
-              <div className="absolute bottom-20 sm:bottom-16 md:bottom-10 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 sm:gap-3 md:gap-4">
+              <div className="absolute bottom-32 sm:bottom-20 md:bottom-10 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 sm:gap-3 md:gap-4">
                 <button
                   onClick={() => setPlanetIndex((prev) => (prev === 0 ? planets.length - 1 : prev - 1))}
                   className="group flex h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl sm:text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
