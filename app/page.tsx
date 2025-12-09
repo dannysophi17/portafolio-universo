@@ -723,6 +723,16 @@ export default function Home() {
     t.planets.certifications,
     t.planets.contact
   ];
+
+  // Actualizar título del documento según la sección actual
+  useEffect(() => {
+    const baseTitle = "Daniela Coavas | Full Stack Developer";
+    if (focusMode && planetNames[planetIndex]) {
+      document.title = `${planetNames[planetIndex]} - ${baseTitle}`;
+    } else {
+      document.title = baseTitle;
+    }
+  }, [focusMode, planetIndex, planetNames]);
   
   // Clonar planetsData y actualizar el contenido con traducciones
   const planets = React.useMemo(() => {

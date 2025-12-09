@@ -20,10 +20,43 @@ const geistMono = Geist_Mono({
 
 // Metadatos de la aplicación para SEO y visualización en navegador
 export const metadata: Metadata = {
-  title: "Daniela Coavas | Full Stack Developer",
-  description: "Portafolio interactivo de Daniela Sophia Coavas Barboza - Desarrolladora Full Stack Junior especializada en React, Next.js, Node.js y tecnologías cloud.",
+  metadataBase: new URL('https://danielacoavas.com'),
+  title: {
+    default: "Daniela Coavas | Full Stack Developer",
+    template: "%s - Daniela Coavas",
+  },
+  description: "Portafolio interactivo de Daniela Sophia Coavas Barboza - Desarrolladora Full Stack Junior especializada en React, Next.js, Node.js y tecnologías cloud. AWS Cloud Practitioner certificada.",
+  keywords: ["Full Stack Developer", "React", "Next.js", "Node.js", "AWS", "Cloud Computing", "Daniela Coavas", "Desarrolladora Web", "Portfolio"],
+  authors: [{ name: "Daniela Sophia Coavas Barboza" }],
+  creator: "Daniela Coavas",
+  openGraph: {
+    type: "website",
+    locale: "es_CO",
+    url: "https://danielacoavas.com",
+    siteName: "Daniela Coavas Portfolio",
+    title: "Daniela Coavas | Full Stack Developer",
+    description: "Portafolio interactivo de Daniela Sophia Coavas Barboza - Desarrolladora Full Stack Junior especializada en React, Next.js, Node.js y tecnologías cloud.",
+    images: [
+      {
+        url: "/projects/imagenDaniela.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Daniela Coavas - Full Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Daniela Coavas | Full Stack Developer",
+    description: "Desarrolladora Full Stack Junior | AWS Cloud Practitioner | React, Next.js, Node.js",
+    images: ["/projects/imagenDaniela.jpg"],
+  },
   icons: {
     icon: '/favicon.svg',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
