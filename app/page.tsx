@@ -726,11 +726,11 @@ export default function Home() {
 
   // Actualizar título del documento según la sección actual
   useEffect(() => {
-    const baseTitle = "Daniela Coavas | Full Stack Developer";
+    const baseTitle = "Daniela Coavas";
     if (focusMode && planetNames[planetIndex]) {
-      document.title = `${planetNames[planetIndex]} - ${baseTitle}`;
+      document.title = `${planetNames[planetIndex]} | ${baseTitle}`;
     } else {
-      document.title = baseTitle;
+      document.title = `${baseTitle} | Full Stack Developer`;
     }
   }, [focusMode, planetIndex, planetNames]);
   
