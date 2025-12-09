@@ -1,13 +1,12 @@
 /**
- * Estilos globales y animaciones para la aplicación de portafolio 3D.
- * Incluye keyframes personalizados para interacciones planetarias, transiciones de UI y efectos espaciales.
- * Construido con utilidades de Tailwind CSS extendidas con animaciones personalizadas.
+ * Estilos globales y animaciones del portafolio
+ * Incluye animaciones para los planetas, transiciones y efectos visuales
  */
 
 /* Importaciones base de Tailwind CSS */
 @import "tailwindcss";
 
-/* Gradiente de fondo de espacio profundo - radial desde azul oscuro hasta casi negro */
+/* Fondo degradado estilo espacio (azul oscuro a negro) */
 body {
   margin: 0;
   padding: 0;
@@ -22,26 +21,31 @@ body {
   background-attachment: fixed;
   font-family: 'Inter', sans-serif;
   color: white;
+  
+  /* Mejorar renderizado de texto en todos los dispositivos */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Configuración de contenedor full-screen para Next.js y React Three Fiber */
+/* Configuración para pantalla completa */
 html, body, #__next, #root {
   height: 100%;
   overflow: hidden;
 }
 
-/* Configuración de canvas Three.js - previene scroll táctil en móvil */
+/* Configuración del canvas 3D (evita scroll en móvil) */
 canvas {
   display: block;
   touch-action: none;
 }
 
 /* ==============================================
-   ANIMACIONES GLOBALES
-   Keyframes personalizados para transiciones de UI
+   ANIMACIONES
+   Efectos y transiciones personalizadas
 ============================================== */
 
-/* Fade in general con efecto blur - usado para revelar contenido */
+/* Animación de aparición con desenfoque */
 @keyframes fadeIn {
   from { opacity: 0; filter: blur(5px); }
   to   { opacity: 1; filter: blur(0px); }
@@ -51,7 +55,7 @@ canvas {
   animation: fadeIn 1.3s ease-out forwards;
 }
 
-/* Animación flotante 3D para iconos de habilidades - movimiento sutil (rango 5-7px) */
+/* Animación 3D flotante para iconos de habilidades */
 @keyframes float3D {
   0%, 100% { 
     transform: translateY(0) translateZ(0) rotateY(0deg);
@@ -72,11 +76,11 @@ canvas {
   transform-style: preserve-3d;
 }
 
-/* Fade slide para transiciones */
+/* Animación de deslizamiento con fade para cambio de tabs */
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -85,84 +89,96 @@ canvas {
 }
 
 .animate-fadeSlideIn {
-  animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeSlideIn 0.4s ease-out forwards;
 }
 
-@keyframes fadeSlideOut {
+/* Animación de aparición desde abajo para skills */
+@keyframes slideUp {
   from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
 }
 
-.animate-fadeSlideOut {
-  animation: fadeSlideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Animaciones de slide-in del panel para contenido de sección "Sobre mí" */
-@keyframes slideInLeft {
-  from { 
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to { 
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.animate-slideInLeft {
-  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Deslizamiento suave desde la izquierda - animación principal del panel */
+/* Animación para mostrar el panel lateral - super smooth con aceleración de hardware */
 @keyframes slideInRight {
   from { 
-    transform: translateX(-8%);
+    transform: translateX(-5%) translateZ(0);
     opacity: 0;
   }
   to { 
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
     opacity: 1;
   }
 }
 
 .animate-slideInRight {
-  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
-/* Fade-in de contenido con ligero movimiento ascendente - retrasado para efecto escalonado */
+/* Versión más smooth y elegante para mobile */
+@media (max-width: 768px) {
+  .animate-slideInRight {
+    animation: slideInRight 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+}
+
+/* Aparición suave del contenido con movimiento hacia arriba y aceleración GPU */
 @keyframes fadeInContent {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px) translateZ(0);
   }
   to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+.animate-fadeInContent {
+  animation: fadeInContent 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Smooth y elegante en mobile */
+@media (max-width: 768px) {
+  .animate-fadeInContent {
+    animation: fadeInContent 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) 0.08s forwards;
+  }
+}
+
+/* Aparición y desaparición continua para los anuncios */
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  10%, 90% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.animate-fadeInContent {
-  animation: fadeInContent 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
-  opacity: 0;
-}
-
-/* Flotación para botón */
+/* Efecto de flotación para botones centrados */
 @keyframes float {
   0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
   50% { transform: translate(-50%, -50%) translateY(-10px); }
 }
 
-.animate-buttonFloat {
-  animation: float 4s ease-in-out infinite;
+/* Efecto de flotación para los anuncios */
+@keyframes floatAnnouncement {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
 
-/* Botón nebuloso – respiración */
+/* Efecto de respiración (brillo pulsante) */
 @keyframes pulse {
   0%   { opacity: 0.65; filter: blur(0px); }
   50%  { opacity: 1; filter: blur(1px); }
@@ -173,7 +189,7 @@ canvas {
   animation: pulse 3s ease-in-out infinite;
 }
 
-/* 💫 Estrellas parpadeo suave */
+/* Parpadeo suave de las estrellas */
 @keyframes starTwinkle {
   0% { opacity: 0.65; }
   50% { opacity: 1; }
@@ -213,7 +229,7 @@ canvas {
   animation: buttonFloat 4.5s ease-in-out infinite;
 }
 
-/* "Comenzar" button animations - floating and pulsing effects */
+/* Animación del botón "Comenzar" (flotante con brillo) */
 @keyframes startFloat {
   0%, 100% {
     transform: translateY(0px) scale(1);
@@ -229,7 +245,7 @@ canvas {
   animation: startFloat 3.5s ease-in-out infinite;
 }
 
-/* Intro star canvas pulsing effect */
+/* Efecto pulsante del canvas de estrellas */
 @keyframes introStarPulse {
   0%   { opacity: 0.8; }
   50%  { opacity: 1; }
@@ -240,7 +256,7 @@ canvas {
   animation: introStarPulse 4s ease-in-out infinite;
 }
 
-/* Carrusel horizontal de iconos para móvil */
+/* Desplazamiento continuo de iconos en móvil */
 @keyframes scrollIcons {
   0% {
     transform: translateX(0);
@@ -254,86 +270,22 @@ canvas {
   animation: scrollIcons 30s linear infinite;
 }
 
-/* Movimiento suave de cámara en vista universo */
-@keyframes gentlePan {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(2%, 1%);
-  }
-  50% {
-    transform: translate(-1%, -2%);
-  }
-  75% {
-    transform: translate(-2%, 1%);
-  }
-}
-
-.animate-gentlePan {
-  animation: gentlePan 60s ease-in-out infinite;
-}
-
-/* ==============================================
-   UTILITY ANIMATIONS
-   Additional effects for cards, buttons, etc.
-============================================== */
-
-/* Timeline/list item entrance animation */
-@keyframes timelineItem {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-    filter: blur(6px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-    filter: blur(0px);
-  }
-}
-
-.animate-timelineItem {
-  animation: timelineItem 0.8s ease forwards;
-}
-
-/* Slow opacity pulse for ambient elements */
-@keyframes pulseSlow {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
-}
-
-.animate-pulseSlow {
-  animation: pulseSlow 4s ease-in-out infinite;
-}
-
-/* Glow pulse animation */
-@keyframes pulse-slow {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 3s ease-in-out infinite;
-}
-
 /* ==============================================
    EFECTOS 3D Y UTILIDADES
-   Helpers de perspectiva y transformación
+   Perspectiva y transformaciones
 ============================================== */
 
-/* Perspectiva 3D para efectos hover en tarjetas */
+/* Perspectiva 3D para tarjetas */
 .perspective-1000 {
   perspective: 1000px;
 }
 
-/* Transformaciones aceleradas por GPU para mejor rendimiento */
+/* Aceleración por GPU (mejor rendimiento) */
 .transform-gpu {
   transform: translateZ(0);
 }
 
-/* Utilidades de rotación 3D para interacciones hover */
+/* Rotaciones 3D al pasar el cursor */
 .hover\:rotateX-2:hover {
   transform: rotateX(2deg);
 }
@@ -343,8 +295,8 @@ canvas {
 }
 
 /* ==============================================
-   UTILIDADES DE GRADIENTE
-   Direcciones personalizadas de gradiente lineal
+   GRADIENTES
+   Direcciones de degradado
 ============================================== */
 
 .bg-linear-to-br {
@@ -363,41 +315,12 @@ canvas {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
-/* Animaciones para Skills Carousel */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-
-
 /* ==============================================
-   ESTILOS DE SCROLLBAR
-   Scrollbar personalizado para paneles de contenido
+   SCROLLBAR PERSONALIZADO
+   Estilo de la barra de desplazamiento
 ============================================== */
 
-/* Navegadores WebKit (Chrome, Safari, Edge) */
+/* Para Chrome, Safari y Edge */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -420,11 +343,23 @@ canvas {
   background-clip: padding-box;
 }
 
-/* Firefox y navegadores modernos (Chrome 121+) */
+/* Para Firefox y navegadores modernos */
 * {
-  scrollbar-width: thin; /* No soportado por Safari, Chrome antiguo */
+  scrollbar-width: thin;
   scrollbar-color: rgba(99, 102, 241, 0.25) transparent;
 }
 
+/* Animación de brillo sutil para el header de sección */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
 
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
 

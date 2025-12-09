@@ -4,14 +4,13 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 /**
- * Carousel interactivo de habilidades técnicas
- * Muestra categorías (Frontend, Backend, Cloud, etc.) con navegación por pestañas
- * Incluye iconos flotantes animados de tecnologías
+ * Carrusel de habilidades técnicas organizado por categorías
+ * Muestra iconos animados de tecnologías con navegación por pestañas
  */
 
 interface Skill {
   name: string;
-  level?: string; // Opcional, usado para idiomas
+  level?: string; // Nivel de dominio (para idiomas)
 }
 
 interface SkillCategory {
@@ -19,11 +18,23 @@ interface SkillCategory {
   title: string;
   icon: React.ReactElement;
   skills: Skill[];
-  color: string;      // Color theme de la categoría
-  gridCols: string;   // Layout responsivo del grid
+  color: string;      // Color de la categoría
+  gridCols: string;   // Columnas del grid
 }
 
-export default function SkillsCarousel() {
+interface SkillsCarouselProps {
+  translations: {
+    frontend: string;
+    backend: string;
+    cloud: string;
+    design: string;
+    tools: string;
+    languages: string;
+  };
+  language: 'es' | 'en';
+}
+
+export default function SkillsCarousel({ translations: t, language }: SkillsCarouselProps) {
   const [activeTab, setActiveTab] = useState(0);
   const [isAutoPlaying] = useState(false);           // Auto-play deshabilitado para control manual
   const [currentIconIndex, setCurrentIconIndex] = useState(0); // Índice del carousel de iconos
@@ -31,7 +42,7 @@ export default function SkillsCarousel() {
   const categories: SkillCategory[] = [
     {
       id: 'frontend',
-      title: 'Frontend',
+      title: t.frontend,
       icon: (
         <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -54,7 +65,7 @@ export default function SkillsCarousel() {
     },
     {
       id: 'backend',
-      title: 'Backend & Bases de Datos',
+      title: t.backend,
       icon: (
         <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
@@ -75,7 +86,7 @@ export default function SkillsCarousel() {
     },
     {
       id: 'cloud',
-      title: 'Cloud & DevOps',
+      title: t.cloud,
       icon: (
         <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
@@ -97,7 +108,7 @@ export default function SkillsCarousel() {
     },
     {
       id: '3d',
-      title: '3D & Diseño',
+      title: t.design,
       icon: (
         <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
@@ -115,7 +126,7 @@ export default function SkillsCarousel() {
     },
     {
       id: 'tools',
-      title: 'Herramientas & Métodos',
+      title: t.tools,
       icon: (
         <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -132,16 +143,16 @@ export default function SkillsCarousel() {
     },
     {
       id: 'languages',
-      title: 'Idiomas',
+      title: t.languages,
       icon: (
         <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
         </svg>
       ),
       skills: [
-        { name: 'Español', level: 'Nativo' },
-        { name: 'Inglés', level: 'C1' },
-        { name: 'Francés', level: 'A2' },
+        { name: language === 'es' ? 'Español' : 'Spanish', level: language === 'es' ? 'Nativo' : 'Native' },
+        { name: language === 'es' ? 'Inglés' : 'English', level: 'C1' },
+        { name: language === 'es' ? 'Francés' : 'French', level: 'A2' },
       ],
       color: 'emerald',
       gridCols: 'grid-cols-1 sm:grid-cols-3'

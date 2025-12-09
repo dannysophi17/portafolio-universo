@@ -5,17 +5,17 @@ import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 
 /**
- * Componente de planeta con shaders personalizados y efectos visuales
- * Cada planeta tiene un tipo específico que determina sus efectos (anillos, partículas, wireframes)
+ * Planeta con efectos visuales personalizados
+ * Cada planeta tiene efectos diferentes según su color (anillos, partículas, etc)
  */
 
 interface PlanetShaderProps {
-  color: string;                      // Color hex del planeta
-  position: [number, number, number]; // Posición 3D [x, y, z]
-  size: number;                       // Radio del planeta
-  onSelect?: () => void;              // Callback al hacer click
-  isDimmed?: boolean;                 // Estado atenuado (no enfocado)
-  isFocused?: boolean;                // Estado enfocado (panel abierto)
+  color: string;                      // Color del planeta
+  position: [number, number, number]; // Posición en el espacio
+  size: number;                       // Tamaño del planeta
+  onSelect?: () => void;              // Función al hacer clic
+  isDimmed?: boolean;                 // Si está atenuado
+  isFocused?: boolean;                // Si está seleccionado
 }
 
 export default function PlanetShader({
@@ -32,19 +32,19 @@ export default function PlanetShader({
 
   const colorObj = new THREE.Color(color);
   
-  /** Mapeo de color a tipo de planeta para efectos visuales específicos */
+  /** Determina el tipo de planeta según su color para aplicar efectos visuales */
   const planetType = useMemo(() => {
-    if (color === '#FFD700') return 'sun';           // Sol - dorado brillante
-    if (color === '#6A4FA3') return 'rocky';         // Trayectoria - rocoso púrpura
-    if (color === '#A18BCF') return 'tech';          // Habilidades - tecnológico
-    if (color === '#5D9A9A') return 'crystalline';   // Proyectos - teal con anillos
-    if (color === '#D4A5A5') return 'ringed';        // Certificaciones - coral con anillos
-    if (color === '#E4C88A') return 'communication'; // Contacto - comunicación con ondas
-    if (color === '#DCD6F7') return 'ice';           // Otros - helado
+    if (color === '#FFD700') return 'sun';           // Sol
+    if (color === '#6A4FA3') return 'rocky';         // Trayectoria
+    if (color === '#A18BCF') return 'tech';          // Habilidades
+    if (color === '#5D9A9A') return 'crystalline';   // Proyectos
+    if (color === '#D4A5A5') return 'ringed';        // Certificaciones
+    if (color === '#E4C88A') return 'communication'; // Contacto
+    if (color === '#DCD6F7') return 'ice';           // Otros
     return 'default';
   }, [color]);
 
-  // Shader material personalizado para cada planeta
+  // Material con shaders para el aspecto del planeta
   const shaderMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {

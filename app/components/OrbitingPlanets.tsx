@@ -6,21 +6,21 @@ import * as THREE from "three";
 import PlanetShader from "./PlanetShader";
 import Sun from "./Sun";
 
-/** Configuración de cada planeta en el sistema orbital */
+/** Información de configuración de cada planeta */
 interface PlanetInfo {
   name: string;
-  color: string;       // Hex color del planeta
-  size: number;        // Radio del planeta
-  orbitRadius: number; // Distancia desde el centro
-  orbitSpeed: number;  // Velocidad de rotación orbital
+  color: string;       // Color del planeta
+  size: number;        // Tamaño del planeta
+  orbitRadius: number; // Distancia al centro
+  orbitSpeed: number;  // Velocidad de órbita
 }
 
-/** Props del componente OrbitingPlanets */
+/** Propiedades del componente de planetas orbitantes */
 interface OrbitingPlanetsProps {
   planets: any[];
-  focusMode: boolean;   // Modo enfoque (panel abierto)
-  zoomMode?: boolean;   // Modo zoom temporal
-  planetIndex: number;  // Índice del planeta activo
+  focusMode: boolean;   // Si está en modo detalle
+  zoomMode?: boolean;   // Si está acercando al planeta
+  planetIndex: number;  // Planeta seleccionado actualmente
   onPlanetClick?: (index: number) => void;
   onPlanetPositionUpdate?: (position: [number, number, number]) => void;
 }

@@ -1,7 +1,7 @@
 /**
- * Controlador de cámara dinámico que maneja transiciones suaves entre modos de navegación.
- * Gestiona la posición de cámara y el objetivo lookAt basado en el enfoque actual del planeta y modo de vista.
- * Usa interpolación lerp para movimientos de cámara suaves y cinemáticos.
+ * Controla el movimiento de la cámara entre diferentes vistas
+ * Maneja transiciones suaves al cambiar de modo o seleccionar planetas
+ * Usa interpolación para movimientos fluidos
  */
 "use client";
 
@@ -10,12 +10,12 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 interface Props {
-  start: boolean; // Si la pantalla de intro ha sido cerrada
-  overviewMode?: boolean; // Vista amplia del universo mostrando todos los planetas
-  focusMode: boolean; // Panel de contenido visible con planeta posicionado a la izquierda
-  zoomMode?: boolean; // Estado de transición antes del focus
-  planetIndex: number; // Planeta actualmente seleccionado (0-5)
-  focusedPlanetPos?: [number, number, number]; // Posición 3D del planeta enfocado
+  start: boolean; // Si ya se cerró la pantalla inicial
+  overviewMode?: boolean; // Vista general mostrando todos los planetas
+  focusMode: boolean; // Vista enfocada con panel de contenido
+  zoomMode?: boolean; // Transición de acercamiento al planeta
+  planetIndex: number; // Índice del planeta seleccionado (0-5)
+  focusedPlanetPos?: [number, number, number]; // Posición del planeta enfocado
 }
 
 export default function CameraController({

@@ -1,7 +1,7 @@
 /**
- * Componente del sol animado que representa la sección "Sobre mí".
- * Usa shaders GLSL personalizados para textura de superficie procedural tipo fuego con ruido FBM.
- * Incluye efectos de brillo dinámicos y animaciones pulsantes que se intensifican al enfocarse.
+ * Sol animado que representa la sección "Sobre mí"
+ * Usa shaders personalizados para crear efecto de fuego
+ * Se ilumina más cuando está enfocado
  */
 "use client";
 
@@ -10,11 +10,11 @@ import { useRef, useMemo, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 
 interface SunProps {
-  position: [number, number, number]; // Posición 3D en la escena
-  size: number; // Radio de la esfera
-  isFocused?: boolean; // Aumenta brillo y resplandor cuando es verdadero
-  isDimmed?: boolean; // Reduce opacidad para estados no activos
-  onSelect?: () => void; // Manejador de click para selección de planeta
+  position: [number, number, number]; // Posición en el espacio 3D
+  size: number; // Tamaño del sol
+  isFocused?: boolean; // Si está seleccionado (brilla más)
+  isDimmed?: boolean; // Si está atenuado (menos opaco)
+  onSelect?: () => void; // Función al hacer clic
 }
 
 export default function Sun({
@@ -30,12 +30,12 @@ export default function Sun({
   const light2Ref = useRef<THREE.PointLight>(null);
   const glowMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
 
-  // Material shader personalizado con ruido procedural para textura de superficie del sol
+  // Material con shaders para crear el efecto de fuego del sol
   const shaderMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {
-        time: { value: 0.0 }, // Reloj de animación
-        brightness: { value: 1.0 }, // Multiplicador de intensidad (aumenta al enfocarse)
+        time: { value: 0.0 }, // Tiempo para animar
+        brightness: { value: 1.0 }, // Brillo (aumenta al seleccionar)
       },
 
       vertexShader: `
