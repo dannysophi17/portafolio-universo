@@ -5,9 +5,9 @@
 
 ![Portafolio Preview](public/projects/preview-portfolio.png)
 
-**[Ver Demo en Vivo](https://portafolio-universo.vercel.app/) • [Live Demo](https://portafolio-universo.vercel.app/)**
+**[🌐 Ver Sitio en Vivo • Live Site](https://dcoavas.com/)**
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Three.js](https://img.shields.io/badge/Three.js-Latest-black?style=flat-square&logo=three.js)
@@ -25,24 +25,23 @@ Portafolio interactivo desarrollado con Next.js 15 y Three.js. Presenta una expe
 
 ### Características
 
-- Navegación 3D Interactiva: Sistema solar navegable con planetas que representan diferentes secciones
-- Diseño Responsive: Optimizado para móviles, tablets y escritorio
-- Animaciones Suaves: Transiciones fluidas entre secciones y efectos visuales
-- UX Mobile-First: Experiencia optimizada para dispositivos móviles
-- Formulario de Contacto: Integración con EmailJS para mensajes directos
-- Carrusel de Tecnologías: Scroll automático que muestra habilidades técnicas
-- Cámara Dinámica: Movimiento panorámico en modo vista universo
-- Rendimiento Optimizado: Carga rápida y animaciones a 60fps
+- **- Multiidioma:** Sistema de traducción completo (Español/Inglés)
+- **- Navegación 3D Interactiva:** Sistema solar navegable con planetas que representan diferentes secciones
+- **- Diseño Responsive:** Optimizado para móviles, tablets y escritorio
+- **- UX Mobile-First:** Experiencia optimizada para dispositivos móviles con soporte iOS Safari
+- **- Formulario de Contacto:** Integración con EmailJS para mensajes directos
+- **- Carrusel de Tecnologías:** Scroll automático que muestra habilidades técnicas
+- **- Cámara Dinámica:** Movimiento panorámico en modo vista universo
 
 ### Tecnologías
 
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **UI Library:** React 18
 - **Language:** TypeScript
 - **3D Graphics:** Three.js + React Three Fiber
 - **Styling:** Tailwind CSS
 - **Email Service:** EmailJS
-- **Deployment:** Vercel
+- **Deployment:** AWS Amplify + Route 53
 
 ---
 
@@ -54,24 +53,23 @@ Interactive portfolio built with Next.js 15 and Three.js. It features a unique s
 
 ### Features
 
-- Interactive 3D Navigation: Navigable solar system with planets that represent different sections
-- Responsive Design: Optimized for mobile, tablet, and desktop
-- Smooth Animations: Fluid transitions between sections and visual effects
-- Mobile-First UX: Optimized experience for mobile devices
-- Contact Form: EmailJS integration for direct messaging
-- Tech Carousel: Auto-scroll that showcases technical skills
-- Dynamic Camera: Panoramic movement in universe view mode
-- Optimized Performance: Fast loading and 60fps animations
+- **Multilingual:** Complete translation system (Spanish/English)
+- **Interactive 3D Navigation:** Navigable solar system with planets representing different sections
+- **Responsive Design:** Optimized for mobile, tablet, and desktop
+- **Mobile-First UX:** Optimized experience for mobile devices with iOS Safari support
+- **Contact Form:** EmailJS integration for direct messaging
+- **Tech Carousel:** Auto-scroll showcasing technical skills
+- **Dynamic Camera:** Panoramic movement in universe view mode
 
 ### Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **UI Library:** React 18
 - **Language:** TypeScript
 - **3D Graphics:** Three.js + React Three Fiber
 - **Styling:** Tailwind CSS
 - **Email Service:** EmailJS
-- **Deployment:** Vercel
+- **Deployment:** AWS Amplify + Route 53
 
 ---
 
@@ -93,9 +91,9 @@ This project is closed source and proprietary. Copying, modifying, distributing,
 
 **Daniela Sophia Coavas Barboza**
 
-- Portfolio: [https://portafolio-universo.vercel.app](https://portafolio-universo.vercel.app)
-- GitHub: [@dannysophi17](https://github.com/dannysophi17)
-- Email: danielacoavas@gmail.com
+- 🌐 Portfolio: [https://dcoavas.com](https://dcoavas.com)
+- 💼 GitHub: [@dannysophi17](https://github.com/dannysophi17)
+- 📧 Email: danielacoavas@gmail.com
 
 ---
 

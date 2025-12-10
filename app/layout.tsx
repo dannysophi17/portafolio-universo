@@ -20,36 +20,40 @@ const geistMono = Geist_Mono({
 
 // Metadatos de la aplicación para SEO y visualización en navegador
 export const metadata: Metadata = {
-  metadataBase: new URL('https://danielacoavas.com'),
+  metadataBase: new URL('https://dcoavas.com'),
   title: {
     default: "Daniela Coavas | Full Stack Developer",
-    template: "%s - Daniela Coavas",
+    template: "%s | Daniela Coavas",
   },
-  description: "Portafolio interactivo de Daniela Sophia Coavas Barboza - Desarrolladora Full Stack Junior especializada en React, Next.js, Node.js y tecnologías cloud. AWS Cloud Practitioner certificada.",
-  keywords: ["Full Stack Developer", "React", "Next.js", "Node.js", "AWS", "Cloud Computing", "Daniela Coavas", "Desarrolladora Web", "Portfolio"],
+  description: "Portafolio interactivo 3D - Desarrolladora Full Stack especializada en React, Next.js, Node.js y AWS Cloud. Explorá mi universo de proyectos y habilidades.",
+  keywords: ["Full Stack Developer", "React", "Next.js", "Node.js", "AWS", "Cloud Computing", "Daniela Coavas", "Desarrolladora Web", "Portfolio", "Three.js", "3D Portfolio"],
   authors: [{ name: "Daniela Sophia Coavas Barboza" }],
   creator: "Daniela Coavas",
   openGraph: {
     type: "website",
     locale: "es_CO",
-    url: "https://danielacoavas.com",
-    siteName: "Daniela Coavas Portfolio",
-    title: "Daniela Coavas | Full Stack Developer",
-    description: "Portafolio interactivo de Daniela Sophia Coavas Barboza - Desarrolladora Full Stack Junior especializada en React, Next.js, Node.js y tecnologías cloud.",
+    alternateLocale: "en_US",
+    url: "https://dcoavas.com",
+    siteName: "Daniela Coavas - Portfolio",
+    title: "Daniela Coavas | Full Stack Developer ⭐",
+    description: "Portafolio interactivo 3D - Desarrolladora Full Stack especializada en React, Next.js, Node.js y AWS Cloud. Explorá mi universo de proyectos y habilidades.",
     images: [
       {
-        url: "/projects/imagenDaniela.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Daniela Coavas - Full Stack Developer",
+        url: "https://dcoavas.com/og-image.png",
+        width: 1908,
+        height: 894,
+        alt: "Daniela Coavas - Full Stack Developer Portfolio",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Daniela Coavas | Full Stack Developer",
-    description: "Desarrolladora Full Stack Junior | AWS Cloud Practitioner | React, Next.js, Node.js",
-    images: ["/projects/imagenDaniela.jpg"],
+    site: "@dcoavas",
+    creator: "@dcoavas",
+    title: "Daniela Coavas | Full Stack Developer ⭐",
+    description: "Portafolio interactivo 3D - React, Next.js, Node.js & AWS Cloud",
+    images: ["https://dcoavas.com/og-image.png"],
   },
   icons: {
     icon: [
