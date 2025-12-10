@@ -1343,7 +1343,7 @@ export default function Home() {
           </div>
 
           {/* Selector de idioma en la esquina superior derecha */}
-          <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-60">
+          <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-10 md:right-10 z-60">
             <LanguageSelector 
               currentLanguage={language}
               onLanguageChange={setLanguage}
@@ -1351,7 +1351,7 @@ export default function Home() {
           </div>
 
           {/* Anuncio de cambio de idioma - animado */}
-          <div className="absolute top-18 right-4 sm:top-20 sm:right-6 z-50 animate-[fadeInOut_8s_ease-in-out_infinite]">
+          <div className="absolute top-18 right-4 sm:top-24 sm:right-10 z-50 animate-[fadeInOut_8s_ease-in-out_infinite]">
             <div className="group relative animate-[floatAnnouncement_3s_ease-in-out_infinite]">
               {/* Glow effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition duration-500 animate-pulse" />
@@ -1376,24 +1376,25 @@ export default function Home() {
             </div>
           </div>
 
-          <button
-            onClick={() => setStart(true)}
-            className="
-              absolute left-1/2 top-1/2 z-60
-              -translate-x-1/2 -translate-y-1/2
-              rounded-full
-              px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4
-              text-base sm:text-lg font-light tracking-wide text-white
-              bg-white/5
-              shadow-[0_0_40px_rgba(255,255,255,0.45)]
-              animate-startFloat
-              transition-all duration-700
-              hover:scale-[1.08]
-              cursor-pointer
-            "
-          >
-            {t.start}
-          </button>
+          <div className="absolute left-1/2 top-1/2 z-60 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+            <button
+              onClick={() => setStart(true)}
+              className="
+                rounded-full
+                px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4
+                text-base sm:text-lg font-light tracking-wide text-white text-center
+                bg-white/5
+                shadow-[0_0_40px_rgba(255,255,255,0.45)]
+                animate-startFloat
+                transition-all duration-700
+                hover:scale-[1.08]
+                cursor-pointer
+                whitespace-nowrap
+              "
+            >
+              {t.start}
+            </button>
+          </div>
         </>
       )}
 
@@ -1454,7 +1455,7 @@ export default function Home() {
           )}
 
           {/* Selector de idioma - oculto en mobile cuando está en focusMode */}
-          <div className={`absolute top-4 right-4 sm:top-6 sm:right-6 z-[100] ${focusMode ? 'hidden md:block' : ''}`}>
+          <div className={`absolute top-4 right-4 sm:top-6 sm:right-6 md:top-10 md:right-10 z-[100] ${focusMode ? 'hidden md:block' : ''}`}>
             <LanguageSelector 
               currentLanguage={language}
               onLanguageChange={setLanguage}
