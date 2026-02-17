@@ -595,30 +595,84 @@ const planetsData: PlanetInfo[] = [
         </a>
 
         {/* Full Stack Developer - BIT Institute */}
-        <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s forwards'}}>
+        <div className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s forwards'}}>
           <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/30 via-violet-500/30 to-indigo-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
           <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-indigo-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-indigo-500/10 hover:border-indigo-400/50 md:hover:border-white/20 hover:shadow-indigo-500/30 transition-all duration-700 hover:-translate-y-1">
             <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5">
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm sm:text-base font-bold text-white mb-0.5 sm:mb-1">Full Stack Software Developer</h3>
                 <p className="text-slate-300 text-sm mb-0.5">BIT Institute</p>
-                <p className="text-slate-500 text-xs">2024</p>
+                <p className="text-slate-500 text-xs">2025</p>
               </div>
               <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                 Vigente
               </div>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium hover:bg-indigo-600/30 hover:border-indigo-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+            <div className="flex flex-wrap items-center gap-2">
+              <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium hover:bg-indigo-600/30 hover:border-indigo-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Ver Certificado
+              </a>
+              <a href="/projects/FullStackBIT.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/10 border border-indigo-500/30 text-indigo-200 text-sm font-medium hover:bg-indigo-600/20 hover:border-indigo-400/50 hover:scale-105 transition-all duration-300 shadow-lg">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Ver PDF
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Inglés C1 - Cambridge Linguaskill */}
+        <a href="/projects/Ingles.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.45s forwards'}}>
+          <div className="absolute -inset-1 bg-gradient-to-r from-green-500/30 via-emerald-500/30 to-green-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
+          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-green-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-green-500/10 hover:border-green-400/50 md:hover:border-white/20 hover:shadow-green-500/30 transition-all duration-700 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-4 mb-2.5">
+              <div>
+                <h3 className="text-base font-bold text-white mb-1">Inglés C1 - Cambridge Linguaskill</h3>
+                <p className="text-slate-300 text-sm mb-0.5">Cambridge English</p>
+                <p className="text-slate-500 text-xs">2026</p>
+              </div>
+              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                Vigente
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600/20 border border-green-500/40 text-green-200 text-sm font-medium hover:bg-green-600/30 hover:border-green-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Ver Certificado
+              Ver PDF
+            </div>
+          </div>
+        </a>
+
+        {/* Francés B2 - SMART */}
+        <a href="/projects/Frances.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s forwards'}}>
+          <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-700 -z-10" />
+          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-700 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-4 mb-2.5">
+              <div>
+                <h3 className="text-base font-bold text-white mb-1">Francés B2 - Upper Intermediate</h3>
+                <p className="text-slate-300 text-sm mb-0.5">SMART Language Institute</p>
+                <p className="text-slate-500 text-xs">2026</p>
+              </div>
+              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                Vigente
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-200 text-sm font-medium hover:bg-rose-600/30 hover:border-rose-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Ver PDF
             </div>
           </div>
         </a>
 
         {/* AI Developer - IBM */}
-        <a href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.35s forwards'}}>
+        <a href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.65s forwards'}}>
           <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 via-cyan-500/30 to-blue-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
           <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-blue-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-blue-500/10 hover:border-blue-400/50 md:hover:border-white/20 hover:shadow-blue-500/30 transition-all duration-700 hover:-translate-y-1">
             <div className="flex items-start justify-between gap-4 mb-2.5">
@@ -636,52 +690,6 @@ const planetsData: PlanetInfo[] = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Ver Badge en Credly
-            </div>
-          </div>
-        </a>
-
-        {/* Inglés C1 - Duolingo */}
-        <a href="https://certs.duolingo.com/czfbtrq4pns5am5u" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.45s forwards'}}>
-          <div className="absolute -inset-1 bg-gradient-to-r from-green-500/30 via-emerald-500/30 to-green-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-green-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-green-500/10 hover:border-green-400/50 md:hover:border-white/20 hover:shadow-green-500/30 transition-all duration-700 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-4 mb-2.5">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">Inglés C1 - Upper Advanced</h3>
-                <p className="text-slate-300 text-sm mb-0.5">Duolingo English Test</p>
-                <p className="text-slate-500 text-xs">2024</p>
-              </div>
-              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                Vigente
-              </div>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600/20 border border-green-500/40 text-green-200 text-sm font-medium hover:bg-green-600/30 hover:border-green-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Ver Certificado
-            </div>
-          </div>
-        </a>
-
-        {/* Francés B1 - SMART */}
-        <a href="/projects/Frances.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s forwards'}}>
-          <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-700 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-4 mb-2.5">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">Francés B1 - Intermediate</h3>
-                <p className="text-slate-300 text-sm mb-0.5">SMART Language Institute</p>
-                <p className="text-slate-500 text-xs">2023</p>
-              </div>
-              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                Vigente
-              </div>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-200 text-sm font-medium hover:bg-rose-600/30 hover:border-rose-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Ver PDF
             </div>
           </div>
         </a>
@@ -1065,30 +1073,84 @@ export default function Home() {
             </a>
 
             {/* Full Stack Developer - BIT Institute */}
-            <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.25s forwards'}}>
+            <div className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.25s forwards'}}>
               <div className="absolute -inset-1 bg-linear-to-r from-indigo-500/20 via-violet-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-indigo-500/20 transition-all duration-500 hover:-translate-y-1">
                 <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5">
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm sm:text-base font-bold text-white mb-0.5 sm:mb-1">{t.certifications.fullStackTitle}</h3>
                     <p className="text-slate-300 text-sm mb-0.5">{t.certifications.fullStackOrg}</p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2024}</p>
+                    <p className="text-slate-500 text-xs">{t.certifications.year2025}</p>
                   </div>
                   <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                     {t.certifications.valid}
                   </div>
                 </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium hover:bg-indigo-600/30 hover:border-indigo-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+                <div className="flex flex-wrap items-center gap-2">
+                  <a href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium hover:bg-indigo-600/30 hover:border-indigo-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {t.certifications.viewCertificate}
+                  </a>
+                  <a href="/projects/FullStackBIT.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/10 border border-indigo-500/30 text-indigo-200 text-sm font-medium hover:bg-indigo-600/20 hover:border-indigo-400/50 hover:scale-105 transition-all duration-300 shadow-lg">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    {t.certifications.viewPdf}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Inglés C1 - Cambridge Linguaskill */}
+            <a href="/projects/Ingles.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.55s forwards'}}>
+              <div className="absolute -inset-1 bg-linear-to-r from-green-500/20 via-emerald-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+              <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-green-500/20 transition-all duration-500 hover:-translate-y-1">
+                <div className="flex items-start justify-between gap-4 mb-2.5">
+                  <div>
+                    <h3 className="text-base font-bold text-white mb-1">{t.certifications.englishTitle}</h3>
+                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.englishOrg}</p>
+                    <p className="text-slate-500 text-xs">{t.certifications.year2026}</p>
+                  </div>
+                  <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                    {t.certifications.valid}
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600/20 border border-green-500/40 text-green-200 text-sm font-medium hover:bg-green-600/30 hover:border-green-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 01-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  {t.certifications.viewCertificate}
+                  {t.certifications.viewPdf}
+                </div>
+              </div>
+            </a>
+
+            {/* Francés B2 - SMART */}
+            <a href="/projects/Frances.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.7s forwards'}}>
+              <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
+              <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-500 hover:-translate-y-1">
+                <div className="flex items-start justify-between gap-4 mb-2.5">
+                  <div>
+                    <h3 className="text-base font-bold text-white mb-1">{t.certifications.frenchTitle}</h3>
+                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.frenchOrg}</p>
+                    <p className="text-slate-500 text-xs">{t.certifications.year2026}</p>
+                  </div>
+                  <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
+                    {t.certifications.valid}
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-200 text-sm font-medium hover:bg-rose-600/30 hover:border-rose-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  {t.certifications.viewPdf}
                 </div>
               </div>
             </a>
 
             {/* AI Developer - IBM */}
-            <a href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.4s forwards'}}>
+            <a href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.85s forwards'}}>
               <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
                 <div className="flex items-start justify-between gap-4 mb-2.5">
@@ -1106,52 +1168,6 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   {t.certifications.viewBadge}
-                </div>
-              </div>
-            </a>
-
-            {/* Inglés C1 - Duolingo */}
-            <a href="https://certs.duolingo.com/czfbtrq4pns5am5u" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.55s forwards'}}>
-              <div className="absolute -inset-1 bg-linear-to-r from-green-500/20 via-emerald-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-              <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-green-500/20 transition-all duration-500 hover:-translate-y-1">
-                <div className="flex items-start justify-between gap-4 mb-2.5">
-                  <div>
-                    <h3 className="text-base font-bold text-white mb-1">{t.certifications.englishTitle}</h3>
-                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.englishOrg}</p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2024}</p>
-                  </div>
-                  <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                    {t.certifications.valid}
-                  </div>
-                </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600/20 border border-green-500/40 text-green-200 text-sm font-medium hover:bg-green-600/30 hover:border-green-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {t.certifications.viewCertificate}
-                </div>
-              </div>
-            </a>
-
-            {/* Francés B1 - SMART */}
-            <a href="/projects/Frances.pdf" target="_blank" rel="noopener noreferrer" className="group relative block animate-fadeIn overflow-visible opacity-0" style={{animation: 'fadeIn 0.6s ease-out 0.7s forwards'}}>
-              <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
-              <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-500 hover:-translate-y-1">
-                <div className="flex items-start justify-between gap-4 mb-2.5">
-                  <div>
-                    <h3 className="text-base font-bold text-white mb-1">{t.certifications.frenchTitle}</h3>
-                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.frenchOrg}</p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2023}</p>
-                  </div>
-                  <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                    {t.certifications.valid}
-                  </div>
-                </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-200 text-sm font-medium hover:bg-rose-600/30 hover:border-rose-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  {t.certifications.viewPdf}
                 </div>
               </div>
             </a>
