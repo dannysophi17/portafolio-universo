@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import emailjs from '@emailjs/browser';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 /**
  * Formulario de contacto que envía emails usando EmailJS
@@ -36,16 +36,26 @@ export default function ContactForm({ translations: t }: ContactFormProps) {
     setStatus('sending');
 
     try {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJS configuration is missing');
+      }
+
       // Envía el email usando EmailJS
       await emailjs.send(
-        'service_p2yyi81',
-        'template_mp3zngs',
+        serviceId,
+        templateId,
         {
           name: formData.name,
           email: formData.email,
           message: formData.message,
         },
-        'nmNZ6cxIiVwm_Cwxt',
+        {
+          publicKey,
+        },
       );
 
       setStatus('success');
@@ -53,8 +63,13 @@ export default function ContactForm({ translations: t }: ContactFormProps) {
 
       // Reset automático después de 5 segundos
       setTimeout(() => setStatus('idle'), 5000);
-    } catch (error) {
-      console.error('Error sending email:', error);
+    } catch (error: unknown) {
+      if (error instanceof EmailJSResponseStatus) {
+        console.error('EmailJS error:', error.status, error.text);
+      } else {
+        console.error('Error sending email:', error);
+      }
+
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }
