@@ -13,7 +13,6 @@ interface SunProps {
   position: [number, number, number]; // Posición en el espacio 3D
   size: number; // Tamaño del sol
   isFocused?: boolean; // Si está seleccionado (brilla más)
-  isDimmed?: boolean; // Si está atenuado (menos opaco)
   onSelect?: () => void; // Función al hacer clic
 }
 
@@ -21,7 +20,6 @@ export default function Sun({
   position,
   size,
   isFocused = false,
-  isDimmed = false,
   onSelect,
 }: SunProps) {
   const coreRef = useRef<THREE.Mesh>(null);

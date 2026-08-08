@@ -37,7 +37,6 @@ interface SkillsCarouselProps {
 export default function SkillsCarousel({ translations: t, language }: SkillsCarouselProps) {
   const [activeTab, setActiveTab] = useState(0);
   const [isAutoPlaying] = useState(false);           // Auto-play deshabilitado para control manual
-  const [currentIconIndex, setCurrentIconIndex] = useState(0); // Índice del carousel de iconos
 
   const categories: SkillCategory[] = [
     {
@@ -170,14 +169,7 @@ export default function SkillsCarousel({ translations: t, language }: SkillsCaro
     return () => clearInterval(interval);
   }, [isAutoPlaying, categories.length]);
 
-  // Auto-play para iconos flotantes - Automático
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIconIndex((prev) => (prev + 1) % techIcons.length);
-    }, 3000); // Cambia cada 3 segundos
-
-    return () => clearInterval(interval);
-  }, []);
+  // (Removed unused auto-play for icons - it caused renders without visible changes)
 
   const currentCategory = categories[activeTab];
   

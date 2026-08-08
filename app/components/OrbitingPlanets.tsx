@@ -17,7 +17,6 @@ interface PlanetInfo {
 
 /** Propiedades del componente de planetas orbitantes */
 interface OrbitingPlanetsProps {
-  planets: any[];
   focusMode: boolean;   // Si está en modo detalle
   zoomMode?: boolean;   // Si está acercando al planeta
   planetIndex: number;  // Planeta seleccionado actualmente
@@ -26,7 +25,6 @@ interface OrbitingPlanetsProps {
 }
 
 export default function OrbitingPlanets({
-  planets,
   focusMode,
   zoomMode = false,
   planetIndex,
@@ -54,18 +52,7 @@ export default function OrbitingPlanets({
     { name: "Contacto", color: "#E4C88A", size: 1.4, orbitRadius: 30, orbitSpeed: 0.07 },
   ];
 
-  // Función para obtener la posición actual del planeta
-  const getPlanetPosition = (index: number): [number, number, number] => {
-    if (index === 0) return [0, 0, 0]; // Sol en el centro
-    
-    const config = orbitConfig[index];
-    const angle = rotationOffset.current * config.orbitSpeed + (index * Math.PI * 2) / (orbitConfig.length - 1);
-    const x = Math.cos(angle) * config.orbitRadius;
-    const z = Math.sin(angle) * config.orbitRadius;
-    const y = Math.sin(angle * 2) * 0.5;
-    
-    return [x, y, z];
-  };
+  // (getPlanetPosition removed - unused)
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
@@ -202,7 +189,6 @@ export default function OrbitingPlanets({
           position={[0, 0, 0]}
           size={orbitConfig[0].size}
           isFocused={focusMode && planetIndex === 0}
-          isDimmed={false}
           onSelect={() => onPlanetClick?.(0)}
         />
       </group>

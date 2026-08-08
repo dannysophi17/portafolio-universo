@@ -3,20 +3,21 @@
  * Cada planeta representa una sección diferente del portafolio
  * Tres modos: vista general, navegación entre planetas, y vista detallada
  */
-'use client';
+"use client";
 
-import { OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import React, { useEffect, useState } from 'react';
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
-import CameraController from './components/CameraController';
-import ContactForm from './components/ContactForm';
-import IntroStars from './components/IntroStars';
-import LanguageSelector from './components/LanguageSelector';
-import OrbitingPlanets from './components/OrbitingPlanets';
-import ParallaxBackground from './components/ParallaxBackground';
-import SkillsCarousel from './components/SkillsCarousel';
-import { Language, translations } from './translations';
+import CameraController from "./components/CameraController";
+import ContactForm from "./components/ContactForm";
+import IntroStars from "./components/IntroStars";
+import LanguageSelector from "./components/LanguageSelector";
+import OrbitingPlanets from "./components/OrbitingPlanets";
+import ParallaxBackground from "./components/ParallaxBackground";
+import SkillsCarousel from "./components/SkillsCarousel";
+import { Language, translations } from "./translations";
 
 /**
  * Componente para mostrar proyectos con carrusel de imágenes
@@ -48,24 +49,29 @@ interface ProjectsContentProps {
   };
 }
 
+const ARCADE_IMAGES = [
+  "/projects/arcade1.png",
+  "/projects/arcade2.png",
+] as const;
+
+const WORKCANGO_IMAGES = [
+  "/projects/workcango1.png",
+  "/projects/workcango2.png",
+  "/projects/workcango3.png",
+] as const;
+
 function ProjectsContent({ translations: t }: ProjectsContentProps) {
   // Estado del carrusel para cada proyecto con múltiples imágenes
   const [arcadeImageIndex, setArcadeImageIndex] = useState(0);
   const [workcangoImageIndex, setWorkcangoImageIndex] = useState(0);
-  const arcadeImages = ['/projects/arcade1.png', '/projects/arcade2.png'];
-  const workcangoImages = [
-    '/projects/workcango1.png',
-    '/projects/workcango2.png',
-    '/projects/workcango3.png',
-  ];
 
   useEffect(() => {
     const arcadeInterval = setInterval(() => {
-      setArcadeImageIndex((prev) => (prev + 1) % arcadeImages.length);
+      setArcadeImageIndex((prev) => (prev + 1) % ARCADE_IMAGES.length);
     }, 3000);
 
     const workcangoInterval = setInterval(() => {
-      setWorkcangoImageIndex((prev) => (prev + 1) % workcangoImages.length);
+      setWorkcangoImageIndex((prev) => (prev + 1) % WORKCANGO_IMAGES.length);
     }, 3000);
 
     return () => {
@@ -77,63 +83,78 @@ function ProjectsContent({ translations: t }: ProjectsContentProps) {
   const projects = [
     {
       title: t.memoryGift.title,
-      tech: ['Next.js', 'TypeScript', 'Three.js', 'React Three Fiber', 'Zustand'],
-      year: '2026',
-      images: ['/projects/memory-gift.png'],
+      tech: [
+        "Next.js",
+        "TypeScript",
+        "Three.js",
+        "React Three Fiber",
+        "Zustand",
+      ],
+      year: "2026",
+      images: ["/projects/memory-gift.png"],
       description: t.memoryGift.desc,
-      demo: 'https://3d-memory-gift-template.vercel.app/',
-      github: 'https://github.com/dannysophi17/3d-memory-gift-template',
-      color: 'from-violet-500/20 via-indigo-500/20',
-      borderColor: 'border-violet-500/30',
-      glowColor: 'shadow-violet-500/20',
+      demo: "https://3d-memory-gift-template.vercel.app/",
+      github: "https://github.com/dannysophi17/3d-memory-gift-template",
+      color: "from-violet-500/20 via-indigo-500/20",
+      borderColor: "border-violet-500/30",
+      glowColor: "shadow-violet-500/20",
       hasCarousel: false,
       hasMultipleDemos: false,
     },
     {
       title: t.workcango.title,
-      tech: ['React', 'Tailwind CSS', 'Netlify'],
-      year: '2025',
-      images: workcangoImages,
+      tech: ["React", "Tailwind CSS", "Netlify"],
+      year: "2025",
+      images: WORKCANGO_IMAGES,
       currentImageIndex: workcangoImageIndex,
       description: t.workcango.desc,
       demos: [
-        { label: t.workcango.products, url: 'https://productallworkcango.netlify.app/' },
-        { label: t.workcango.projectsLabel, url: 'https://proyectosallworkcango.netlify.app/' },
-        { label: t.workcango.services, url: 'https://serviciosallworkcango.netlify.app/' },
+        {
+          label: t.workcango.products,
+          url: "https://productallworkcango.netlify.app/",
+        },
+        {
+          label: t.workcango.projectsLabel,
+          url: "https://proyectosallworkcango.netlify.app/",
+        },
+        {
+          label: t.workcango.services,
+          url: "https://serviciosallworkcango.netlify.app/",
+        },
       ],
       github: null,
-      color: 'from-blue-500/20 via-indigo-500/20',
-      borderColor: 'border-blue-500/30',
-      glowColor: 'shadow-blue-500/20',
+      color: "from-blue-500/20 via-indigo-500/20",
+      borderColor: "border-blue-500/30",
+      glowColor: "shadow-blue-500/20",
       hasCarousel: true,
       hasMultipleDemos: true,
     },
     {
       title: t.arcade.title,
-      tech: ['Angular', 'Node.js', 'MongoDB', 'Express'],
-      year: '2025',
-      images: arcadeImages,
+      tech: ["Angular", "Node.js", "MongoDB", "Express"],
+      year: "2025",
+      images: ARCADE_IMAGES,
       currentImageIndex: arcadeImageIndex,
       description: t.arcade.desc,
-      demo: 'https://tareas-arcade-final-git-main-daniela-coavas-projects.vercel.app/login',
-      github: 'https://github.com/dannysophi17/Tareas-arcade-final',
-      color: 'from-red-500/20 via-pink-500/20',
-      borderColor: 'border-red-500/30',
-      glowColor: 'shadow-red-500/20',
+      demo: "https://tareas-arcade-final-git-main-daniela-coavas-projects.vercel.app/login",
+      github: "https://github.com/dannysophi17/Tareas-arcade-final",
+      color: "from-red-500/20 via-pink-500/20",
+      borderColor: "border-red-500/30",
+      glowColor: "shadow-red-500/20",
       hasCarousel: true,
       hasMultipleDemos: false,
     },
     {
       title: t.techforge.title,
-      tech: ['HTML5', 'CSS3', 'JavaScript', 'Dominio Propio'],
-      year: '2024',
-      images: ['/projects/techforges.png'],
+      tech: ["HTML5", "CSS3", "JavaScript", "Dominio Propio"],
+      year: "2024",
+      images: ["/projects/techforges.png"],
       description: t.techforge.desc,
-      demo: 'https://www.techforges.com/',
-      github: 'https://github.com/dannysophi17/TechForge_Front_end',
-      color: 'from-purple-500/20 via-violet-500/20',
-      borderColor: 'border-purple-500/30',
-      glowColor: 'shadow-purple-500/20',
+      demo: "https://www.techforges.com/",
+      github: "https://github.com/dannysophi17/TechForge_Front_end",
+      color: "from-purple-500/20 via-violet-500/20",
+      borderColor: "border-purple-500/30",
+      glowColor: "shadow-purple-500/20",
       hasCarousel: false,
       hasMultipleDemos: false,
     },
@@ -142,13 +163,17 @@ function ProjectsContent({ translations: t }: ProjectsContentProps) {
   return (
     <div className="relative h-full overflow-y-auto px-4 md:px-6 py-4 pb-14 space-y-6">
       {projects.map((p, i) => {
-        const currentImage = p.hasCarousel ? p.images[p.currentImageIndex!] : p.images[0];
+        const currentImage = p.hasCarousel
+          ? p.images[p.currentImageIndex!]
+          : p.images[0];
 
         return (
           <div
             key={i}
             className="group relative animate-fadeIn overflow-visible opacity-0"
-            style={{ animation: `fadeIn 0.6s ease-out ${0.1 + i * 0.2}s forwards` }}
+            style={{
+              animation: `fadeIn 0.6s ease-out ${0.1 + i * 0.2}s forwards`,
+            }}
           >
             {/* Glow effect - Ahora con overflow visible */}
             <div
@@ -205,30 +230,40 @@ function ProjectsContent({ translations: t }: ProjectsContentProps) {
                   <div className="absolute bottom-2 right-2 z-10 flex gap-1.5">
                     {p.images.map((_, idx) => {
                       const isWorkCango = p.title === t.workcango.title;
-                      const activeColor = isWorkCango ? 'bg-blue-500' : 'bg-white';
-                      const inactiveColor = isWorkCango ? 'bg-blue-300/60' : 'bg-white/40';
+                      const activeColor = isWorkCango
+                        ? "bg-blue-500"
+                        : "bg-white";
+                      const inactiveColor = isWorkCango
+                        ? "bg-blue-300/60"
+                        : "bg-white/40";
                       return (
                         <div
                           key={idx}
                           className={`w-2 h-2 rounded-full transition-all duration-300 shadow-lg ${
-                            idx === p.currentImageIndex ? `${activeColor} w-6` : inactiveColor
+                            idx === p.currentImageIndex
+                              ? `${activeColor} w-6`
+                              : inactiveColor
                           }`}
                         />
                       );
                     })}
                   </div>
                 )}
-                <div className="aspect-video bg-linear-to-br from-white/5 to-white/10">
-                  <img
+                <div className="relative aspect-video overflow-hidden bg-linear-to-br from-white/5 to-white/10">
+                  <Image
                     src={currentImage}
                     alt={p.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               </div>
 
               {/* Descripción */}
-              <p className="text-white/80 text-sm leading-relaxed mb-4">{p.description}</p>
+              <p className="text-white/80 text-sm leading-relaxed mb-4">
+                {p.description}
+              </p>
 
               {/* Botones */}
               <div className="flex gap-2 flex-wrap">
@@ -346,677 +381,52 @@ type PlanetInfo = {
  */
 const planetsData: PlanetInfo[] = [
   {
-    name: 'Sobre mí',
+    name: "Sobre mí",
     planetPos: [0, 0, 0],
     cameraPos: [0, 0, 15],
     focusDepth: 0.018,
-    title: '',
-    content: (
-      <div className="relative h-full overflow-y-auto px-4 sm:px-4 md:px-6 py-6 sm:py-4 space-y-5 sm:space-y-6">
-        {/* Header con foto */}
-        <div
-          className="group relative animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/30 via-orange-500/30 to-amber-500/30 rounded-3xl blur-lg opacity-50 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10 animate-pulse" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-amber-500/30 md:border-white/10 rounded-3xl p-5 sm:p-5 md:p-6 shadow-2xl shadow-amber-500/10 hover:border-amber-400/50 md:hover:border-white/20 hover:shadow-amber-500/20 transition-all duration-500">
-            <div className="flex items-start gap-3 sm:gap-4 md:gap-5">
-              <div className="relative shrink-0">
-                <div className="h-20 w-20 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/50">
-                  <img
-                    src="/projects/imagenDaniela.jpg"
-                    alt="Daniela Sophia Coavas Barboza"
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-                <div className="absolute -bottom-1 -right-1 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 rounded-full bg-emerald-400 border-[3px] border-black shadow-lg" />
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h1 className="text-xl sm:text-2xl md:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2">
-                  Daniela Sophia Coavas Barboza
-                </h1>
-                <p className="text-slate-300 text-xs sm:text-sm md:text-xs lg:text-sm mb-2 sm:mb-3">
-                  Desarrolladora Full Stack Junior | Freelancer
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold animate-pulse">
-                    • Disponible para trabajar
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-violet-500/10 border border-violet-400/20 text-violet-200 text-xs">
-                    Bogotá, Colombia
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Resumen profesional */}
-        <div
-          className="group relative animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/30 via-purple-500/30 to-indigo-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-indigo-500/30 md:border-white/10 rounded-3xl p-5 sm:p-5 shadow-2xl shadow-indigo-500/10 hover:border-indigo-400/50 md:hover:border-white/20 hover:shadow-indigo-500/20 transition-all duration-700">
-            <div className="flex items-center gap-2 mb-3">
-              <svg
-                className="w-5 h-5 text-indigo-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-              <h3 className="text-base font-bold text-white uppercase tracking-wider">Resumen</h3>
-            </div>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Actualmente estoy en mi tercer semestre de Ingeniería de Sistemas en la Universidad
-              EAN, donde lidero la iniciativa Women in Cloud del AWS Cloud Club y hago parte del
-              core team. Recientemente completé mi certificación como AWS Cloud Practitioner y un
-              intenso bootcamp Full Stack de 400 horas en BIT Institute. Busco oportunidades donde
-              pueda seguir aprendiendo y creciendo de manera profesional y personal. Dispuesta a
-              asumir nuevos retos y contribuir con mi pasión por la tecnología y el desarrollo web.
-            </p>
-          </div>
-        </div>
-
-        {/* Grid de logros */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {/* Universidad EAN */}
-          <div
-            className="group relative animate-fadeIn overflow-visible opacity-0"
-            style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.35s forwards' }}
-          >
-            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/30 to-blue-500/30 rounded-3xl blur-lg opacity-50 md:opacity-0 group-hover:opacity-70 transition duration-700 -z-10" />
-            <div className="relative bg-gradient-to-br from-indigo-950/50 via-black/60 to-blue-950/50 md:bg-black/40 backdrop-blur-2xl border-2 border-indigo-500/40 md:border-white/10 rounded-3xl p-5 sm:p-4 shadow-2xl shadow-indigo-500/20 hover:border-indigo-400/60 md:hover:border-white/20 hover:-translate-y-1 transition-all duration-700">
-              <svg
-                className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-indigo-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 14l9-5-9-5-9 5 9 5z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-                />
-              </svg>
-              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Estudiante</p>
-              <p className="text-white font-semibold mb-1 text-sm sm:text-base">
-                Ingeniería de Sistemas
-              </p>
-              <p className="text-xs sm:text-sm text-slate-400">Universidad EAN</p>
-            </div>
-          </div>
-
-          {/* AWS Certification */}
-          <div
-            className="group relative animate-fadeIn overflow-visible opacity-0"
-            style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.45s forwards' }}
-          >
-            <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/30 to-purple-500/30 rounded-3xl blur-lg opacity-50 md:opacity-0 group-hover:opacity-70 transition duration-700 -z-10" />
-            <div className="relative bg-gradient-to-br from-violet-950/50 via-black/60 to-purple-950/50 md:bg-black/40 backdrop-blur-2xl border-2 border-violet-500/40 md:border-white/10 rounded-3xl p-5 sm:p-4 shadow-2xl shadow-violet-500/20 hover:border-violet-400/60 md:hover:border-white/20 hover:-translate-y-1 transition-all duration-700">
-              <svg
-                className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-violet-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                />
-              </svg>
-              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Certificación</p>
-              <p className="text-white font-semibold mb-1 text-sm sm:text-base">AWS Certified</p>
-              <p className="text-xs sm:text-sm text-slate-400">Cloud Practitioner 2025</p>
-            </div>
-          </div>
-
-          {/* Full Stack Bootcamp */}
-          <div
-            className="group relative animate-fadeIn overflow-visible opacity-0"
-            style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s forwards' }}
-          >
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-3xl blur-lg opacity-50 md:opacity-0 group-hover:opacity-70 transition duration-700 -z-10" />
-            <div className="relative bg-gradient-to-br from-blue-950/50 via-black/60 to-cyan-950/50 md:bg-black/40 backdrop-blur-2xl border-2 border-blue-500/40 md:border-white/10 rounded-3xl p-5 sm:p-4 shadow-2xl shadow-blue-500/20 hover:border-blue-400/60 md:hover:border-white/20 hover:-translate-y-1 transition-all duration-700">
-              <svg
-                className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 mb-2 sm:mb-3 text-blue-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                />
-              </svg>
-              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Bootcamp</p>
-              <p className="text-white font-semibold mb-1">Full Stack Developer</p>
-              <p className="text-sm text-slate-400">BIT Institute 2025</p>
-            </div>
-          </div>
-
-          {/* Women in Cloud */}
-          <div
-            className="group relative animate-fadeIn overflow-visible opacity-0"
-            style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.65s forwards' }}
-          >
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-3xl blur-lg opacity-50 md:opacity-0 group-hover:opacity-70 transition duration-700 -z-10" />
-            <div className="relative bg-gradient-to-br from-purple-950/50 via-black/60 to-pink-950/50 md:bg-black/40 backdrop-blur-2xl border-2 border-purple-500/40 md:border-white/10 rounded-3xl p-5 sm:p-4 shadow-2xl shadow-purple-500/20 hover:border-purple-400/60 md:hover:border-white/20 hover:-translate-y-1 transition-all duration-700">
-              <svg
-                className="w-8 h-8 mb-3 text-purple-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">Liderazgo</p>
-              <p className="text-white font-semibold mb-1">Women in Cloud</p>
-              <p className="text-sm text-slate-400">AWS Cloud Club EAN</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Sección de descarga de CV */}
-        <div
-          className="group relative animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.75s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/30 via-blue-500/30 to-cyan-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-cyan-500/30 md:border-white/10 rounded-3xl p-6 sm:p-5 shadow-2xl shadow-cyan-500/10 hover:border-cyan-400/50 md:hover:border-white/20 hover:shadow-cyan-500/20 transition-all duration-700">
-            <div className="flex items-center gap-2 mb-4">
-              <svg
-                className="w-5 h-5 text-cyan-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              <h3 className="text-base font-bold text-white uppercase tracking-wider">
-                Curriculum Vitae
-              </h3>
-            </div>
-            <p className="text-slate-300 text-sm mb-4">
-              Descarga mi CV para conocer más detalles sobre mi experiencia y formación.
-            </p>
-
-            <div className="flex flex-wrap gap-3">
-              {/* CV en Español */}
-              <a
-                href="/CV_2026_ES.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/btn relative flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30 rounded-xl text-white hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
-                <span className="font-medium">CV Español</span>
-                <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">PDF</span>
-              </a>
-
-              {/* CV en Inglés */}
-              <a
-                href="/CV_2026_ENG.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/btn relative flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-violet-500/20 to-purple-500/20 border border-violet-400/30 rounded-xl text-white hover:border-violet-400/60 hover:shadow-lg hover:shadow-violet-500/20 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
-                </svg>
-                <span className="font-medium">CV English</span>
-                <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">PDF</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
+    title: "",
+    content: null,
   },
   {
-    name: 'Trayectoria',
+    name: "Trayectoria",
     planetPos: [-12, 3, 0],
     cameraPos: [-6, 3, 8],
     focusDepth: 0.02,
-    title: 'Mi Trayectoria',
-    content: (
-      <div className="relative h-full overflow-y-auto overflow-x-hidden pr-2 sm:pr-3 md:pr-4 py-3 sm:py-4 md:py-6 space-y-4 sm:space-y-5 md:space-y-6">
-        {/* Cards horizontales modernas */}
-        {[
-          {
-            title: 'Ingeniería de Sistemas',
-            subtitle: 'Universidad EAN',
-            year: '2024 - Actualidad',
-            badge: '3er Semestre',
-            desc: 'Formación enfocada en desarrollo de software, análisis de sistemas y arquitectura de soluciones. Énfasis en programación full stack y computación en la nube.',
-            icon: (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z M12 14v6.5"
-                />
-              </svg>
-            ),
-            color: 'indigo',
-          },
-          {
-            title: 'Líder Women in Cloud & Core Team',
-            subtitle: 'AWS Cloud Club EAN',
-            year: '2025 - Actualidad',
-            desc: 'Lidero la iniciativa Women in Cloud y organizo eventos para promover la participación femenina en tecnología. Cofacilitadora en sesiones técnicas de AWS, diseñando sesiones sobre fundamentos de AWS (Solutions Architect - Associate).',
-            icon: (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                />
-              </svg>
-            ),
-            color: 'blue',
-          },
-          {
-            title: 'AWS Cloud Practitioner',
-            subtitle: 'Amazon Web Services',
-            year: '2025',
-            desc: 'Certificación en fundamentos de cloud computing, servicios AWS y mejores prácticas de arquitectura en la nube.',
-            icon: (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                />
-              </svg>
-            ),
-            color: 'amber',
-          },
-          {
-            title: 'Bootcamp Full Stack Developer',
-            subtitle: 'BIT Institute',
-            year: 'febrero 2025 - agosto 2025',
-            desc: 'Bootcamp intensivo de 400 horas orientado al desarrollo web Full Stack con el ecosistema MEAN (MongoDB, ExpressJS, Angular y NodeJS). Aplicación de metodologías ágiles (SCRUM), control de versiones con Git y desarrollo de aplicación web completa.',
-            icon: (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806A3.42 3.42 0 0120.1 7.835a3.42 3.42 0 01.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 01-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806A3.42 3.42 0 013.1 15.165 3.42 3.42 0 012.294 13.22a3.42 3.42 0 010-4.438A3.42 3.42 0 013.1 6.835a3.42 3.42 0 013.138-3.138z"
-                />
-              </svg>
-            ),
-            color: 'purple',
-          },
-          {
-            title: 'Desarrollo con IA',
-            subtitle: 'IBM / Coursera',
-            year: '2024',
-            desc: 'Especialización en integración de inteligencia artificial en aplicaciones modernas y machine learning.',
-            icon: (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                />
-              </svg>
-            ),
-            color: 'cyan',
-          },
-        ].map((item, index) => (
-          <div
-            key={index}
-            className="group relative perspective-1000 animate-fadeIn opacity-0"
-            style={{ animation: `fadeIn 0.6s ease-out ${0.1 + index * 0.12}s forwards` }}
-          >
-            {/* Glow effect */}
-            <div
-              className={`absolute -inset-0.5 bg-linear-to-r from-${item.color}-600 to-${item.color}-500 rounded-2xl blur opacity-0 group-hover:opacity-60 transition duration-500`}
-            />
-
-            {/* Card - más transparente */}
-            <div
-              className={`relative bg-${item.color}-950/20 border border-${item.color}-800/30 rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 backdrop-blur-xl transition-all duration-500 hover:border-${item.color}-700/50 hover:shadow-2xl hover:shadow-${item.color}-600/20 hover:-translate-y-2`}
-            >
-              {/* Header con icono y badge */}
-              <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1 min-w-0">
-                  <div
-                    className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl bg-${item.color}-900/60 border border-${item.color}-700/60 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 text-${item.color}-300 shrink-0`}
-                  >
-                    {item.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3
-                      className={`text-base sm:text-lg font-bold text-white mb-0.5 sm:mb-1 group-hover:text-${item.color}-200 transition-colors`}
-                    >
-                      {item.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-400 truncate">{item.subtitle}</p>
-                  </div>
-                </div>
-                {item.badge && (
-                  <span className="px-3 py-1 rounded-full bg-emerald-900/40 border border-emerald-700/50 text-emerald-300 text-xs font-medium shrink-0">
-                    {item.badge}
-                  </span>
-                )}
-              </div>
-
-              {/* Descripción */}
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-2 sm:mb-3">
-                {item.desc}
-              </p>
-
-              {/* Año */}
-              <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-slate-500">
-                <svg
-                  className="w-3.5 h-3.5 sm:w-4 sm:h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                {item.year}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    ),
+    title: "",
+    content: null,
   },
   {
-    name: 'Habilidades',
+    name: "Habilidades",
     planetPos: [6, -2, -1],
     cameraPos: [6, -2, 8],
     focusDepth: 0.02,
-    title: 'Habilidades Técnicas',
-    content: <div></div>, // Placeholder - se reemplaza en useMemo
+    title: "",
+    content: null,
   },
   {
-    name: 'Proyectos',
+    name: "Proyectos",
     planetPos: [-6, 3, -1],
     cameraPos: [-6, 3, 8],
     focusDepth: 0.02,
-    title: 'Proyectos Destacados',
-    content: <div></div>, // Placeholder - se reemplaza en useMemo
+    title: "",
+    content: null,
   },
   {
-    name: 'Certificaciones',
+    name: "Certificaciones",
     planetPos: [6, -3, 1],
     cameraPos: [6, -3, 9],
     focusDepth: 0.021,
-    title: 'Certificaciones Profesionales',
-    content: (
-      <div className="relative h-full flex flex-col justify-center px-4 sm:px-4 md:px-6 py-6 sm:py-3 space-y-4 sm:space-y-2.5">
-        {/* AWS Cloud Practitioner */}
-        <a
-          href="https://www.credly.com/badges/5e711328-7f2e-4b42-b67e-84e69f017ff1/linked_in_profile"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative block animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-orange-500/30 via-amber-500/30 to-orange-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-orange-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-orange-500/10 hover:border-orange-400/50 md:hover:border-white/20 hover:shadow-orange-500/30 transition-all duration-700 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-3 sm:gap-3 md:gap-4 mb-3 sm:mb-2.5">
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base sm:text-base font-bold text-white mb-1.5 sm:mb-1 leading-snug">
-                  AWS Certified Cloud Practitioner
-                </h3>
-                <p className="text-slate-300 text-sm sm:text-sm mb-1 leading-relaxed">
-                  Amazon Web Services
-                </p>
-                <p className="text-slate-400 text-xs">2025</p>
-              </div>
-              <div className="shrink-0 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                Vigente
-              </div>
-            </div>
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-orange-600/20 border border-orange-500/40 text-orange-200 text-xs sm:text-sm font-medium hover:bg-orange-600/30 hover:border-orange-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-              <svg
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Ver Badge en Credly
-            </div>
-          </div>
-        </a>
-
-        {/* Full Stack Developer - BIT Institute */}
-        <div
-          className="group relative block animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/30 via-violet-500/30 to-indigo-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-indigo-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-indigo-500/10 hover:border-indigo-400/50 md:hover:border-white/20 hover:shadow-indigo-500/30 transition-all duration-700 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5">
-              <div className="flex-1 min-w-0">
-                <h3 className="text-sm sm:text-base font-bold text-white mb-0.5 sm:mb-1">
-                  Full Stack Software Developer
-                </h3>
-                <p className="text-slate-300 text-sm mb-0.5">BIT Institute</p>
-                <p className="text-slate-500 text-xs">2025</p>
-              </div>
-              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                Vigente
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <a
-                href="https://bit.learn.ada-school.org/certifications/686597f9443dfd1abec6ccd7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium hover:bg-indigo-600/30 hover:border-indigo-400/60 hover:scale-105 transition-all duration-300 shadow-lg"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Ver Certificado
-              </a>
-              <a
-                href="/projects/FullStackBIT.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/10 border border-indigo-500/30 text-indigo-200 text-sm font-medium hover:bg-indigo-600/20 hover:border-indigo-400/50 hover:scale-105 transition-all duration-300 shadow-lg"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                Ver PDF
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Inglés C1 - Cambridge Linguaskill */}
-        <a
-          href="/projects/Ingles.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative block animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.45s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-green-500/30 via-emerald-500/30 to-green-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-green-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-green-500/10 hover:border-green-400/50 md:hover:border-white/20 hover:shadow-green-500/30 transition-all duration-700 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-4 mb-2.5">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">
-                  Inglés C1 - Cambridge Linguaskill
-                </h3>
-                <p className="text-slate-300 text-sm mb-0.5">Cambridge English</p>
-                <p className="text-slate-500 text-xs">2026</p>
-              </div>
-              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                Vigente
-              </div>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600/20 border border-green-500/40 text-green-200 text-sm font-medium hover:bg-green-600/30 hover:border-green-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              Ver PDF
-            </div>
-          </div>
-        </a>
-
-        {/* Francés B2 - SMART */}
-        <a
-          href="/projects/Frances.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative block animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-700 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-4 mb-2.5">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">
-                  Francés B2 - Upper Intermediate
-                </h3>
-                <p className="text-slate-300 text-sm mb-0.5">SMART Language Institute</p>
-                <p className="text-slate-500 text-xs">2026</p>
-              </div>
-              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                Vigente
-              </div>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-200 text-sm font-medium hover:bg-rose-600/30 hover:border-rose-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              Ver PDF
-            </div>
-          </div>
-        </a>
-
-        {/* AI Developer - IBM */}
-        <a
-          href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative block animate-fadeIn overflow-visible opacity-0"
-          style={{ animation: 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.65s forwards' }}
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 via-cyan-500/30 to-blue-500/30 rounded-3xl blur-lg opacity-40 md:opacity-0 group-hover:opacity-60 transition duration-700 -z-10" />
-          <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-2xl border-2 border-blue-500/30 md:border-white/10 rounded-3xl p-5 sm:p-3.5 shadow-2xl shadow-blue-500/10 hover:border-blue-400/50 md:hover:border-white/20 hover:shadow-blue-500/30 transition-all duration-700 hover:-translate-y-1">
-            <div className="flex items-start justify-between gap-4 mb-2.5">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">
-                  AI Developer Professional Certificate
-                </h3>
-                <p className="text-slate-300 text-sm mb-0.5">IBM / Coursera</p>
-                <p className="text-slate-500 text-xs">2024</p>
-              </div>
-              <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
-                Vigente
-              </div>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-200 text-sm font-medium hover:bg-blue-600/30 hover:border-blue-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Ver Badge en Credly
-            </div>
-          </div>
-        </a>
-      </div>
-    ),
+    title: "",
+    content: null,
   },
   {
-    name: 'Contacto',
+    name: "Contacto",
     planetPos: [-5, -3, -1],
     cameraPos: [-5, -3, 8],
     focusDepth: 0.02,
-    title: 'Contacto',
-    content: <div></div>, // Placeholder - se reemplaza en useMemo
+    title: "",
+    content: null,
   },
 ];
 
@@ -1031,26 +441,36 @@ export default function Home() {
   const [focusMode, setFocusMode] = useState(false); // Panel de contenido visible en lado derecho
   const [zoomMode, setZoomMode] = useState(false); // Estado de transición antes de mostrar contenido
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [currentPlanetPosition, setCurrentPlanetPosition] = useState<[number, number, number]>([
-    0, 0, 0,
-  ]);
-  const [language, setLanguage] = useState<Language>('es'); // Idioma actual
+  const [currentPlanetPosition, setCurrentPlanetPosition] = useState<
+    [number, number, number]
+  >([0, 0, 0]);
+  const [language, setLanguage] = useState<Language>("es"); // Idioma actual
 
   const t = translations[language]; // Traducciones actuales
 
   // Nombres de planetas traducidos (en orden: Sobre mí, Trayectoria, Habilidades, Proyectos, Certificaciones, Contacto)
-  const planetNames = [
-    t.planets.aboutMe,
-    t.planets.journey,
-    t.planets.skills,
-    t.planets.projects,
-    t.planets.certifications,
-    t.planets.contact,
-  ];
+  const planetNames = React.useMemo(
+    () => [
+      t.planets.aboutMe,
+      t.planets.journey,
+      t.planets.skills,
+      t.planets.projects,
+      t.planets.certifications,
+      t.planets.contact,
+    ],
+    [
+      t.planets.aboutMe,
+      t.planets.journey,
+      t.planets.skills,
+      t.planets.projects,
+      t.planets.certifications,
+      t.planets.contact,
+    ],
+  );
 
   // Actualizar título del documento según la sección actual
   useEffect(() => {
-    const baseTitle = 'Daniela Coavas';
+    const baseTitle = "Daniela Coavas";
     if (focusMode && planetNames[planetIndex]) {
       document.title = `${planetNames[planetIndex]} | ${baseTitle}`;
     } else {
@@ -1071,17 +491,19 @@ export default function Home() {
             {/* Header con foto */}
             <div
               className="group relative animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.1s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.1s forwards" }}
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 md:p-6 shadow-2xl hover:border-white/20 transition-all duration-500">
                 <div className="flex items-start gap-3 sm:gap-4 md:gap-5">
                   <div className="relative shrink-0">
-                    <div className="h-20 w-20 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/50">
-                      <img
+                    <div className="relative h-20 w-20 overflow-hidden rounded-2xl border-2 border-amber-400/50 shadow-2xl sm:h-20 sm:w-20 md:h-24 md:w-24">
+                      <Image
                         src="/projects/imagenDaniela.jpg"
                         alt="Daniela Sophia Coavas Barboza"
-                        className="w-full h-full object-cover object-center"
+                        fill
+                        sizes="(max-width: 768px) 80px, 96px"
+                        className="object-cover object-center"
                       />
                     </div>
                     <div className="absolute -bottom-1 -right-1 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 rounded-full bg-emerald-400 border-[3px] border-black shadow-lg" />
@@ -1092,9 +514,9 @@ export default function Home() {
                       Daniela Sophia Coavas Barboza
                     </h1>
                     <p className="text-slate-300 text-xs sm:text-sm md:text-xs lg:text-sm mb-2 sm:mb-3">
-                      {language === 'es'
-                        ? 'Desarrolladora Full Stack Junior | Freelancer'
-                        : 'Junior Full Stack Developer | Freelancer'}
+                      {language === "es"
+                        ? "Desarrolladora Full Stack Junior | Freelancer"
+                        : "Junior Full Stack Developer | Freelancer"}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold animate-pulse">
@@ -1112,7 +534,7 @@ export default function Home() {
             {/* Resumen profesional */}
             <div
               className="group relative animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.25s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.25s forwards" }}
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 transition-all duration-500">
@@ -1134,7 +556,9 @@ export default function Home() {
                     {t.about.summary}
                   </h3>
                 </div>
-                <p className="text-slate-300 text-sm leading-relaxed">{t.about.summaryText}</p>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  {t.about.summaryText}
+                </p>
               </div>
             </div>
 
@@ -1143,7 +567,7 @@ export default function Home() {
               {/* Universidad EAN */}
               <div
                 className="group relative animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.4s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.4s forwards" }}
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
@@ -1172,14 +596,16 @@ export default function Home() {
                   <p className="text-white font-semibold mb-1 text-sm sm:text-base">
                     {t.about.degree}
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-400">{t.about.university}</p>
+                  <p className="text-xs sm:text-sm text-slate-400">
+                    {t.about.university}
+                  </p>
                 </div>
               </div>
 
               {/* AWS Certification */}
               <div
                 className="group relative animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.5s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.5s forwards" }}
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-violet-500/20 via-purple-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
@@ -1202,14 +628,16 @@ export default function Home() {
                   <p className="text-white font-semibold mb-1 text-sm sm:text-base">
                     {t.about.awsCertified}
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-400">{t.about.awsYear}</p>
+                  <p className="text-xs sm:text-sm text-slate-400">
+                    {t.about.awsYear}
+                  </p>
                 </div>
               </div>
 
               {/* Full Stack Bootcamp */}
               <div
                 className="group relative animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.6s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.6s forwards" }}
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
@@ -1229,15 +657,19 @@ export default function Home() {
                   <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">
                     {t.about.bootcamp}
                   </p>
-                  <p className="text-white font-semibold mb-1">{t.about.bootcampTitle}</p>
-                  <p className="text-sm text-slate-400">{t.about.bootcampInstitute}</p>
+                  <p className="text-white font-semibold mb-1">
+                    {t.about.bootcampTitle}
+                  </p>
+                  <p className="text-sm text-slate-400">
+                    {t.about.bootcampInstitute}
+                  </p>
                 </div>
               </div>
 
               {/* Women in Cloud */}
               <div
                 className="group relative animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.7s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.7s forwards" }}
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl hover:border-white/20 hover:-translate-y-1 transition-all duration-500">
@@ -1257,8 +689,12 @@ export default function Home() {
                   <p className="text-xs text-slate-500 mb-1 uppercase font-semibold">
                     {t.about.leadership}
                   </p>
-                  <p className="text-white font-semibold mb-1">{t.about.womenInCloud}</p>
-                  <p className="text-sm text-slate-400">{t.about.awsCloudClub}</p>
+                  <p className="text-white font-semibold mb-1">
+                    {t.about.womenInCloud}
+                  </p>
+                  <p className="text-sm text-slate-400">
+                    {t.about.awsCloudClub}
+                  </p>
                 </div>
               </div>
             </div>
@@ -1266,7 +702,7 @@ export default function Home() {
             {/* Sección de descarga de CV */}
             <div
               className="group relative animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.85s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.85s forwards" }}
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-2xl hover:border-white/20 transition-all duration-500">
@@ -1288,7 +724,9 @@ export default function Home() {
                     {t.about.cvTitle}
                   </h3>
                 </div>
-                <p className="text-slate-300 text-sm mb-4">{t.about.cvDescription}</p>
+                <p className="text-slate-300 text-sm mb-4">
+                  {t.about.cvDescription}
+                </p>
 
                 <div className="flex flex-wrap gap-3">
                   {/* CV en Español */}
@@ -1298,7 +736,12 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="group/btn relative flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30 rounded-xl text-white hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-0.5"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1307,7 +750,9 @@ export default function Home() {
                       />
                     </svg>
                     <span className="font-medium">{t.about.cvSpanish}</span>
-                    <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">PDF</span>
+                    <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">
+                      PDF
+                    </span>
                   </a>
 
                   {/* CV en Inglés */}
@@ -1317,7 +762,12 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="group/btn relative flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-violet-500/20 to-purple-500/20 border border-violet-400/30 rounded-xl text-white hover:border-violet-400/60 hover:shadow-lg hover:shadow-violet-500/20 transition-all duration-300 hover:-translate-y-0.5"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1326,7 +776,9 @@ export default function Home() {
                       />
                     </svg>
                     <span className="font-medium">{t.about.cvEnglish}</span>
-                    <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">PDF</span>
+                    <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs">
+                      PDF
+                    </span>
                   </a>
                 </div>
               </div>
@@ -1347,11 +799,17 @@ export default function Home() {
               {
                 title: t.journey.systemsEngineering,
                 subtitle: t.journey.eanUniversity,
-                year: language === 'es' ? '2024 - Actualidad' : '2024 - Present',
+                year:
+                  language === "es" ? "2024 - Actualidad" : "2024 - Present",
                 badge: t.journey.currentSemester,
                 desc: t.journey.systemsDesc,
                 icon: (
-                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-7 h-7"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1360,15 +818,21 @@ export default function Home() {
                     />
                   </svg>
                 ),
-                color: 'indigo',
+                color: "indigo",
               },
               {
                 title: t.journey.womenInCloud,
                 subtitle: t.journey.awsCloudClub,
-                year: language === 'es' ? '2025 - Actualidad' : '2025 - Present',
+                year:
+                  language === "es" ? "2025 - Actualidad" : "2025 - Present",
                 desc: t.journey.womenDesc,
                 icon: (
-                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-7 h-7"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1377,7 +841,7 @@ export default function Home() {
                     />
                   </svg>
                 ),
-                color: 'blue',
+                color: "blue",
               },
               {
                 title: t.journey.awsCertified,
@@ -1385,7 +849,12 @@ export default function Home() {
                 year: t.journey.year2025,
                 desc: t.journey.awsDesc,
                 icon: (
-                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-7 h-7"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1394,7 +863,7 @@ export default function Home() {
                     />
                   </svg>
                 ),
-                color: 'amber',
+                color: "amber",
               },
               {
                 title: t.journey.fullStackBootcamp,
@@ -1402,7 +871,12 @@ export default function Home() {
                 year: t.journey.dateRange,
                 desc: t.journey.bootcampDesc,
                 icon: (
-                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-7 h-7"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1411,7 +885,7 @@ export default function Home() {
                     />
                   </svg>
                 ),
-                color: 'purple',
+                color: "purple",
               },
               {
                 title: t.journey.aiDevelopment,
@@ -1419,7 +893,12 @@ export default function Home() {
                 year: t.journey.year2024,
                 desc: t.journey.aiDesc,
                 icon: (
-                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-7 h-7"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1428,13 +907,15 @@ export default function Home() {
                     />
                   </svg>
                 ),
-                color: 'cyan',
+                color: "cyan",
               },
             ].map((item, index) => (
               <div
                 key={index}
                 className="group relative perspective-1000 animate-fadeIn opacity-0"
-                style={{ animation: `fadeIn 0.6s ease-out ${0.1 + index * 0.12}s forwards` }}
+                style={{
+                  animation: `fadeIn 0.6s ease-out ${0.1 + index * 0.12}s forwards`,
+                }}
               >
                 {/* Glow effect */}
                 <div
@@ -1529,7 +1010,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="group relative block animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.1s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.1s forwards" }}
             >
               <div className="absolute -inset-1 bg-linear-to-r from-orange-500/20 via-amber-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-orange-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1541,7 +1022,9 @@ export default function Home() {
                     <p className="text-slate-300 text-xs sm:text-sm mb-0.5">
                       {t.certifications.awsOrg}
                     </p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2025}</p>
+                    <p className="text-slate-500 text-xs">
+                      {t.certifications.year2025}
+                    </p>
                   </div>
                   <div className="shrink-0 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                     {t.certifications.valid}
@@ -1569,7 +1052,7 @@ export default function Home() {
             {/* Full Stack Developer - BIT Institute */}
             <div
               className="group relative block animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.25s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.25s forwards" }}
             >
               <div className="absolute -inset-1 bg-linear-to-r from-indigo-500/20 via-violet-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl hover:border-white/20 hover:shadow-indigo-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1578,8 +1061,12 @@ export default function Home() {
                     <h3 className="text-sm sm:text-base font-bold text-white mb-0.5 sm:mb-1">
                       {t.certifications.fullStackTitle}
                     </h3>
-                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.fullStackOrg}</p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2025}</p>
+                    <p className="text-slate-300 text-sm mb-0.5">
+                      {t.certifications.fullStackOrg}
+                    </p>
+                    <p className="text-slate-500 text-xs">
+                      {t.certifications.year2025}
+                    </p>
                   </div>
                   <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                     {t.certifications.valid}
@@ -1592,7 +1079,12 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium hover:bg-indigo-600/30 hover:border-indigo-400/60 hover:scale-105 transition-all duration-300 shadow-lg"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1608,7 +1100,12 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/10 border border-indigo-500/30 text-indigo-200 text-sm font-medium hover:bg-indigo-600/20 hover:border-indigo-400/50 hover:scale-105 transition-all duration-300 shadow-lg"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1628,7 +1125,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="group relative block animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.55s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.55s forwards" }}
             >
               <div className="absolute -inset-1 bg-linear-to-r from-green-500/20 via-emerald-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-green-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1637,15 +1134,24 @@ export default function Home() {
                     <h3 className="text-base font-bold text-white mb-1">
                       {t.certifications.englishTitle}
                     </h3>
-                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.englishOrg}</p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2026}</p>
+                    <p className="text-slate-300 text-sm mb-0.5">
+                      {t.certifications.englishOrg}
+                    </p>
+                    <p className="text-slate-500 text-xs">
+                      {t.certifications.year2026}
+                    </p>
                   </div>
                   <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                     {t.certifications.valid}
                   </div>
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600/20 border border-green-500/40 text-green-200 text-sm font-medium hover:bg-green-600/30 hover:border-green-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1664,7 +1170,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="group relative block animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.7s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.7s forwards" }}
             >
               <div className="absolute -inset-1 bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-rose-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1673,15 +1179,24 @@ export default function Home() {
                     <h3 className="text-base font-bold text-white mb-1">
                       {t.certifications.frenchTitle}
                     </h3>
-                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.frenchOrg}</p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2026}</p>
+                    <p className="text-slate-300 text-sm mb-0.5">
+                      {t.certifications.frenchOrg}
+                    </p>
+                    <p className="text-slate-500 text-xs">
+                      {t.certifications.year2026}
+                    </p>
                   </div>
                   <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                     {t.certifications.valid}
                   </div>
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600/20 border border-rose-500/40 text-rose-200 text-sm font-medium hover:bg-rose-600/30 hover:border-rose-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1700,7 +1215,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="group relative block animate-fadeIn overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.85s forwards' }}
+              style={{ animation: "fadeIn 0.6s ease-out 0.85s forwards" }}
             >
               <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
               <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3.5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1709,15 +1224,24 @@ export default function Home() {
                     <h3 className="text-base font-bold text-white mb-1">
                       {t.certifications.aiTitle}
                     </h3>
-                    <p className="text-slate-300 text-sm mb-0.5">{t.certifications.aiOrg}</p>
-                    <p className="text-slate-500 text-xs">{t.certifications.year2024}</p>
+                    <p className="text-slate-300 text-sm mb-0.5">
+                      {t.certifications.aiOrg}
+                    </p>
+                    <p className="text-slate-500 text-xs">
+                      {t.certifications.year2024}
+                    </p>
                   </div>
                   <div className="shrink-0 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-semibold backdrop-blur-sm shadow-lg shadow-emerald-500/20">
                     {t.certifications.valid}
                   </div>
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-200 text-sm font-medium hover:bg-blue-600/30 hover:border-blue-400/60 hover:scale-105 transition-all duration-300 shadow-lg">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1756,7 +1280,7 @@ export default function Home() {
               <a
                 href="mailto:danielacoavas@gmail.com"
                 className="group relative block animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.1s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.1s forwards" }}
               >
                 <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1794,7 +1318,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative block animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.25s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.25s forwards" }}
               >
                 <div className="absolute -inset-1 bg-linear-to-r from-blue-600/20 via-blue-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-blue-600/20 transition-all duration-500 hover:-translate-y-1">
@@ -1839,7 +1363,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative block animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.4s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.4s forwards" }}
               >
                 <div className="absolute -inset-1 bg-linear-to-r from-purple-500/20 via-pink-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-purple-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1879,7 +1403,7 @@ export default function Home() {
               {/* Ubicación */}
               <div
                 className="group relative animate-fadeIn overflow-visible opacity-0"
-                style={{ animation: 'fadeIn 0.6s ease-out 0.55s forwards' }}
+                style={{ animation: "fadeIn 0.6s ease-out 0.55s forwards" }}
               >
                 <div className="absolute -inset-1 bg-linear-to-r from-emerald-500/20 via-green-500/20 to-transparent rounded-2xl blur-md opacity-0 group-hover:opacity-40 transition duration-500 -z-10" />
                 <div className="relative bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 md:bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 md:p-5 shadow-2xl hover:border-white/20 hover:shadow-emerald-500/20 transition-all duration-500 hover:-translate-y-1">
@@ -1909,7 +1433,9 @@ export default function Home() {
                       <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">
                         {t.contact.location}
                       </p>
-                      <p className="text-white font-medium">{t.contact.locationValue}</p>
+                      <p className="text-white font-medium">
+                        {t.contact.locationValue}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1917,7 +1443,9 @@ export default function Home() {
 
               {/* Formulario de contacto */}
               <div className="mt-8">
-                <h3 className="text-xl font-bold text-white mb-4">{t.contact.sendMessage}</h3>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  {t.contact.sendMessage}
+                </h3>
                 <ContactForm translations={t.contact} />
               </div>
             </div>
@@ -1936,20 +1464,9 @@ export default function Home() {
       setMousePosition({ x, y });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-  const [showZoomControls, setShowZoomControls] = useState(true);
-
-  const nextPlanet = () => {
-    setOverviewMode(false); // Salir de vista amplia al navegar
-    setPlanetIndex((prev) => (prev + 1) % planets.length);
-  };
-
-  const prevPlanet = () => {
-    setOverviewMode(false); // Salir de vista amplia al navegar
-    setPlanetIndex((prev) => (prev === 0 ? planets.length - 1 : prev - 1));
-  };
 
   const returnToOverview = () => {
     setFocusMode(false);
@@ -2006,7 +1523,10 @@ export default function Home() {
 
           {/* Selector de idioma en la esquina superior derecha */}
           <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-10 md:right-10 z-60">
-            <LanguageSelector currentLanguage={language} onLanguageChange={setLanguage} />
+            <LanguageSelector
+              currentLanguage={language}
+              onLanguageChange={setLanguage}
+            />
           </div>
 
           {/* Anuncio de cambio de idioma - animado */}
@@ -2084,8 +1604,8 @@ export default function Home() {
           <div
             className={`absolute left-1/2 top-20 z-40 -translate-x-1/2 transition-all duration-500 ease-out ${
               focusMode
-                ? 'opacity-0 -translate-y-8 pointer-events-none'
-                : 'opacity-100 translate-y-0 animate-fadeIn'
+                ? "opacity-0 -translate-y-8 pointer-events-none"
+                : "opacity-100 translate-y-0 animate-fadeIn"
             }`}
           >
             <div className="text-center space-y-5 select-none">
@@ -2141,9 +1661,12 @@ export default function Home() {
 
           {/* Selector de idioma - oculto en mobile cuando está en focusMode */}
           <div
-            className={`absolute top-4 right-4 sm:top-6 sm:right-6 md:top-10 md:right-10 z-[100] ${focusMode ? 'hidden md:block' : ''}`}
+            className={`absolute top-4 right-4 sm:top-6 sm:right-6 md:top-10 md:right-10 z-[100] ${focusMode ? "hidden md:block" : ""}`}
           >
-            <LanguageSelector currentLanguage={language} onLanguageChange={setLanguage} />
+            <LanguageSelector
+              currentLanguage={language}
+              onLanguageChange={setLanguage}
+            />
           </div>
 
           {/* Botón para empezar recorrido en overview mode */}
@@ -2159,7 +1682,7 @@ export default function Home() {
                     setPlanetIndex(0);
                   }}
                   className="group relative flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/30 sm:border-white/20 bg-black/50 sm:bg-black/40 px-4 py-2.5 sm:px-4 sm:py-2.5 md:px-5 md:py-2.5 text-xs sm:text-sm font-medium text-white shadow-2xl sm:shadow-lg backdrop-blur-xl transition-all duration-500 ease-out hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer opacity-0"
-                  style={{ animation: 'fadeIn 0.6s ease-out 0.3s forwards' }}
+                  style={{ animation: "fadeIn 0.6s ease-out 0.3s forwards" }}
                   aria-label={t.startJourney}
                 >
                   <svg
@@ -2223,8 +1746,8 @@ export default function Home() {
             onClick={returnToOverview}
             className={`group absolute left-4 top-4 sm:left-6 sm:top-6 md:left-10 md:top-10 z-40 flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-black/40 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-2.5 text-xs sm:text-sm font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 ease-out hover:scale-105 hover:border-white/40 hover:bg-black/60 cursor-pointer ${
               focusMode || overviewMode
-                ? 'opacity-0 -translate-x-8 pointer-events-none'
-                : 'opacity-100 translate-x-0'
+                ? "opacity-0 -translate-x-8 pointer-events-none"
+                : "opacity-100 translate-x-0"
             }`}
             aria-label={t.overviewMode}
           >
@@ -2242,7 +1765,9 @@ export default function Home() {
               />
             </svg>
             <span className="hidden sm:inline">{t.overviewMode}</span>
-            <span className="sm:hidden">{language === 'es' ? 'Universo' : 'Universe'}</span>
+            <span className="sm:hidden">
+              {language === "es" ? "Universo" : "Universe"}
+            </span>
           </button>
 
           {/* NAVEGACIÓN CON FLECHAS */}
@@ -2251,7 +1776,9 @@ export default function Home() {
               <div className="absolute bottom-32 sm:bottom-20 md:bottom-10 left-1/2 z-40 -translate-x-1/2 flex items-center gap-2 sm:gap-3 md:gap-4">
                 <button
                   onClick={() =>
-                    setPlanetIndex((prev) => (prev === 0 ? planets.length - 1 : prev - 1))
+                    setPlanetIndex((prev) =>
+                      prev === 0 ? planets.length - 1 : prev - 1,
+                    )
                   }
                   className="group flex h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl sm:text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
                 >
@@ -2269,32 +1796,32 @@ export default function Home() {
                     style={{
                       backgroundColor:
                         planetIndex === 0
-                          ? '#FFD700'
+                          ? "#FFD700"
                           : planetIndex === 1
-                            ? '#6A4FA3'
+                            ? "#6A4FA3"
                             : planetIndex === 2
-                              ? '#A18BCF'
+                              ? "#A18BCF"
                               : planetIndex === 3
-                                ? '#5D9A9A'
+                                ? "#5D9A9A"
                                 : planetIndex === 4
-                                  ? '#D4A5A5'
+                                  ? "#D4A5A5"
                                   : planetIndex === 5
-                                    ? '#E4C88A'
-                                    : '#DCD6F7',
+                                    ? "#E4C88A"
+                                    : "#DCD6F7",
                       boxShadow: `0 0 15px ${
                         planetIndex === 0
-                          ? '#FFD700'
+                          ? "#FFD700"
                           : planetIndex === 1
-                            ? '#6A4FA3'
+                            ? "#6A4FA3"
                             : planetIndex === 2
-                              ? '#A18BCF'
+                              ? "#A18BCF"
                               : planetIndex === 3
-                                ? '#5D9A9A'
+                                ? "#5D9A9A"
                                 : planetIndex === 4
-                                  ? '#D4A5A5'
+                                  ? "#D4A5A5"
                                   : planetIndex === 5
-                                    ? '#E4C88A'
-                                    : '#DCD6F7'
+                                    ? "#E4C88A"
+                                    : "#DCD6F7"
                       }`,
                     }}
                   />
@@ -2304,7 +1831,8 @@ export default function Home() {
                     </span>
                     <span className="text-[10px] sm:text-[11px] md:text-xs text-white/60 font-medium">
                       <span className="hidden sm:inline">
-                        {planetIndex + 1} {language === 'es' ? 'de' : 'of'} {planets.length} •{' '}
+                        {planetIndex + 1} {language === "es" ? "de" : "of"}{" "}
+                        {planets.length} •{" "}
                       </span>
                       {t.clickExplore}
                     </span>
@@ -2327,7 +1855,9 @@ export default function Home() {
                 {/* Flecha Derecha - al lado de la barra */}
                 <button
                   onClick={() =>
-                    setPlanetIndex((prev) => (prev === planets.length - 1 ? 0 : prev + 1))
+                    setPlanetIndex((prev) =>
+                      prev === planets.length - 1 ? 0 : prev + 1,
+                    )
                   }
                   className="group flex h-10 w-10 sm:h-11 sm:w-11 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl sm:text-xl md:text-2xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 cursor-pointer"
                 >
@@ -2346,35 +1876,35 @@ export default function Home() {
               <div className="md:hidden absolute inset-0 opacity-30">
                 <div
                   className="absolute top-[10%] left-[15%] w-1 h-1 bg-white rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '0s' }}
+                  style={{ animationDelay: "0s" }}
                 />
                 <div
                   className="absolute top-[25%] right-[20%] w-1.5 h-1.5 bg-blue-200 rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '1s' }}
+                  style={{ animationDelay: "1s" }}
                 />
                 <div
                   className="absolute top-[45%] left-[25%] w-1 h-1 bg-purple-200 rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '2s' }}
+                  style={{ animationDelay: "2s" }}
                 />
                 <div
                   className="absolute top-[60%] right-[30%] w-1 h-1 bg-white rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '1.5s' }}
+                  style={{ animationDelay: "1.5s" }}
                 />
                 <div
                   className="absolute top-[75%] left-[35%] w-1.5 h-1.5 bg-indigo-200 rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '0.5s' }}
+                  style={{ animationDelay: "0.5s" }}
                 />
                 <div
                   className="absolute top-[15%] right-[40%] w-1 h-1 bg-white rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '2.5s' }}
+                  style={{ animationDelay: "2.5s" }}
                 />
                 <div
                   className="absolute top-[35%] left-[10%] w-1 h-1 bg-cyan-200 rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '1.2s' }}
+                  style={{ animationDelay: "1.2s" }}
                 />
                 <div
                   className="absolute top-[80%] right-[15%] w-1 h-1 bg-white rounded-full blur-sm animate-pulse"
-                  style={{ animationDelay: '0.8s' }}
+                  style={{ animationDelay: "0.8s" }}
                 />
               </div>
 
@@ -2382,8 +1912,10 @@ export default function Home() {
               <div
                 className="hidden md:block pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-transparent via-transparent to-transparent transition-opacity duration-700 ease-in-out"
                 style={{
-                  maskImage: 'linear-gradient(to right, transparent, black 100%)',
-                  WebkitMaskImage: 'linear-gradient(to right, transparent, black 100%)',
+                  maskImage:
+                    "linear-gradient(to right, transparent, black 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent, black 100%)",
                 }}
               />
 
@@ -2396,7 +1928,10 @@ export default function Home() {
               {/* Header con botón volver y nombre de sección - STICKY */}
               <div
                 className="sticky top-0 left-0 right-0 z-50 flex items-center gap-3 sm:gap-3 px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 bg-linear-to-b from-black/95 md:from-black/80 via-black/90 md:via-black/60 to-transparent backdrop-blur-xl pointer-events-auto transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                style={{ WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}
+                style={{
+                  WebkitFontSmoothing: "antialiased",
+                  MozOsxFontSmoothing: "grayscale",
+                }}
               >
                 <button
                   onClick={exitPlanet}
@@ -2426,18 +1961,18 @@ export default function Home() {
                   <div
                     className={`h-1.5 w-1.5 rounded-full animate-pulse shrink-0 z-10 ${
                       planetIndex === 0
-                        ? 'bg-amber-400 shadow-lg shadow-amber-400/50'
+                        ? "bg-amber-400 shadow-lg shadow-amber-400/50"
                         : planetIndex === 1
-                          ? 'bg-purple-400 shadow-lg shadow-purple-400/50'
+                          ? "bg-purple-400 shadow-lg shadow-purple-400/50"
                           : planetIndex === 2
-                            ? 'bg-violet-400 shadow-lg shadow-violet-400/50'
+                            ? "bg-violet-400 shadow-lg shadow-violet-400/50"
                             : planetIndex === 3
-                              ? 'bg-teal-400 shadow-lg shadow-teal-400/50'
+                              ? "bg-teal-400 shadow-lg shadow-teal-400/50"
                               : planetIndex === 4
-                                ? 'bg-rose-400 shadow-lg shadow-rose-400/50'
+                                ? "bg-rose-400 shadow-lg shadow-rose-400/50"
                                 : planetIndex === 5
-                                  ? 'bg-amber-300 shadow-lg shadow-amber-300/50'
-                                  : 'bg-purple-400 shadow-lg shadow-purple-400/50'
+                                  ? "bg-amber-300 shadow-lg shadow-amber-300/50"
+                                  : "bg-purple-400 shadow-lg shadow-purple-400/50"
                     }`}
                   />
                   <span className="text-xs sm:text-sm font-bold text-white truncate z-10">
@@ -2449,7 +1984,10 @@ export default function Home() {
               {/* Contenido con scroll */}
               <div
                 className="relative flex-1 overflow-y-auto px-3 sm:px-6 md:px-12 lg:px-16 xl:px-20 pb-6 sm:pb-8 animate-fadeInContent"
-                style={{ WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}
+                style={{
+                  WebkitFontSmoothing: "antialiased",
+                  MozOsxFontSmoothing: "grayscale",
+                }}
               >
                 <div>{planets[planetIndex].content}</div>
               </div>
@@ -2460,8 +1998,8 @@ export default function Home() {
           <Canvas
             className={
               focusMode
-                ? 'hidden md:block md:transition-opacity md:duration-700 md:ease-out'
-                : 'transition-opacity duration-700 ease-in'
+                ? "hidden md:block md:transition-opacity md:duration-700 md:ease-out"
+                : "transition-opacity duration-700 ease-in"
             }
             camera={{ position: [0, 8, 50], fov: 55 }}
           >
@@ -2470,7 +2008,6 @@ export default function Home() {
               overviewMode={overviewMode}
               focusMode={focusMode}
               zoomMode={zoomMode}
-              planetIndex={planetIndex}
               focusedPlanetPos={currentPlanetPosition}
             />
 
@@ -2492,12 +2029,11 @@ export default function Home() {
               distance={60}
               decay={2}
             />
-            <hemisphereLight args={['#ffffff', '#444444', 0.8]} />
+            <hemisphereLight args={["#ffffff", "#444444", 0.8]} />
 
             {/* Efectos de post-procesamiento REMOVIDOS para evitar borrosidad */}
 
             <OrbitingPlanets
-              planets={planets}
               focusMode={focusMode}
               zoomMode={zoomMode}
               planetIndex={planetIndex}

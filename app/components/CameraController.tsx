@@ -14,7 +14,6 @@ interface Props {
   overviewMode?: boolean; // Vista general mostrando todos los planetas
   focusMode: boolean; // Vista enfocada con panel de contenido
   zoomMode?: boolean; // Transición de acercamiento al planeta
-  planetIndex: number; // Índice del planeta seleccionado (0-5)
   focusedPlanetPos?: [number, number, number]; // Posición del planeta enfocado
 }
 
@@ -23,7 +22,6 @@ export default function CameraController({
   overviewMode = false,
   focusMode,
   zoomMode = false,
-  planetIndex,
   focusedPlanetPos,
 }: Props) {
   const { camera } = useThree();
@@ -103,7 +101,6 @@ export default function CameraController({
       if (focusedPlanetPos) {
         // Calcular posición óptima basada en la posición del planeta
         const planetX = focusedPlanetPos[0];
-        const planetZ = focusedPlanetPos[2];
         
         // Cámara más alejada para que los planetas se vean más pequeños
         targetPos.current.set(

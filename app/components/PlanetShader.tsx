@@ -29,8 +29,6 @@ export default function PlanetShader({
   const planetRef = useRef<THREE.Group>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
-
-  const colorObj = new THREE.Color(color);
   
   /** Determina el tipo de planeta según su color para aplicar efectos visuales */
   const planetType = useMemo(() => {
@@ -49,7 +47,7 @@ export default function PlanetShader({
     return new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0.0 },
-        baseColor: { value: colorObj },
+        baseColor: { value: new THREE.Color(color) },
       },
 
       vertexShader: `
@@ -141,7 +139,7 @@ export default function PlanetShader({
 
       transparent: false,
     });
-  }, [colorObj]);
+  }, [color]);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -165,10 +163,10 @@ export default function PlanetShader({
       }
     }
 
-      {/* Rotación de anillos si existen */}
-      {planetType === 'ringed' && ringsRef.current && (
-        ringsRef.current.rotation.z = t * 0.1
-      )}
+      // Rotate rings when the current planet supports them.
+      if (planetType === 'ringed' && ringsRef.current) {
+        ringsRef.current.rotation.z = t * 0.1;
+      }
 
     // Glow pulsante
     if (isFocused && glowRef.current) {
