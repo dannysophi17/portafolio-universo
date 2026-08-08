@@ -77,14 +77,24 @@ export default function ContactForm({ translations: t }: ContactFormProps) {
 
   return (
     <div className="space-y-3 sm:space-y-4">
-      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        aria-busy={status === 'sending'}
+        className="space-y-3 sm:space-y-4"
+      >
         {/* Nombre */}
         <div className="group relative">
-          <label className="mb-1.5 block text-xs font-medium text-slate-300 sm:mb-2 sm:text-sm">
+          <label
+            htmlFor="contact-name"
+            className="mb-1.5 block text-xs font-medium text-slate-300 sm:mb-2 sm:text-sm"
+          >
             {t.formName}
           </label>
           <input
+            id="contact-name"
+            name="name"
             type="text"
+            autoComplete="name"
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -95,11 +105,17 @@ export default function ContactForm({ translations: t }: ContactFormProps) {
 
         {/* Email */}
         <div className="group relative">
-          <label className="mb-1.5 block text-xs font-medium text-slate-300 sm:mb-2 sm:text-sm">
+          <label
+            htmlFor="contact-email"
+            className="mb-1.5 block text-xs font-medium text-slate-300 sm:mb-2 sm:text-sm"
+          >
             {t.formEmail}
           </label>
           <input
+            id="contact-email"
+            name="email"
             type="email"
+            autoComplete="email"
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -110,10 +126,15 @@ export default function ContactForm({ translations: t }: ContactFormProps) {
 
         {/* Mensaje */}
         <div className="group relative">
-          <label className="mb-1.5 block text-xs font-medium text-slate-300 sm:mb-2 sm:text-sm">
+          <label
+            htmlFor="contact-message"
+            className="mb-1.5 block text-xs font-medium text-slate-300 sm:mb-2 sm:text-sm"
+          >
             {t.formMessage}
           </label>
           <textarea
+            id="contact-message"
+            name="message"
             required
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -127,6 +148,16 @@ export default function ContactForm({ translations: t }: ContactFormProps) {
         <button
           type="submit"
           disabled={status === 'sending'}
+          aria-busy={status === 'sending'}
+          aria-label={
+            status === 'sending'
+              ? t.formSending
+              : status === 'success'
+                ? t.formSuccess
+                : status === 'error'
+                  ? t.formError
+                  : t.formSend
+          }
           className="group w-full cursor-pointer rounded-lg border border-white/10 bg-black/40 px-4 py-2.5 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-lg hover:shadow-blue-500/20 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 sm:px-6 sm:py-3 sm:text-base"
         >
           <div className="flex items-center justify-center gap-1.5 sm:gap-2">
@@ -208,6 +239,16 @@ export default function ContactForm({ translations: t }: ContactFormProps) {
             )}
           </div>
         </button>
+
+        <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+          {status === 'sending'
+            ? t.formSending
+            : status === 'success'
+              ? t.formSuccess
+              : status === 'error'
+                ? t.formError
+                : ''}
+        </div>
 
         {/* Mensajes de estado */}
         {status === 'success' && (

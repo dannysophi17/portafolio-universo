@@ -1451,6 +1451,7 @@ export default function Home() {
 
           <div className="absolute top-1/2 left-1/2 z-60 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
             <button
+              type="button"
               onClick={() => setStart(true)}
               className="animate-startFloat cursor-pointer rounded-full bg-white/5 px-8 py-3 text-center text-base font-light tracking-wide whitespace-nowrap text-white shadow-[0_0_40px_rgba(255,255,255,0.45)] transition-all duration-700 hover:scale-[1.08] sm:px-10 sm:py-3.5 sm:text-lg md:px-12 md:py-4"
             >
@@ -1513,6 +1514,7 @@ export default function Home() {
                 <div className="absolute -inset-2 animate-pulse rounded-full bg-gradient-to-r from-purple-500/40 via-pink-500/40 to-blue-500/40 opacity-60 blur-xl sm:hidden" />
 
                 <button
+                  type="button"
                   onClick={() => {
                     setOverviewMode(false);
                     setPlanetIndex(0);
@@ -1579,6 +1581,7 @@ export default function Home() {
 
           {/* Botón para volver a vista amplia */}
           <button
+            type="button"
             onClick={returnToOverview}
             className={`group absolute top-4 left-4 z-40 flex cursor-pointer items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3 py-2 text-xs font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-500 ease-out hover:scale-105 hover:border-white/40 hover:bg-black/60 sm:top-6 sm:left-6 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm md:top-10 md:left-10 md:px-5 md:py-2.5 ${
               focusMode || overviewMode
@@ -1609,10 +1612,12 @@ export default function Home() {
             <>
               <div className="absolute bottom-32 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 sm:bottom-20 sm:gap-3 md:bottom-10 md:gap-4">
                 <button
+                  type="button"
                   onClick={() =>
                     setPlanetIndex((prev) => (prev === 0 ? planets.length - 1 : prev - 1))
                   }
-                  className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 sm:h-11 sm:w-11 sm:text-xl md:h-12 md:w-12 md:text-2xl"
+                  aria-label={language === 'es' ? 'Planeta anterior' : 'Previous planet'}
+                  className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none sm:h-11 sm:w-11 sm:text-xl md:h-12 md:w-12 md:text-2xl"
                 >
                   <span className="transition-transform duration-300 group-hover:-translate-x-1">
                     ‹
@@ -1620,8 +1625,10 @@ export default function Home() {
                 </button>
 
                 <button
+                  type="button"
                   onClick={enterPlanet}
-                  className="group flex cursor-pointer items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-3 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-105 hover:border-white/20 hover:bg-black/60 sm:gap-2 sm:px-6 sm:py-3 md:gap-3 md:px-8 md:py-4"
+                  aria-label={`${t.clickExplore}: ${planetNames[planetIndex]}`}
+                  className="group flex cursor-pointer items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-3 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-105 hover:border-white/20 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none sm:gap-2 sm:px-6 sm:py-3 md:gap-3 md:px-8 md:py-4"
                 >
                   <div
                     className="h-2.5 w-2.5 animate-pulse rounded-full transition-all duration-300 group-hover:scale-125 sm:h-3 sm:w-3"
@@ -1685,10 +1692,12 @@ export default function Home() {
 
                 {/* Flecha Derecha - al lado de la barra */}
                 <button
+                  type="button"
                   onClick={() =>
                     setPlanetIndex((prev) => (prev === planets.length - 1 ? 0 : prev + 1))
                   }
-                  className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 sm:h-11 sm:w-11 sm:text-xl md:h-12 md:w-12 md:text-2xl"
+                  aria-label={language === 'es' ? 'Siguiente planeta' : 'Next planet'}
+                  className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/40 text-xl text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-300 hover:scale-110 hover:border-white/40 hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none sm:h-11 sm:w-11 sm:text-xl md:h-12 md:w-12 md:text-2xl"
                 >
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     ›
@@ -1761,6 +1770,7 @@ export default function Home() {
                 }}
               >
                 <button
+                  type="button"
                   onClick={exitPlanet}
                   className="group flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-3 py-2 text-xs font-medium text-white shadow-lg backdrop-blur-xl transition-all duration-200 hover:scale-105 hover:border-white/40 hover:bg-black/80 sm:gap-2 sm:px-4 sm:text-sm md:px-5 md:py-2.5"
                   aria-label={t.back}
