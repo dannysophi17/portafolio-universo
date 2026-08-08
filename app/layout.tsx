@@ -21,64 +21,83 @@ const geistMono = Geist_Mono({
 // Metadatos de la aplicación para SEO y visualización en navegador
 export const metadata: Metadata = {
   metadataBase: new URL('https://dcoavas.com'),
+
   title: {
     default: 'Daniela Coavas | Full Stack Developer',
     template: '%s | Daniela Coavas',
   },
+
   description:
-    'Portafolio interactivo 3D - Desarrolladora Full Stack especializada en React, Next.js, Node.js y AWS Cloud. Explorá mi universo de proyectos y habilidades.',
+    'Portafolio interactivo 3D de Daniela Coavas, desarrolladora Full Stack y estudiante de Ingeniería de Sistemas, con experiencia en React, Next.js, TypeScript, Three.js y AWS.',
+
   keywords: [
+    'Daniela Coavas',
     'Full Stack Developer',
+    'Software Developer',
     'React',
     'Next.js',
-    'Node.js',
+    'TypeScript',
+    'Three.js',
+    'React Three Fiber',
     'AWS',
     'Cloud Computing',
-    'Daniela Coavas',
-    'Desarrolladora Web',
-    'Portfolio',
-    'Three.js',
     '3D Portfolio',
+    'Web Developer Colombia',
   ],
-  authors: [{ name: 'Daniela Sophia Coavas Barboza' }],
+
+  authors: [
+    {
+      name: 'Daniela Sophia Coavas Barboza',
+      url: 'https://dcoavas.com',
+    },
+  ],
+
   creator: 'Daniela Coavas',
+
+  alternates: {
+    canonical: '/',
+  },
+
   openGraph: {
     type: 'website',
     locale: 'es_CO',
     alternateLocale: 'en_US',
-    url: 'https://dcoavas.com',
-    siteName: 'Daniela Coavas - Portfolio',
-    title: 'Daniela Coavas | Full Stack Developer ⭐',
+    url: '/',
+    siteName: 'Daniela Coavas — Interactive 3D Portfolio',
+    title: 'Daniela Coavas | Full Stack Developer',
     description:
-      'Portafolio interactivo 3D - Desarrolladora Full Stack especializada en React, Next.js, Node.js y AWS Cloud. Explorá mi universo de proyectos y habilidades.',
+      'Explora un portafolio interactivo 3D con proyectos de desarrollo web, cloud y experiencias digitales.',
     images: [
       {
-        url: 'https://dcoavas.com/og-image.png',
+        url: '/og-image.png',
         width: 1908,
         height: 894,
-        alt: 'Daniela Coavas - Full Stack Developer Portfolio',
+        alt: 'Daniela Coavas — Interactive 3D Portfolio',
         type: 'image/png',
       },
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
-    site: '@dcoavas',
-    creator: '@dcoavas',
-    title: 'Daniela Coavas | Full Stack Developer ⭐',
-    description: 'Portafolio interactivo 3D - React, Next.js, Node.js & AWS Cloud',
-    images: ['https://dcoavas.com/og-image.png'],
+    title: 'Daniela Coavas | Full Stack Developer',
+    description:
+      'Portafolio interactivo 3D con proyectos de desarrollo web, cloud y experiencias digitales.',
+    images: ['/og-image.png'],
   },
+
   icons: {
-    icon: [
-      { url: '/star.png', sizes: '32x32', type: 'image/png' },
-      { url: '/star.png', sizes: '16x16', type: 'image/png' },
-    ],
+    icon: '/favicon.svg',
     apple: '/star.png',
   },
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 
@@ -88,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
