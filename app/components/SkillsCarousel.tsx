@@ -399,8 +399,11 @@ export default function SkillsCarousel({ translations: t, language }: SkillsCaro
             return (
               <button
                 key={category.id}
+                type="button"
                 onClick={() => setActiveTab(index)}
-                className={`group relative flex transform items-center gap-1 rounded-lg px-2 py-1.5 transition-all duration-300 sm:gap-1.5 sm:px-2.5 md:px-3 md:py-2 ${
+                aria-pressed={activeTab === index}
+                aria-label={category.title}
+                className={`group relative flex transform items-center gap-1 rounded-lg px-2 py-1.5 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none sm:gap-1.5 sm:px-2.5 md:px-3 md:py-2 ${
                   activeTab === index
                     ? `${catColors.tabActive} scale-105 shadow-lg ${catColors.glow}`
                     : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
@@ -470,15 +473,13 @@ export default function SkillsCarousel({ translations: t, language }: SkillsCaro
         {/* Iconos flotantes 3D estilo estrellas - Carrusel automático */}
         <div className="relative h-16 w-full overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm sm:h-20">
           <div
-            className="animate-scrollIcons absolute inset-0 flex items-center gap-4 px-2 sm:gap-6 sm:px-4"
+            aria-hidden="true"
+            className="animate-scrollIcons absolute inset-0 flex items-center gap-4 px-2 motion-reduce:animate-none sm:gap-6 sm:px-4"
             style={{ perspective: '1000px' }}
           >
             {/* Duplicar iconos para loop infinito en todas las resoluciones */}
             {[...techIcons, ...techIcons].map((tech, index) => (
-              <div
-                key={`tech-${index}`}
-                className="shrink-0 cursor-pointer opacity-30 transition-opacity duration-500 hover:opacity-100"
-              >
+              <div key={`tech-${index}`} className="shrink-0 opacity-30">
                 <div className="scale-75 text-white/70 transition-colors hover:text-white sm:scale-100">
                   {tech.svg}
                 </div>
