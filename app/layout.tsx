@@ -87,7 +87,8 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: '/favicon.svg',
+    icon: '/star.png',
+    shortcut: '/star.png',
     apple: '/star.png',
   },
 
