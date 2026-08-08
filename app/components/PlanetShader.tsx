@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import * as THREE from "three";
-import { useRef, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
+import * as THREE from 'three';
+import { useRef, useMemo } from 'react';
+import { useFrame } from '@react-three/fiber';
 
 /**
  * Planeta con efectos visuales personalizados
@@ -10,12 +10,12 @@ import { useFrame } from "@react-three/fiber";
  */
 
 interface PlanetShaderProps {
-  color: string;                      // Color del planeta
+  color: string; // Color del planeta
   position: [number, number, number]; // Posición en el espacio
-  size: number;                       // Tamaño del planeta
-  onSelect?: () => void;              // Función al hacer clic
-  isDimmed?: boolean;                 // Si está atenuado
-  isFocused?: boolean;                // Si está seleccionado
+  size: number; // Tamaño del planeta
+  onSelect?: () => void; // Función al hacer clic
+  isDimmed?: boolean; // Si está atenuado
+  isFocused?: boolean; // Si está seleccionado
 }
 
 export default function PlanetShader({
@@ -29,16 +29,16 @@ export default function PlanetShader({
   const planetRef = useRef<THREE.Group>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
-  
+
   /** Determina el tipo de planeta según su color para aplicar efectos visuales */
   const planetType = useMemo(() => {
-    if (color === '#FFD700') return 'sun';           // Sol
-    if (color === '#6A4FA3') return 'rocky';         // Trayectoria
-    if (color === '#A18BCF') return 'tech';          // Habilidades
-    if (color === '#5D9A9A') return 'crystalline';   // Proyectos
-    if (color === '#D4A5A5') return 'ringed';        // Certificaciones
+    if (color === '#FFD700') return 'sun'; // Sol
+    if (color === '#6A4FA3') return 'rocky'; // Trayectoria
+    if (color === '#A18BCF') return 'tech'; // Habilidades
+    if (color === '#5D9A9A') return 'crystalline'; // Proyectos
+    if (color === '#D4A5A5') return 'ringed'; // Certificaciones
     if (color === '#E4C88A') return 'communication'; // Contacto
-    if (color === '#DCD6F7') return 'ice';           // Otros
+    if (color === '#DCD6F7') return 'ice'; // Otros
     return 'default';
   }, [color]);
 
@@ -152,21 +152,30 @@ export default function PlanetShader({
       }
 
       // Rotación con velocidades diferentes según tipo
-      const rotationSpeed = planetType === 'crystalline' ? 0.4 : planetType === 'communication' ? 0.3 : planetType === 'tech' ? 0.35 : 0.15;
+      const rotationSpeed =
+        planetType === 'crystalline'
+          ? 0.4
+          : planetType === 'communication'
+            ? 0.3
+            : planetType === 'tech'
+              ? 0.35
+              : 0.15;
       planetRef.current.rotation.y = t * (isFocused ? rotationSpeed * 2 : rotationSpeed);
       planetRef.current.rotation.x = Math.sin(t * 0.1) * 0.05;
 
       // Flotación más pronunciada
       if (!isFocused) {
-        const floatIntensity = planetType === 'communication' ? 0.55 : planetType === 'crystalline' ? 0.45 : 0.35;
-        planetRef.current.position.y = Math.sin(t * 0.6) * floatIntensity + Math.cos(t * 0.4) * 0.15;
+        const floatIntensity =
+          planetType === 'communication' ? 0.55 : planetType === 'crystalline' ? 0.45 : 0.35;
+        planetRef.current.position.y =
+          Math.sin(t * 0.6) * floatIntensity + Math.cos(t * 0.4) * 0.15;
       }
     }
 
-      // Rotate rings when the current planet supports them.
-      if (planetType === 'ringed' && ringsRef.current) {
-        ringsRef.current.rotation.z = t * 0.1;
-      }
+    // Rotate rings when the current planet supports them.
+    if (planetType === 'ringed' && ringsRef.current) {
+      ringsRef.current.rotation.z = t * 0.1;
+    }
 
     // Glow pulsante
     if (isFocused && glowRef.current) {
@@ -194,34 +203,23 @@ export default function PlanetShader({
           <sphereGeometry args={[size, 128, 128]} />
           <primitive attach="material" object={shaderMaterial} />
         </mesh>
-        
+
         {/* Textura de cuadrícula para planeta crystalline (Proyectos) */}
         {planetType === 'crystalline' && !isDimmed && (
           <mesh>
             <sphereGeometry args={[size * 1.08, 48, 48]} />
-            <meshBasicMaterial
-              color="#5D9A9A"
-              transparent
-              opacity={0.25}
-              wireframe={true}
-            />
+            <meshBasicMaterial color="#5D9A9A" transparent opacity={0.25} wireframe={true} />
           </mesh>
         )}
-        
+
         {/* Partículas orbitales para planeta tecnológico (Habilidades) */}
         {planetType === 'tech' && !isDimmed && (
           <points>
             <sphereGeometry args={[size * 1.5, 32, 32]} />
-            <pointsMaterial
-              size={0.05}
-              color={color}
-              transparent
-              opacity={0.6}
-              sizeAttenuation
-            />
+            <pointsMaterial size={0.05} color={color} transparent opacity={0.6} sizeAttenuation />
           </points>
         )}
-        
+
         {/* Atmósfera - ahora dentro del grupo para moverse con el planeta */}
         <mesh>
           <sphereGeometry args={[size * 1.15, 64, 64]} />
@@ -232,7 +230,7 @@ export default function PlanetShader({
             side={THREE.BackSide}
           />
         </mesh>
-        
+
         {/* Anillos para planeta tipo 'ringed' */}
         {planetType === 'ringed' && (
           <mesh ref={ringsRef} rotation={[Math.PI / 2.5, 0, 0]}>
@@ -245,7 +243,7 @@ export default function PlanetShader({
             />
           </mesh>
         )}
-        
+
         {/* Anillos brillantes para planeta crystalline (Proyectos) */}
         {planetType === 'crystalline' && (
           <>
@@ -277,23 +275,13 @@ export default function PlanetShader({
           {/* Ondas de energía expandiendo */}
           <mesh>
             <sphereGeometry args={[size * 1.8, 32, 32]} />
-            <meshBasicMaterial
-              color={color}
-              transparent
-              opacity={0.1}
-              side={THREE.BackSide}
-            />
+            <meshBasicMaterial color={color} transparent opacity={0.1} side={THREE.BackSide} />
           </mesh>
           <mesh>
             <sphereGeometry args={[size * 2.2, 32, 32]} />
-            <meshBasicMaterial
-              color={color}
-              transparent
-              opacity={0.05}
-              side={THREE.BackSide}
-            />
+            <meshBasicMaterial color={color} transparent opacity={0.05} side={THREE.BackSide} />
           </mesh>
-          
+
           {/* Partículas brillantes flotantes */}
           {planetType === 'sun' && (
             <points>
@@ -313,9 +301,23 @@ export default function PlanetShader({
       {/* Luz del planeta con intensidad variable */}
       <pointLight
         position={[0, 0, 0]}
-        intensity={planetType === 'sun' ? 2.5 : planetType === 'crystalline' ? 2.0 : planetType === 'communication' ? 1.2 : isFocused ? 1.5 : isDimmed ? 0.1 : 0.8}
+        intensity={
+          planetType === 'sun'
+            ? 2.5
+            : planetType === 'crystalline'
+              ? 2.0
+              : planetType === 'communication'
+                ? 1.2
+                : isFocused
+                  ? 1.5
+                  : isDimmed
+                    ? 0.1
+                    : 0.8
+        }
         color={color}
-        distance={planetType === 'sun' ? 25 : planetType === 'communication' ? 15 : isFocused ? 15 : 10}
+        distance={
+          planetType === 'sun' ? 25 : planetType === 'communication' ? 15 : isFocused ? 15 : 10
+        }
       />
     </group>
   );

@@ -2,12 +2,12 @@
  * Campo de estrellas cinemático mostrado en la pantalla de entrada inicial antes de que el usuario haga clic en "Comenzar".
  * Incluye parallax suave con el mouse y animación de pulso respiratorio para efecto inmersivo.
  */
-"use client";
+'use client';
 
-import * as THREE from "three";
-import { Stars } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import * as THREE from 'three';
+import { Stars } from '@react-three/drei';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 function CinematicSpace() {
   const group = useRef<THREE.Group>(null);
@@ -30,15 +30,7 @@ function CinematicSpace() {
 
   return (
     <group ref={group}>
-      <Stars
-        radius={150}
-        depth={80}
-        count={8500}
-        factor={3.8}
-        saturation={0.4}
-        fade
-        speed={0.4}
-      />
+      <Stars radius={150} depth={80} count={8500} factor={3.8} saturation={0.4} fade speed={0.4} />
     </group>
   );
 }
@@ -51,12 +43,3 @@ export default function IntroStars() {
     </Canvas>
   );
 }
-
-
-
-
-
-
-
-
-
