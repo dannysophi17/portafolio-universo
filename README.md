@@ -1,105 +1,208 @@
-# Portafolio Interactivo 3D
-
-## Interactive 3D Portfolio
+# Daniela Coavas — Interactive 3D Portfolio
 
 <div align="center">
 
-![Portafolio Preview](public/projects/preview-portfolio.png)
+![Portfolio Preview](public/projects/preview-portfolio.png)
 
-**[🌐 Ver Sitio en Vivo • Live Site](https://dcoavas.com/)**
+### [View Live Portfolio](https://dcoavas.com/)
 
+[![CI](https://github.com/dannysophi17/portafolio-universo/actions/workflows/ci.yml/badge.svg)](https://github.com/dannysophi17/portafolio-universo/actions/workflows/ci.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
-![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
-![Three.js](https://img.shields.io/badge/Three.js-Latest-black?style=flat-square&logo=three.js)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38bdf8?style=flat-square&logo=tailwind-css)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)
+![Three.js](https://img.shields.io/badge/Three.js-3D-black?style=flat-square&logo=three.js)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss)
+![AWS Amplify](https://img.shields.io/badge/AWS_Amplify-Deployed-FF9900?style=flat-square&logo=awsamplify)
 
 </div>
 
 ---
 
-## Español
+## About
 
-### Descripción
+My personal portfolio is an interactive 3D web experience inspired by a small universe.
 
-Portafolio interactivo desarrollado con Next.js 15 y Three.js. Presenta una experiencia única de navegación espacial donde cada sección está representada por un planeta en 3D. El proyecto cuenta con animaciones suaves, diseño totalmente responsive y un sistema de contacto con EmailJS.
+Instead of navigating through traditional pages, visitors explore planets representing the main sections of the portfolio: About, Journey, Skills, Projects, Certifications, and Contact.
 
-### Características
+The application combines modern frontend development with real-time 3D graphics, responsive design, bilingual content, and cloud deployment.
 
-- **- Multiidioma:** Sistema de traducción completo (Español/Inglés)
-- **- Navegación 3D Interactiva:** Sistema solar navegable con planetas que representan diferentes secciones
-- **- Diseño Responsive:** Optimizado para móviles, tablets y escritorio
-- **- UX Mobile-First:** Experiencia optimizada para dispositivos móviles con soporte iOS Safari
-- **- Formulario de Contacto:** Integración con EmailJS para mensajes directos
-- **- Carrusel de Tecnologías:** Scroll automático que muestra habilidades técnicas
-- **- Cámara Dinámica:** Movimiento panorámico en modo vista universo
+## Features
 
-### Tecnologías
+- Interactive 3D planetary navigation
+- Dynamic camera transitions and focus modes
+- Responsive experience for desktop, tablet, and mobile
+- Spanish and English language support
+- Project showcase with image galleries and live demos
+- Technical skills organized by category
+- Professional journey and certifications
+- Contact form powered by EmailJS
+- Optimized images with Next.js Image
+- Automated code-quality validation with GitHub Actions
+- Continuous deployment through AWS Amplify
 
-- **Framework:** Next.js 16 (App Router)
-- **UI Library:** React 18
-- **Language:** TypeScript
-- **3D Graphics:** Three.js + React Three Fiber
-- **Styling:** Tailwind CSS
-- **Email Service:** EmailJS
-- **Deployment:** AWS Amplify + Route 53
+## Tech Stack
 
----
+| Area       | Technologies                      |
+| ---------- | --------------------------------- |
+| Framework  | Next.js 16                        |
+| UI         | React 19                          |
+| Language   | TypeScript                        |
+| 3D         | Three.js, React Three Fiber, Drei |
+| Styling    | Tailwind CSS 4                    |
+| Email      | EmailJS                           |
+| Quality    | ESLint, Prettier, TypeScript      |
+| CI         | GitHub Actions                    |
+| Deployment | AWS Amplify                       |
+| Domain     | Route 53                          |
 
-## English
+## Architecture
 
-### Description
+```text
+Visitor
+	│
+	▼
+Route 53
+	│
+	▼
+AWS Amplify
+	│
+	▼
+Next.js Application
+	│
+	├── React UI
+	├── Three.js / React Three Fiber
+	├── Portfolio content
+	├── Project assets
+	└── EmailJS contact integration
+```
 
-Interactive portfolio built with Next.js 15 and Three.js. It features a unique spatial navigation experience where each section is represented by a 3D planet. The project includes smooth animations, fully responsive design, and a contact system with EmailJS.
+The portfolio is currently generated as static content by Next.js and deployed automatically from the `main` branch through AWS Amplify.
 
-### Features
+## Project Structure
 
-- **Multilingual:** Complete translation system (Spanish/English)
-- **Interactive 3D Navigation:** Navigable solar system with planets representing different sections
-- **Responsive Design:** Optimized for mobile, tablet, and desktop
-- **Mobile-First UX:** Optimized experience for mobile devices with iOS Safari support
-- **Contact Form:** EmailJS integration for direct messaging
-- **Tech Carousel:** Auto-scroll showcasing technical skills
-- **Dynamic Camera:** Panoramic movement in universe view mode
+```text
+.
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── app/
+│   ├── components/
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── translations.ts
+├── public/
+│   └── projects/
+├── .editorconfig
+├── .nvmrc
+├── .prettierignore
+├── .prettierrc.json
+├── eslint.config.mjs
+├── next.config.ts
+├── package.json
+└── tsconfig.json
+```
 
-### Tech Stack
+## Local Development
 
-- **Framework:** Next.js 16 (App Router)
-- **UI Library:** React 18
-- **Language:** TypeScript
-- **3D Graphics:** Three.js + React Three Fiber
-- **Styling:** Tailwind CSS
-- **Email Service:** EmailJS
-- **Deployment:** AWS Amplify + Route 53
+### Requirements
 
----
+- Node.js 24
+- npm
 
-## Licencia | License
+### Installation
 
-© 2025 Daniela Sophia Coavas Barboza. Todos los derechos reservados.
+```bash
+git clone https://github.com/dannysophi17/portafolio-universo.git
+cd portafolio-universo
+npm ci
+```
 
-Este proyecto es de código cerrado y propietario. No está permitido copiar, modificar, distribuir o usar este código sin autorización explícita del autor.
+Start the development server:
 
----
+```bash
+npm run dev
+```
 
-© 2025 Daniela Sophia Coavas Barboza. All rights reserved.
+Then open:
 
-This project is closed source and proprietary. Copying, modifying, distributing, or using this code without explicit permission from the author is not allowed.
+```bash
+http://localhost:3000
+```
 
----
+## Available Scripts
 
-## Autor | Author
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+npm run lint:fix
+npm run typecheck
+npm run format
+npm run format:check
+npm run check
+```
+
+Before opening a pull request, run:
+
+```bash
+npm run check
+```
+
+This validates TypeScript, ESLint, formatting, and the production build.
+
+## CI/CD
+
+Pull requests and pushes to `main` are validated automatically with GitHub Actions.
+
+The CI workflow runs:
+
+```bash
+npm ci
+npm run check
+```
+
+The `main` branch is protected and requires the quality checks to pass before changes are merged.
+
+After a successful merge to `main`, AWS Amplify automatically builds and deploys the portfolio.
+
+## Languages
+
+The interface is available in:
+
+- Spanish
+- English
+
+Translations are maintained in:
+
+```bash
+app/translations.ts
+```
+
+## Deployment
+
+Production is hosted with **AWS Amplify** and served through the custom domain:
+
+**[https://dcoavas.com](<>)**
+
+The production branch is:
+
+```bash
+main
+```
+
+Automatic deployments are enabled.
+
+## Author
 
 **Daniela Sophia Coavas Barboza**
 
-- 🌐 Portfolio: [https://dcoavas.com](https://dcoavas.com)
-- 💼 GitHub: [@dannysophi17](https://github.com/dannysophi17)
-- 📧 Email: danielacoavas@gmail.com
+- Portfolio: [https://dcoavas.com](<>)
+- GitHub: [https://github.com/dannysophi17](https://github.com/dannysophi17)
 
----
+## License
 
-<div align="center">
+Copyright © 2026 Daniela Sophia Coavas Barboza. All rights reserved.
 
-Made with 💜 by Daniela Coavas
-
-</div>
+The source code is publicly visible for portfolio and review purposes. No permission is granted to copy, modify, redistribute, or reuse the code without explicit authorization from the author.
