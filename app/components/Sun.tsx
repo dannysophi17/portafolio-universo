@@ -3,27 +3,20 @@
  * Usa shaders personalizados para crear efecto de fuego
  * Se ilumina más cuando está enfocado
  */
-"use client";
+'use client';
 
-import * as THREE from "three";
-import { useRef, useMemo, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
+import * as THREE from 'three';
+import { useRef, useMemo, useEffect } from 'react';
+import { useFrame } from '@react-three/fiber';
 
 interface SunProps {
   position: [number, number, number]; // Posición en el espacio 3D
   size: number; // Tamaño del sol
   isFocused?: boolean; // Si está seleccionado (brilla más)
-  isDimmed?: boolean; // Si está atenuado (menos opaco)
   onSelect?: () => void; // Función al hacer clic
 }
 
-export default function Sun({
-  position,
-  size,
-  isFocused = false,
-  isDimmed = false,
-  onSelect,
-}: SunProps) {
+export default function Sun({ position, size, isFocused = false, onSelect }: SunProps) {
   const coreRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const light1Ref = useRef<THREE.PointLight>(null);
@@ -132,10 +125,10 @@ export default function Sun({
     // Actualizar uniform de tiempo del shader para textura de superficie animada
     if (coreRef.current?.material instanceof THREE.ShaderMaterial) {
       coreRef.current.material.uniforms.time.value = t;
-      
+
       // Transición suave de brillo al enfocar/desenfocar
       const targetBrightness = isFocused ? 1.2 : 1.0;
-      coreRef.current.material.uniforms.brightness.value += 
+      coreRef.current.material.uniforms.brightness.value +=
         (targetBrightness - coreRef.current.material.uniforms.brightness.value) * 0.02;
     }
 
@@ -150,7 +143,8 @@ export default function Sun({
 
     const targetGlowOpacity = isFocused ? 0.18 : 0.12;
     if (glowMaterialRef.current) {
-      glowMaterialRef.current.opacity += (targetGlowOpacity - glowMaterialRef.current.opacity) * 0.03;
+      glowMaterialRef.current.opacity +=
+        (targetGlowOpacity - glowMaterialRef.current.opacity) * 0.03;
     }
 
     const targetIntensity1 = isFocused ? 9 : 8;
@@ -166,7 +160,7 @@ export default function Sun({
 
   const glowMaterial = useMemo(() => {
     const mat = new THREE.MeshBasicMaterial({
-      color: "#FFD700",
+      color: '#FFD700',
       transparent: true,
       opacity: 0.12,
       side: THREE.BackSide,
@@ -183,7 +177,7 @@ export default function Sun({
 
   return (
     <group position={position}>
-      <mesh 
+      <mesh
         ref={coreRef}
         onClick={() => onSelect?.()}
         onPointerOver={(e) => {

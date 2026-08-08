@@ -31,7 +31,7 @@ export const translations = {
       location: 'Bogotá, Colombia',
       summary: 'Resumen',
       summaryText:
-        'Actualmente estoy en mi tercer semestre de Ingeniería de Sistemas en la Universidad EAN, donde lidero la iniciativa Women in Cloud del AWS Cloud Club y hago parte del core team. Recientemente completé mi certificación como AWS Cloud Practitioner y un intenso bootcamp Full Stack de 400 horas en BIT Institute. Busco oportunidades donde pueda seguir aprendiendo y creciendo de manera profesional y personal. Dispuesta a asumir nuevos retos y contribuir con mi pasión por la tecnología y el desarrollo web.',
+        'Soy estudiante de Ingeniería de Sistemas en la Universidad EAN y miembro del core team del AWS Cloud Club EAN. Cuento con la certificación AWS Certified Cloud Practitioner y completé un bootcamp intensivo de 400 horas en desarrollo Full Stack en BIT Institute. Me interesa seguir creciendo en desarrollo de software, cloud y experiencias web interactivas, asumiendo nuevos retos y aportando desde la tecnología.',
       student: 'Estudiante',
       degree: 'Ingeniería de Sistemas',
       university: 'Universidad EAN',
@@ -41,8 +41,8 @@ export const translations = {
       bootcamp: 'Bootcamp',
       bootcampTitle: 'Full Stack Developer',
       bootcampInstitute: 'BIT Institute 2025',
-      leadership: 'Liderazgo',
-      womenInCloud: 'Women in Cloud',
+      leadership: 'Comunidad',
+      womenInCloud: 'Core Team Member',
       awsCloudClub: 'AWS Cloud Club EAN',
       cvTitle: 'Curriculum Vitae',
       cvDescription: 'Descarga mi CV para conocer más detalles sobre mi experiencia y formación.',
@@ -55,13 +55,13 @@ export const translations = {
       title: 'Mi Trayectoria',
       systemsEngineering: 'Ingeniería de Sistemas',
       eanUniversity: 'Universidad EAN',
-      currentSemester: '3er Semestre',
+      currentSemester: 'En curso',
       systemsDesc:
         'Formación enfocada en desarrollo de software, análisis de sistemas y arquitectura de soluciones. Énfasis en programación full stack y computación en la nube.',
-      womenInCloud: 'Líder Women in Cloud & Core Team',
+      womenInCloud: 'Core Team Member',
       awsCloudClub: 'AWS Cloud Club EAN',
       womenDesc:
-        'Lidero la iniciativa Women in Cloud y organizo eventos para promover la participación femenina en tecnología. Cofacilitadora en sesiones técnicas de AWS, diseñando sesiones sobre fundamentos de AWS (Solutions Architect - Associate).',
+        'Miembro del core team del AWS Cloud Club EAN, participando en la organización de eventos, iniciativas como Women in Cloud y sesiones técnicas sobre fundamentos de AWS y arquitectura en la nube.',
       awsCertified: 'AWS Cloud Practitioner',
       amazonWebServices: 'Amazon Web Services',
       awsDesc:
@@ -197,7 +197,7 @@ export const translations = {
       location: 'Bogotá, Colombia',
       summary: 'Summary',
       summaryText:
-        "I'm currently in my third semester of Systems Engineering at EAN University, where I lead the Women in Cloud initiative at the AWS Cloud Club and am part of the core team. I recently completed my AWS Cloud Practitioner certification and an intensive 400-hour Full Stack bootcamp at BIT Institute. I'm looking for opportunities where I can continue learning and growing professionally and personally. Ready to take on new challenges and contribute with my passion for technology and web development.",
+        "I'm a Systems Engineering student at EAN University and a core team member of the AWS Cloud Club EAN. I hold the AWS Certified Cloud Practitioner certification and completed an intensive 400-hour Full Stack development bootcamp at BIT Institute. I'm interested in continuing to grow in software development, cloud, and interactive web experiences while taking on new challenges and contributing through technology.",
       student: 'Student',
       degree: 'Systems Engineering',
       university: 'EAN University',
@@ -207,8 +207,8 @@ export const translations = {
       bootcamp: 'Bootcamp',
       bootcampTitle: 'Full Stack Developer',
       bootcampInstitute: 'BIT Institute 2025',
-      leadership: 'Leadership',
-      womenInCloud: 'Women in Cloud',
+      leadership: 'Community',
+      womenInCloud: 'Core Team Member',
       awsCloudClub: 'AWS Cloud Club EAN',
       cvTitle: 'Curriculum Vitae',
       cvDescription: 'Download my CV to learn more about my experience and education.',
@@ -221,13 +221,13 @@ export const translations = {
       title: 'My Journey',
       systemsEngineering: 'Systems Engineering',
       eanUniversity: 'EAN University',
-      currentSemester: '3rd Semester',
+      currentSemester: 'In progress',
       systemsDesc:
         'Education focused on software development, systems analysis and solution architecture. Emphasis on full stack programming and cloud computing.',
-      womenInCloud: 'Women in Cloud Leader & Core Team',
+      womenInCloud: 'Core Team Member',
       awsCloudClub: 'AWS Cloud Club EAN',
       womenDesc:
-        'I lead the Women in Cloud initiative and organize events to promote female participation in technology. Co-facilitator in AWS technical sessions, designing sessions on AWS fundamentals (Solutions Architect - Associate).',
+        'Core team member of the AWS Cloud Club EAN, contributing to community events, initiatives such as Women in Cloud, and technical sessions on AWS fundamentals and cloud architecture.',
       awsCertified: 'AWS Cloud Practitioner',
       amazonWebServices: 'Amazon Web Services',
       awsDesc:
