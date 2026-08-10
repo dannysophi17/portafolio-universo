@@ -1195,7 +1195,7 @@ export default function Home() {
 
               {/* LinkedIn */}
               <a
-                href="https://www.linkedin.com/in/daniela-coavas-desarrolladoraweb/"
+                href="https://www.linkedin.com/in/danielacoavas/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group animate-fadeIn relative block overflow-visible opacity-0"
@@ -1218,7 +1218,7 @@ export default function Home() {
                         {t.contact.linkedin}
                       </p>
                       <p className="truncate text-sm font-medium text-white sm:text-base">
-                        daniela-coavas-desarrolladoraweb
+                        danielacoavas
                       </p>
                     </div>
                     <svg
