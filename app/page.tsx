@@ -785,7 +785,7 @@ export default function Home() {
               {
                 title: t.journey.awsCertified,
                 subtitle: t.journey.amazonWebServices,
-                year: t.journey.year2025,
+                year: t.journey.year2026,
                 desc: t.journey.awsDesc,
                 icon: (
                   <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -798,6 +798,23 @@ export default function Home() {
                   </svg>
                 ),
                 color: 'amber',
+              },
+              {
+                title: t.journey.cloudPractitioner,
+                subtitle: t.journey.amazonWebServices,
+                year: t.journey.cloudPractitionerYear,
+                desc: t.journey.cloudPractitionerDesc,
+                icon: (
+                  <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+                    />
+                  </svg>
+                ),
+                color: 'orange',
               },
               {
                 title: t.journey.fullStackBootcamp,
@@ -928,6 +945,49 @@ export default function Home() {
         ...clonedPlanets[4],
         content: (
           <div className="relative flex h-full flex-col justify-center space-y-2 px-3 py-2 sm:space-y-2.5 sm:px-4 sm:py-3 md:px-6">
+            {/* AWS Solutions Architect - Associate */}
+            <a
+              href="https://www.credly.com/badges/f30a3471-63bd-4f7d-8e47-f3996f1447f8/public_url"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group animate-fadeIn relative block overflow-visible opacity-0"
+              style={{ animation: 'fadeIn 0.6s ease-out 0.05s forwards' }}
+            >
+              <div className="absolute -inset-1 -z-10 rounded-2xl bg-linear-to-r from-orange-500/20 via-amber-500/20 to-transparent opacity-0 blur-md transition duration-500 group-hover:opacity-40" />
+              <div className="relative rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 p-3 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-orange-500/20 sm:p-3.5 md:bg-black/40">
+                <div className="flex items-start justify-between gap-2 sm:gap-3 md:gap-4">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="mb-0.5 text-sm font-bold text-white sm:mb-1 sm:text-base">
+                      {t.certifications.awsTitle}
+                    </h3>
+                    <p className="mb-0.5 text-xs text-slate-300 sm:text-sm">
+                      {t.certifications.awsOrg}
+                    </p>
+                    <p className="text-xs text-slate-500">{t.certifications.awsYear}</p>
+                  </div>
+                  <div className="shrink-0 rounded-full border border-emerald-400/50 bg-emerald-500/20 px-2 py-0.5 text-xs font-semibold text-emerald-300 shadow-lg shadow-emerald-500/20 backdrop-blur-sm sm:px-2.5 sm:py-1">
+                    {t.certifications.valid}
+                  </div>
+                </div>
+                <div className="mt-2 inline-flex items-center gap-1.5 rounded-xl border border-orange-500/40 bg-orange-600/20 px-3 py-1.5 text-xs font-medium text-orange-200 shadow-lg transition-all duration-300 hover:scale-105 hover:border-orange-400/60 hover:bg-orange-600/30 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                  <svg
+                    className="h-3.5 w-3.5 sm:h-4 sm:w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  {t.certifications.viewBadge}
+                </div>
+              </div>
+            </a>
+
             {/* AWS Cloud Practitioner */}
             <a
               href="https://www.credly.com/badges/5e711328-7f2e-4b42-b67e-84e69f017ff1/linked_in_profile"
@@ -941,12 +1001,14 @@ export default function Home() {
                 <div className="mb-2 flex items-start justify-between gap-2 sm:mb-2.5 sm:gap-3 md:gap-4">
                   <div className="min-w-0 flex-1">
                     <h3 className="mb-0.5 text-sm font-bold text-white sm:mb-1 sm:text-base">
-                      {t.certifications.awsTitle}
+                      {t.certifications.cloudPractitionerTitle}
                     </h3>
                     <p className="mb-0.5 text-xs text-slate-300 sm:text-sm">
                       {t.certifications.awsOrg}
                     </p>
-                    <p className="text-xs text-slate-500">{t.certifications.year2025}</p>
+                    <p className="text-xs text-slate-500">
+                      {t.certifications.cloudPractitionerYear}
+                    </p>
                   </div>
                   <div className="shrink-0 rounded-full border border-emerald-400/50 bg-emerald-500/20 px-2 py-0.5 text-xs font-semibold text-emerald-300 shadow-lg shadow-emerald-500/20 backdrop-blur-sm sm:px-2.5 sm:py-1">
                     {t.certifications.valid}
