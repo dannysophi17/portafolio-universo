@@ -83,10 +83,6 @@ export const translations = {
       bitInstitute: 'BIT Institute',
       bootcampDesc:
         'Bootcamp intensivo de 400 horas orientado al desarrollo web Full Stack con el ecosistema MEAN (MongoDB, ExpressJS, Angular y NodeJS). Aplicación de metodologías ágiles (SCRUM), control de versiones con Git y desarrollo de aplicación web completa.',
-      aiDevelopment: 'Desarrollo con IA',
-      ibmCoursera: 'IBM / Coursera',
-      aiDesc:
-        'Especialización en integración de inteligencia artificial en aplicaciones modernas y machine learning.',
       current: 'Actualidad',
       year2026: '2026',
       year2025: '2025',
@@ -147,8 +143,6 @@ export const translations = {
       awsOrg: 'Amazon Web Services',
       fullStackTitle: 'Full Stack Software Developer',
       fullStackOrg: 'BIT Institute',
-      aiTitle: 'AI Developer Professional Certificate',
-      aiOrg: 'IBM / Coursera',
       englishTitle: 'Inglés C1 - Cambridge Linguaskill',
       englishOrg: 'Cambridge English',
       frenchTitle: 'Francés B2 - Upper Intermediate',
@@ -268,10 +262,6 @@ export const translations = {
       bitInstitute: 'BIT Institute',
       bootcampDesc:
         'Intensive 400-hour bootcamp focused on Full Stack web development with the MEAN stack (MongoDB, ExpressJS, Angular and NodeJS). Application of agile methodologies (SCRUM), version control with Git and complete web application development.',
-      aiDevelopment: 'AI Development',
-      ibmCoursera: 'IBM / Coursera',
-      aiDesc:
-        'Specialization in artificial intelligence integration in modern applications and machine learning.',
       current: 'Present',
       year2026: '2026',
       year2025: '2025',
@@ -332,8 +322,6 @@ export const translations = {
       awsOrg: 'Amazon Web Services',
       fullStackTitle: 'Full Stack Software Developer',
       fullStackOrg: 'BIT Institute',
-      aiTitle: 'AI Developer Professional Certificate',
-      aiOrg: 'IBM / Coursera',
       englishTitle: 'English C1 - Cambridge Linguaskill',
       englishOrg: 'Cambridge English',
       frenchTitle: 'French B2 - Upper Intermediate',
