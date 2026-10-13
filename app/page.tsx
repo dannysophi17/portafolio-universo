@@ -748,6 +748,24 @@ export default function Home() {
             {/* Cards horizontales modernas */}
             {[
               {
+                title: t.journey.juniorConsultant,
+                subtitle: t.journey.iangel,
+                year: t.journey.iangelDate,
+                badge: t.journey.currentRole,
+                desc: t.journey.iangelDesc,
+                icon: (
+                  <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                ),
+                color: 'blue',
+              },
+              {
                 title: t.journey.systemsEngineering,
                 subtitle: t.journey.eanUniversity,
                 year: language === 'es' ? '2024 - Actualidad' : '2024 - Present',
@@ -800,6 +818,23 @@ export default function Home() {
                 color: 'amber',
               },
               {
+                title: t.journey.aiPractitioner,
+                subtitle: t.journey.amazonWebServices,
+                year: t.journey.year2026,
+                desc: t.journey.aiPractitionerDesc,
+                icon: (
+                  <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                ),
+                color: 'cyan',
+              },
+              {
                 title: t.journey.cloudPractitioner,
                 subtitle: t.journey.amazonWebServices,
                 year: t.journey.cloudPractitionerYear,
@@ -832,23 +867,6 @@ export default function Home() {
                   </svg>
                 ),
                 color: 'purple',
-              },
-              {
-                title: t.journey.aiDevelopment,
-                subtitle: t.journey.ibmCoursera,
-                year: t.journey.year2024,
-                desc: t.journey.aiDesc,
-                icon: (
-                  <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                    />
-                  </svg>
-                ),
-                color: 'cyan',
               },
             ].map((item, index) => (
               <div
@@ -970,6 +988,49 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="mt-2 inline-flex items-center gap-1.5 rounded-xl border border-orange-500/40 bg-orange-600/20 px-3 py-1.5 text-xs font-medium text-orange-200 shadow-lg transition-all duration-300 hover:scale-105 hover:border-orange-400/60 hover:bg-orange-600/30 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
+                  <svg
+                    className="h-3.5 w-3.5 sm:h-4 sm:w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  {t.certifications.viewBadge}
+                </div>
+              </div>
+            </a>
+
+            {/* AWS AI Practitioner */}
+            <a
+              href="https://www.credly.com/badges/ec4b531b-c197-4eba-93e7-33b7b3f75ba2/public_url"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group animate-fadeIn relative block overflow-visible opacity-0"
+              style={{ animation: 'fadeIn 0.6s ease-out 0.08s forwards' }}
+            >
+              <div className="absolute -inset-1 -z-10 rounded-2xl bg-linear-to-r from-orange-500/20 via-amber-500/20 to-transparent opacity-0 blur-md transition duration-500 group-hover:opacity-40" />
+              <div className="relative rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 p-3 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-orange-500/20 sm:p-3.5 md:bg-black/40">
+                <div className="mb-2 flex items-start justify-between gap-2 sm:mb-2.5 sm:gap-3 md:gap-4">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="mb-0.5 text-sm font-bold text-white sm:mb-1 sm:text-base">
+                      {t.certifications.aiPractitionerTitle}
+                    </h3>
+                    <p className="mb-0.5 text-xs text-slate-300 sm:text-sm">
+                      {t.certifications.awsOrg}
+                    </p>
+                    <p className="text-xs text-slate-500">{t.certifications.aiPractitionerYear}</p>
+                  </div>
+                  <div className="shrink-0 rounded-full border border-emerald-400/50 bg-emerald-500/20 px-2 py-0.5 text-xs font-semibold text-emerald-300 shadow-lg shadow-emerald-500/20 backdrop-blur-sm sm:px-2.5 sm:py-1">
+                    {t.certifications.valid}
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-1.5 rounded-xl border border-orange-500/40 bg-orange-600/20 px-3 py-1.5 text-xs font-medium text-orange-200 shadow-lg transition-all duration-300 hover:scale-105 hover:border-orange-400/60 hover:bg-orange-600/30 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm">
                   <svg
                     className="h-3.5 w-3.5 sm:h-4 sm:w-4"
                     fill="none"
@@ -1125,17 +1186,14 @@ export default function Home() {
               </div>
             </a>
 
-            {/* Francés B2 - SMART */}
-            <a
-              href="/projects/Frances.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Francés C1 - TCF */}
+            <div
               className="group animate-fadeIn relative block overflow-visible opacity-0"
               style={{ animation: 'fadeIn 0.6s ease-out 0.7s forwards' }}
             >
               <div className="absolute -inset-1 -z-10 rounded-2xl bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent opacity-0 blur-md transition duration-500 group-hover:opacity-40" />
               <div className="relative rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 p-3.5 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-rose-500/20 md:bg-black/40">
-                <div className="mb-2.5 flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-4">
                   <div>
                     <h3 className="mb-1 text-base font-bold text-white">
                       {t.certifications.frenchTitle}
@@ -1147,55 +1205,8 @@ export default function Home() {
                     {t.certifications.valid}
                   </div>
                 </div>
-                <div className="inline-flex items-center gap-2 rounded-xl border border-rose-500/40 bg-rose-600/20 px-4 py-2 text-sm font-medium text-rose-200 shadow-lg transition-all duration-300 hover:scale-105 hover:border-rose-400/60 hover:bg-rose-600/30">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                  {t.certifications.viewPdf}
-                </div>
               </div>
-            </a>
-
-            {/* AI Developer - IBM */}
-            <a
-              href="https://www.credly.com/badges/dee28785-a30c-4f87-925f-879e807a0024/public_url"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group animate-fadeIn relative block overflow-visible opacity-0"
-              style={{ animation: 'fadeIn 0.6s ease-out 0.85s forwards' }}
-            >
-              <div className="absolute -inset-1 -z-10 rounded-2xl bg-linear-to-r from-blue-500/20 via-cyan-500/20 to-transparent opacity-0 blur-md transition duration-500 group-hover:opacity-40" />
-              <div className="relative rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 p-3.5 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-blue-500/20 md:bg-black/40">
-                <div className="mb-2.5 flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="mb-1 text-base font-bold text-white">
-                      {t.certifications.aiTitle}
-                    </h3>
-                    <p className="mb-0.5 text-sm text-slate-300">{t.certifications.aiOrg}</p>
-                    <p className="text-xs text-slate-500">{t.certifications.year2024}</p>
-                  </div>
-                  <div className="shrink-0 rounded-full border border-emerald-400/50 bg-emerald-500/20 px-2.5 py-1 text-xs font-semibold text-emerald-300 shadow-lg shadow-emerald-500/20 backdrop-blur-sm">
-                    {t.certifications.valid}
-                  </div>
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-xl border border-blue-500/40 bg-blue-600/20 px-4 py-2 text-sm font-medium text-blue-200 shadow-lg transition-all duration-300 hover:scale-105 hover:border-blue-400/60 hover:bg-blue-600/30">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  {t.certifications.viewBadge}
-                </div>
-              </div>
-            </a>
+            </div>
           </div>
         ),
       };
