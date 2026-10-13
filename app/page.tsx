@@ -1186,7 +1186,7 @@ export default function Home() {
               </div>
             </a>
 
-            {/* Francés B2 - SMART */}
+            {/* Francés C1 - TCF */}
             <a
               href="/projects/Frances.pdf"
               target="_blank"

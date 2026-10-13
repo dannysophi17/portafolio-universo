@@ -215,7 +215,7 @@ export default function SkillsCarousel({ translations: t, language }: SkillsCaro
           level: language === 'es' ? 'Nativo' : 'Native',
         },
         { name: language === 'es' ? 'Inglés' : 'English', level: 'C1' },
-        { name: language === 'es' ? 'Francés' : 'French', level: 'A2' },
+        { name: language === 'es' ? 'Francés' : 'French', level: 'C1' },
       ],
       color: 'emerald',
       gridCols: 'grid-cols-1 sm:grid-cols-3',
