@@ -5,7 +5,7 @@ export const translations = {
 
     // Título y subtítulo
     title: 'Daniela Coavas',
-    subtitle: 'Full Stack Developer · Freelancer · Cloud Enthusiast',
+    subtitle: 'Junior Consultant · Full Stack Developer · Cloud Enthusiast',
 
     // Navegación
     startJourney: 'Empezar recorrido',
@@ -31,7 +31,7 @@ export const translations = {
       location: 'Bogotá, Colombia',
       summary: 'Resumen',
       summaryText:
-        'Soy estudiante de Ingeniería de Sistemas en la Universidad EAN y miembro del core team del AWS Cloud Club EAN. Cuento con las certificaciones AWS Certified Cloud Practitioner y AWS Certified Solutions Architect Associate. También completé un bootcamp intensivo de 400 horas en desarrollo Full Stack en BIT Institute. Me interesa seguir creciendo en desarrollo de software, cloud y experiencias web interactivas, asumiendo nuevos retos y aportando desde la tecnología.',
+        'Soy estudiante de Ingeniería de Sistemas en la Universidad EAN, Consultora Junior en IANGEL SAS (AWS Partner) y miembro del core team del AWS Cloud Club EAN. Cuento con las certificaciones AWS Certified Solutions Architect - Associate, AWS Certified AI Practitioner y AWS Certified Cloud Practitioner. También completé un bootcamp intensivo de 400 horas en desarrollo Full Stack en BIT Institute. Me interesa seguir creciendo en desarrollo de software, cloud y experiencias web interactivas, asumiendo nuevos retos y aportando desde la tecnología.',
       student: 'Estudiante',
       degree: 'Ingeniería de Sistemas',
       university: 'Universidad EAN',
@@ -56,6 +56,12 @@ export const translations = {
       systemsEngineering: 'Ingeniería de Sistemas',
       eanUniversity: 'Universidad EAN',
       currentSemester: 'En curso',
+      juniorConsultant: 'Consultora Junior',
+      iangel: 'IANGEL SAS · AWS Partner',
+      iangelDate: 'Octubre 2026 - Actualidad',
+      currentRole: 'Actualidad',
+      iangelDesc:
+        'Apoyo proyectos de consultoría tecnológica con clientes: levantamiento de requerimientos, análisis de procesos AS-IS y TO-BE, propuestas de solución y planeación de la implementación junto a equipos técnicos y de negocio.',
       systemsDesc:
         'Formación enfocada en desarrollo de software, análisis de sistemas y arquitectura de soluciones. Énfasis en programación full stack y computación en la nube.',
       womenInCloud: 'Core Team Member',
@@ -66,6 +72,9 @@ export const translations = {
       amazonWebServices: 'Amazon Web Services',
       awsDesc:
         'Certificación enfocada en diseñar soluciones distribuidas seguras, resilientes y escalables en AWS.',
+      aiPractitioner: 'AWS Certified AI Practitioner',
+      aiPractitionerDesc:
+        'Certificación en fundamentos de inteligencia artificial, machine learning e IA generativa, y en el uso responsable de servicios de IA en AWS.',
       cloudPractitioner: 'AWS Certified Cloud Practitioner',
       cloudPractitionerYear: '2025',
       cloudPractitionerDesc:
@@ -131,6 +140,8 @@ export const translations = {
       viewPdf: 'Ver PDF',
       awsTitle: 'AWS Certified Solutions Architect - Associate',
       awsYear: '2026',
+      aiPractitionerTitle: 'AWS Certified AI Practitioner',
+      aiPractitionerYear: '2026',
       cloudPractitionerTitle: 'AWS Certified Cloud Practitioner',
       cloudPractitionerYear: '2025',
       awsOrg: 'Amazon Web Services',
@@ -179,7 +190,7 @@ export const translations = {
 
     // Title and subtitle
     title: 'Daniela Coavas',
-    subtitle: 'Full Stack Developer · Freelancer · Cloud Enthusiast',
+    subtitle: 'Junior Consultant · Full Stack Developer · Cloud Enthusiast',
 
     // Navigation
     startJourney: 'Start journey',
@@ -205,7 +216,7 @@ export const translations = {
       location: 'Bogotá, Colombia',
       summary: 'Summary',
       summaryText:
-        "I'm a Systems Engineering student at EAN University and a core team member of the AWS Cloud Club EAN. I hold the AWS Certified Cloud Practitioner and AWS Certified Solutions Architect - Associate certifications. I also completed an intensive 400-hour Full Stack development bootcamp at BIT Institute. I'm interested in continuing to grow in software development, cloud, and interactive web experiences while taking on new challenges and contributing through technology.",
+        "I'm a Systems Engineering student at EAN University, a Junior Consultant at IANGEL SAS (AWS Partner), and a core team member of the AWS Cloud Club EAN. I hold the AWS Certified Solutions Architect - Associate, AWS Certified AI Practitioner, and AWS Certified Cloud Practitioner certifications. I also completed an intensive 400-hour Full Stack development bootcamp at BIT Institute. I'm interested in continuing to grow in software development, cloud, and interactive web experiences while taking on new challenges and contributing through technology.",
       student: 'Student',
       degree: 'Systems Engineering',
       university: 'EAN University',
@@ -230,6 +241,12 @@ export const translations = {
       systemsEngineering: 'Systems Engineering',
       eanUniversity: 'EAN University',
       currentSemester: 'In progress',
+      juniorConsultant: 'Junior Consultant',
+      iangel: 'IANGEL SAS · AWS Partner',
+      iangelDate: 'October 2026 - Present',
+      currentRole: 'Present',
+      iangelDesc:
+        'I support client-facing technology consulting projects: requirements gathering, AS-IS and TO-BE process analysis, solution proposals, and implementation planning alongside technical and business teams.',
       systemsDesc:
         'Education focused on software development, systems analysis and solution architecture. Emphasis on full stack programming and cloud computing.',
       womenInCloud: 'Core Team Member',
@@ -240,6 +257,9 @@ export const translations = {
       amazonWebServices: 'Amazon Web Services',
       awsDesc:
         'Certification focused on designing secure, resilient and scalable distributed solutions on AWS.',
+      aiPractitioner: 'AWS Certified AI Practitioner',
+      aiPractitionerDesc:
+        'Certification in artificial intelligence, machine learning and generative AI fundamentals, and the responsible use of AI services on AWS.',
       cloudPractitioner: 'AWS Certified Cloud Practitioner',
       cloudPractitionerYear: '2025',
       cloudPractitionerDesc:
@@ -305,6 +325,8 @@ export const translations = {
       viewPdf: 'View PDF',
       awsTitle: 'AWS Certified Solutions Architect - Associate',
       awsYear: '2026',
+      aiPractitionerTitle: 'AWS Certified AI Practitioner',
+      aiPractitionerYear: '2026',
       cloudPractitionerTitle: 'AWS Certified Cloud Practitioner',
       cloudPractitionerYear: '2025',
       awsOrg: 'Amazon Web Services',
