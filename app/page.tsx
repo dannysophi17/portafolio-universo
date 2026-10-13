@@ -1187,16 +1187,13 @@ export default function Home() {
             </a>
 
             {/* Francés C1 - TCF */}
-            <a
-              href="/projects/Frances.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            <div
               className="group animate-fadeIn relative block overflow-visible opacity-0"
               style={{ animation: 'fadeIn 0.6s ease-out 0.7s forwards' }}
             >
               <div className="absolute -inset-1 -z-10 rounded-2xl bg-linear-to-r from-rose-500/20 via-pink-500/20 to-transparent opacity-0 blur-md transition duration-500 group-hover:opacity-40" />
               <div className="relative rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950/30 via-black/70 to-blue-950/20 p-3.5 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-rose-500/20 md:bg-black/40">
-                <div className="mb-2.5 flex items-start justify-between gap-4">
+                <div className="flex items-start justify-between gap-4">
                   <div>
                     <h3 className="mb-1 text-base font-bold text-white">
                       {t.certifications.frenchTitle}
@@ -1208,19 +1205,8 @@ export default function Home() {
                     {t.certifications.valid}
                   </div>
                 </div>
-                <div className="inline-flex items-center gap-2 rounded-xl border border-rose-500/40 bg-rose-600/20 px-4 py-2 text-sm font-medium text-rose-200 shadow-lg transition-all duration-300 hover:scale-105 hover:border-rose-400/60 hover:bg-rose-600/30">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                  {t.certifications.viewPdf}
-                </div>
               </div>
-            </a>
+            </div>
           </div>
         ),
       };
