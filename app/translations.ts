@@ -5,7 +5,7 @@ export const translations = {
 
     // Título y subtítulo
     title: 'Daniela Coavas',
-    subtitle: 'Junior Consultant · Full Stack Developer · Cloud Enthusiast',
+    subtitle: 'Consultora Junior · Desarrolladora Full Stack · Entusiasta de la Nube',
 
     // Navegación
     startJourney: 'Empezar recorrido',
