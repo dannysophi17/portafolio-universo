@@ -119,7 +119,7 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
           col = mix(col * vec3(1.0, 0.55, 0.25), col, limb);
 
           // El centro supera 1.0 para que el efecto de brillo (bloom) lo ilumine
-          col *= brightness * (0.85 + 0.55 * limb);
+          col *= brightness * (0.8 + 0.3 * limb);
 
           gl_FragColor = vec4(col, 1.0);
         }
@@ -130,8 +130,7 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
   }, []);
 
   // Corona: brillo aditivo que se desvanece hacia afuera (reemplaza el halo plano)
-  const glowMaterial = useMemo(() => createGlowMaterial('#FFB347', 1.1, 2.2), []);
-  const outerCoronaMaterial = useMemo(() => createGlowMaterial('#FF8C1A', 0.45, 1.6), []);
+  const glowMaterial = useMemo(() => createGlowMaterial('#FFB347', 0.55, 3), []);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -141,7 +140,7 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
       coreRef.current.material.uniforms.time.value = t;
 
       // Transición suave de brillo al enfocar/desenfocar
-      const targetBrightness = isFocused ? 1.2 : 1.0;
+      const targetBrightness = isFocused ? 1.05 : 1.0;
       coreRef.current.material.uniforms.brightness.value +=
         (targetBrightness - coreRef.current.material.uniforms.brightness.value) * 0.02;
     }
@@ -155,7 +154,7 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
       glowRef.current.scale.setScalar(1 + Math.sin(t * 0.4) * 0.03);
     }
 
-    const targetGlow = isFocused ? 1.35 : 1.1;
+    const targetGlow = isFocused ? 0.6 : 0.55;
     const glowMat = glowRef.current?.material;
     if (glowMat instanceof THREE.ShaderMaterial) {
       glowMat.uniforms.intensity.value += (targetGlow - glowMat.uniforms.intensity.value) * 0.03;
@@ -190,13 +189,8 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
       </mesh>
 
       <mesh ref={glowRef}>
-        <sphereGeometry args={[size * 1.35, 64, 64]} />
+        <sphereGeometry args={[size * 1.12, 64, 64]} />
         <primitive attach="material" object={glowMaterial} />
-      </mesh>
-
-      <mesh>
-        <sphereGeometry args={[size * 2.1, 48, 48]} />
-        <primitive attach="material" object={outerCoronaMaterial} />
       </mesh>
 
       <pointLight

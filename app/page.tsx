@@ -7,7 +7,6 @@
 
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
@@ -1419,12 +1418,6 @@ export default function Home() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Dispositivos táctiles: sin bloom (ahorra batería) y con gestos de deslizar
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  React.useEffect(() => {
-    setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
-  }, []);
-
   const canBrowsePlanets = start && !overviewMode && !focusMode && !zoomMode;
 
   const goToPlanet = (direction: 1 | -1) => {
@@ -1991,18 +1984,6 @@ export default function Home() {
               decay={2}
             />
             <hemisphereLight args={['#ffffff', '#444444', 0.8]} />
-
-            {/* Brillo (bloom) solo para lo más luminoso: el sol y su corona */}
-            {!isTouchDevice && (
-              <EffectComposer multisampling={4}>
-                <Bloom
-                  mipmapBlur
-                  luminanceThreshold={0.95}
-                  luminanceSmoothing={0.2}
-                  intensity={0.8}
-                />
-              </EffectComposer>
-            )}
 
             <OrbitingPlanets
               focusMode={focusMode}

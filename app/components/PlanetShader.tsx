@@ -3,12 +3,21 @@
 import * as THREE from 'three';
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { createGlowMaterial } from './glowMaterial';
+import { createGlowMaterial, createRingMaterial } from './glowMaterial';
 
 /**
  * Planeta con efectos visuales personalizados
  * Cada planeta tiene efectos diferentes según su color (anillos, partículas, etc)
  */
+
+/** Tipo de superficie que dibuja el shader para cada planeta */
+const SURFACE_TYPES: Record<string, number> = {
+  rocky: 0,
+  tech: 1,
+  crystalline: 2,
+  ringed: 3,
+  communication: 4,
+};
 
 interface PlanetShaderProps {
   color: string; // Color del planeta
@@ -28,7 +37,6 @@ export default function PlanetShader({
   isFocused = false,
 }: PlanetShaderProps) {
   const planetRef = useRef<THREE.Group>(null);
-  const glowRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
   const worldPos = useRef(new THREE.Vector3());
   const lightTarget = useRef(new THREE.Vector3());
@@ -46,10 +54,28 @@ export default function PlanetShader({
   }, [color]);
 
   const atmosphereMaterial = useMemo(
-    () => createGlowMaterial(color, planetType === 'communication' ? 1.3 : 1, 2.5),
+    () => createGlowMaterial(color, planetType === 'communication' ? 0.7 : 0.5, 3.5),
     [color, planetType],
   );
-  const focusGlowMaterial = useMemo(() => createGlowMaterial(color, 0.55, 4), [color]);
+  const ringMaterial = useMemo(
+    () => createRingMaterial(color, size * 1.35, size * 2.3),
+    [color, size],
+  );
+
+  // Lunas: el gigante gaseoso tiene dos y el planeta océano una
+  const moons = useMemo(
+    () =>
+      planetType === 'tech'
+        ? [
+            { size: 0.14, distance: 2.1, speed: 0.5, tilt: 0.25, color: '#b9b3c9' },
+            { size: 0.09, distance: 2.8, speed: 0.32, tilt: -0.15, color: '#9d97a8' },
+          ]
+        : planetType === 'crystalline'
+          ? [{ size: 0.18, distance: 2.4, speed: 0.4, tilt: 0.12, color: '#c9c9c4' }]
+          : [],
+    [planetType],
+  );
+  const moonRefs = useRef<(THREE.Mesh | null)[]>([]);
 
   // Material con shaders para el aspecto del planeta
   const shaderMaterial = useMemo(() => {
@@ -58,6 +84,7 @@ export default function PlanetShader({
         time: { value: 0.0 },
         baseColor: { value: new THREE.Color(color) },
         lightDir: { value: new THREE.Vector3(1, 0.4, 0.6).normalize() },
+        surfaceType: { value: SURFACE_TYPES[planetType] ?? 0 },
       },
 
       vertexShader: `
@@ -83,6 +110,7 @@ export default function PlanetShader({
         uniform float time;
         uniform vec3 baseColor;
         uniform vec3 lightDir;
+        uniform int surfaceType;
 
         varying vec3 vNormal;
         varying vec3 vWorldNormal;
@@ -126,26 +154,69 @@ export default function PlanetShader({
           return value;
         }
 
+        float ridged(vec3 p) {
+          return 1.0 - abs(noise(p) * 2.0 - 1.0);
+        }
+
         void main() {
-          // Movimiento de textura
-          vec3 coords = vPosition * 2.0 + time * 0.1;
-          
-          // Generar patrones de superficie
-          float pattern = fbm(coords);
-          float pattern2 = fbm(coords * 1.5 + time * 0.05);
-          
-          // Mezclar patrones
-          float mixedPattern = mix(pattern, pattern2, 0.5);
-          
-          // Colores base
-          vec3 darkColor = baseColor * 0.6;
-          vec3 lightColor = baseColor * 1.3;
-          
-          // Aplicar patrón
-          vec3 finalColor = mix(darkColor, lightColor, mixedPattern);
-          
-          // Brillo adicional
-          finalColor += vec3(mixedPattern * 0.1);
+          // Coordenadas sobre la esfera unitaria: el relieve gira con el planeta
+          vec3 p = normalize(vPosition);
+          float lat = p.y;
+          vec3 N = normalize(vWorldNormal);
+          vec3 L = normalize(lightDir);
+          vec3 V = normalize(vViewDir);
+          vec3 finalColor;
+          float oceanMask = 0.0;
+
+          if (surfaceType == 1) {
+            // Gigante gaseoso: bandas por latitud con turbulencia y una gran tormenta
+            float turb = fbm(p * vec3(2.0, 7.0, 2.0) + vec3(time * 0.02, 0.0, 0.0)) * 0.35;
+            float bands = sin((lat + turb) * 22.0) * 0.5 + 0.5;
+            float fine = sin((lat + turb * 0.6) * 60.0) * 0.5 + 0.5;
+            vec3 cream = mix(baseColor, vec3(0.95, 0.9, 1.0), 0.45);
+            finalColor = mix(baseColor * 0.72, cream, bands * 0.75 + fine * 0.15);
+            float storm = smoothstep(0.16, 0.0, length(vec2(atan(p.z, p.x) - 1.2, (lat + 0.32) * 2.4)));
+            finalColor = mix(finalColor, baseColor * 0.55 + vec3(0.12, 0.04, 0.1), storm * 0.8);
+          } else if (surfaceType == 2) {
+            // Planeta océano: continentes, casquetes polares y nubes
+            float landNoise = fbm(p * 2.6 + 3.1);
+            float land = smoothstep(0.5, 0.54, landNoise);
+            oceanMask = 1.0 - land;
+            vec3 ocean = mix(baseColor * 0.45, baseColor * 0.75, fbm(p * 8.0));
+            vec3 ground = mix(vec3(0.22, 0.32, 0.26), vec3(0.42, 0.45, 0.36), fbm(p * 10.0));
+            finalColor = mix(ocean, ground, land);
+            float ice = smoothstep(0.8, 0.88, abs(lat) + fbm(p * 6.0) * 0.08);
+            finalColor = mix(finalColor, vec3(0.9, 0.95, 0.97), ice);
+            oceanMask *= 1.0 - ice;
+            float clouds = smoothstep(0.55, 0.78, fbm(p * 4.0 + vec3(time * 0.015, 0.0, time * 0.01)));
+            finalColor = mix(finalColor, vec3(0.95), clouds * 0.75);
+            oceanMask *= 1.0 - clouds;
+          } else if (surfaceType == 3) {
+            // Tipo Saturno: bandas suaves y cálidas
+            float turb = fbm(p * vec3(1.5, 5.0, 1.5) + time * 0.01) * 0.25;
+            float bands = sin((lat + turb) * 14.0) * 0.5 + 0.5;
+            vec3 light = mix(baseColor, vec3(1.0, 0.92, 0.85), 0.35);
+            finalColor = mix(baseColor * 0.78, light, bands);
+          } else if (surfaceType == 4) {
+            // Tipo Venus: nubes densas en remolino
+            vec3 q = p * 2.2 + vec3(time * 0.03, 0.0, 0.0);
+            vec3 warp = vec3(fbm(q), fbm(q + 5.2), fbm(q + 1.7));
+            float swirl = fbm(q + warp * 1.8 + vec3(0.0, lat * 3.0, 0.0));
+            finalColor = mix(baseColor * 0.7, mix(baseColor, vec3(1.0, 0.97, 0.88), 0.4), swirl);
+          } else {
+            // Rocoso: cordilleras, llanuras y cráteres
+            float height = fbm(p * 3.0);
+            float ridges = ridged(p * 7.0) * ridged(p * 13.0);
+            float craters = smoothstep(0.72, 0.9, noise(p * 9.0)) - smoothstep(0.9, 0.98, noise(p * 9.0)) * 0.6;
+            finalColor = mix(baseColor * 0.55, baseColor * 1.15, height);
+            finalColor += baseColor * ridges * 0.18;
+            finalColor *= 1.0 - craters * 0.35;
+          }
+
+          // Reflejo del sol en los océanos
+          vec3 H = normalize(L + V);
+          float spec = pow(max(dot(N, H), 0.0), 60.0) * oceanMask;
+          finalColor += vec3(1.0, 0.95, 0.85) * spec * 0.6;
 
           // Luz del sol: lado de día iluminado y lado de noche en penumbra,
           // con una transición suave (terminador) como en un planeta real
@@ -167,10 +238,21 @@ export default function PlanetShader({
 
       transparent: false,
     });
-  }, [color]);
+  }, [color, planetType]);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
+
+    moons.forEach((moon, i) => {
+      const mesh = moonRefs.current[i];
+      if (!mesh) return;
+      const a = t * moon.speed + i * 2.4;
+      mesh.position.set(
+        Math.cos(a) * size * moon.distance,
+        Math.sin(a) * size * moon.distance * moon.tilt,
+        Math.sin(a) * size * moon.distance,
+      );
+    });
 
     if (planetRef.current) {
       // Actualizar shader material del primer mesh hijo
@@ -217,12 +299,6 @@ export default function PlanetShader({
     if (planetType === 'ringed' && ringsRef.current) {
       ringsRef.current.rotation.z = t * 0.1;
     }
-
-    // Glow pulsante
-    if (isFocused && glowRef.current) {
-      const pulse = Math.sin(t * 1.2) * 0.04 + 1;
-      glowRef.current.scale.setScalar(pulse);
-    }
   });
 
   return (
@@ -245,77 +321,35 @@ export default function PlanetShader({
           <primitive attach="material" object={shaderMaterial} />
         </mesh>
 
-        {/* Textura de cuadrícula para planeta crystalline (Proyectos) */}
-        {planetType === 'crystalline' && !isDimmed && (
-          <mesh>
-            <sphereGeometry args={[size * 1.08, 48, 48]} />
-            <meshBasicMaterial color="#5D9A9A" transparent opacity={0.25} wireframe={true} />
-          </mesh>
-        )}
-
-        {/* Partículas orbitales para planeta tecnológico (Habilidades) */}
-        {planetType === 'tech' && !isDimmed && (
-          <points>
-            <sphereGeometry args={[size * 1.5, 32, 32]} />
-            <pointsMaterial size={0.05} color={color} transparent opacity={0.6} sizeAttenuation />
-          </points>
-        )}
-
         {/* Atmósfera - brillo en el borde que se mueve con el planeta */}
         {!isDimmed && (
           <mesh>
-            <sphereGeometry args={[size * 1.18, 48, 48]} />
+            <sphereGeometry args={[size * 1.07, 48, 48]} />
             <primitive attach="material" object={atmosphereMaterial} />
           </mesh>
         )}
 
-        {/* Anillos para planeta tipo 'ringed' */}
+        {/* Anillos con bandas de polvo y hielo para el planeta tipo Saturno */}
         {planetType === 'ringed' && (
-          <mesh ref={ringsRef} rotation={[Math.PI / 2.5, 0, 0]}>
-            <ringGeometry args={[size * 1.4, size * 1.8, 64]} />
-            <meshBasicMaterial
-              color={color}
-              transparent
-              opacity={isDimmed ? 0.1 : 0.4}
-              side={THREE.DoubleSide}
-            />
+          <mesh ref={ringsRef} rotation={[Math.PI / 2.5, 0.2, 0]}>
+            <ringGeometry args={[size * 1.35, size * 2.3, 128, 1]} />
+            <primitive attach="material" object={ringMaterial} />
           </mesh>
         )}
-
-        {/* Anillos brillantes para planeta crystalline (Proyectos) */}
-        {planetType === 'crystalline' && (
-          <>
-            <mesh rotation={[Math.PI / 2.3, 0, 0]}>
-              <ringGeometry args={[size * 1.5, size * 1.9, 80]} />
-              <meshBasicMaterial
-                color="#5D9A9A"
-                transparent
-                opacity={isDimmed ? 0.15 : 0.5}
-                side={THREE.DoubleSide}
-              />
-            </mesh>
-            <mesh rotation={[Math.PI / 2.3, Math.PI / 4, 0]}>
-              <ringGeometry args={[size * 1.7, size * 1.85, 80]} />
-              <meshBasicMaterial
-                color="#7DB5B5"
-                transparent
-                opacity={isDimmed ? 0.1 : 0.35}
-                side={THREE.DoubleSide}
-              />
-            </mesh>
-          </>
-        )}
       </group>
+
+      {/* Lunas en órbita */}
+      {!isDimmed &&
+        moons.map((moon, i) => (
+          <mesh key={i} ref={(el) => (moonRefs.current[i] = el)}>
+            <sphereGeometry args={[size * moon.size, 24, 24]} />
+            <meshStandardMaterial color={moon.color} roughness={1} metalness={0} />
+          </mesh>
+        ))}
 
       {/* Efectos especiales cuando está enfocado */}
       {isFocused && (
         <>
-          {/* Halo suave alrededor del planeta enfocado */}
-          <mesh ref={glowRef}>
-            <sphereGeometry args={[size * 1.6, 48, 48]} />
-            <primitive attach="material" object={focusGlowMaterial} />
-          </mesh>
-
           {/* Partículas brillantes flotantes */}
           {planetType === 'sun' && (
             <points>
