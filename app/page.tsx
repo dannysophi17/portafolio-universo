@@ -496,8 +496,8 @@ export default function Home() {
                     </h1>
                     <p className="mb-2 text-xs text-slate-300 sm:mb-3 sm:text-sm md:text-xs lg:text-sm">
                       {language === 'es'
-                        ? 'Desarrolladora Full Stack Junior | Freelancer'
-                        : 'Junior Full Stack Developer | Freelancer'}
+                        ? 'Consultora Junior en IANGEL SAS | Desarrolladora Full Stack'
+                        : 'Junior Consultant at IANGEL SAS | Full Stack Developer'}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       <span className="animate-pulse rounded-full border border-emerald-400/50 bg-emerald-500/20 px-3 py-1 text-xs font-semibold text-emerald-300">
