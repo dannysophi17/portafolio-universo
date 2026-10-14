@@ -6,8 +6,9 @@
 'use client';
 
 import * as THREE from 'three';
-import { useRef, useMemo, useEffect } from 'react';
+import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { createGlowMaterial } from './glowMaterial';
 
 interface SunProps {
   position: [number, number, number]; // Posición en el espacio 3D
@@ -21,7 +22,6 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
   const glowRef = useRef<THREE.Mesh>(null);
   const light1Ref = useRef<THREE.PointLight>(null);
   const light2Ref = useRef<THREE.PointLight>(null);
-  const glowMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
 
   // Material con shaders para crear el efecto de fuego del sol
   const shaderMaterial = useMemo(() => {
@@ -33,10 +33,12 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
 
       vertexShader: `
         varying vec3 vNormal;
+        varying vec3 vViewNormal;
         varying vec3 vPos;
 
         void main() {
-          vNormal = normalize(normalMatrix * normal);
+          vNormal = normal;
+          vViewNormal = normalize(normalMatrix * normal);
 
           vec4 world = modelMatrix * vec4(position, 1.0);
           vPos = world.xyz;
@@ -50,6 +52,7 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
         uniform float brightness;
 
         varying vec3 vNormal;
+        varying vec3 vViewNormal;
         varying vec3 vPos;
 
         float hash(vec3 p) {
@@ -109,7 +112,14 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
           vec3 col = mix(deepGold, softGold, mixVal);
           col = mix(col, whiteCore, center * 1.5);
           col += center * 0.08;
-          col *= brightness;
+          // Oscurecimiento del limbo: el borde del sol se ve más oscuro y cálido,
+          // como en el sol real, lo que le da volumen
+          float mu = clamp(dot(normalize(vViewNormal), vec3(0.0, 0.0, 1.0)), 0.0, 1.0);
+          float limb = pow(mu, 0.45);
+          col = mix(col * vec3(1.0, 0.55, 0.25), col, limb);
+
+          // El centro supera 1.0 para que el efecto de brillo (bloom) lo ilumine
+          col *= brightness * (0.85 + 0.55 * limb);
 
           gl_FragColor = vec4(col, 1.0);
         }
@@ -118,6 +128,10 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
       transparent: false,
     });
   }, []);
+
+  // Corona: brillo aditivo que se desvanece hacia afuera (reemplaza el halo plano)
+  const glowMaterial = useMemo(() => createGlowMaterial('#FFB347', 1.1, 2.2), []);
+  const outerCoronaMaterial = useMemo(() => createGlowMaterial('#FF8C1A', 0.45, 1.6), []);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -138,13 +152,13 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
     }
 
     if (glowRef.current) {
-      glowRef.current.scale.setScalar(1 + Math.sin(t * 0.4) * 0.08);
+      glowRef.current.scale.setScalar(1 + Math.sin(t * 0.4) * 0.03);
     }
 
-    const targetGlowOpacity = isFocused ? 0.18 : 0.12;
-    if (glowMaterialRef.current) {
-      glowMaterialRef.current.opacity +=
-        (targetGlowOpacity - glowMaterialRef.current.opacity) * 0.03;
+    const targetGlow = isFocused ? 1.35 : 1.1;
+    const glowMat = glowRef.current?.material;
+    if (glowMat instanceof THREE.ShaderMaterial) {
+      glowMat.uniforms.intensity.value += (targetGlow - glowMat.uniforms.intensity.value) * 0.03;
     }
 
     const targetIntensity1 = isFocused ? 9 : 8;
@@ -157,23 +171,6 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
       light2Ref.current.intensity += (2.5 - light2Ref.current.intensity) * 0.08;
     }
   });
-
-  const glowMaterial = useMemo(() => {
-    const mat = new THREE.MeshBasicMaterial({
-      color: '#FFD700',
-      transparent: true,
-      opacity: 0.12,
-      side: THREE.BackSide,
-      blending: THREE.AdditiveBlending,
-    });
-    return mat;
-  }, []);
-
-  useEffect(() => {
-    if (glowMaterial) {
-      glowMaterialRef.current = glowMaterial;
-    }
-  }, [glowMaterial]);
 
   return (
     <group position={position}>
@@ -188,13 +185,18 @@ export default function Sun({ position, size, isFocused = false, onSelect }: Sun
           document.body.style.cursor = 'default';
         }}
       >
-        <sphereGeometry args={[size, 128, 128]} />
+        <sphereGeometry args={[size, 96, 96]} />
         <primitive attach="material" object={shaderMaterial} />
       </mesh>
 
       <mesh ref={glowRef}>
-        <sphereGeometry args={[size * 1.08, 64, 64]} />
+        <sphereGeometry args={[size * 1.35, 64, 64]} />
         <primitive attach="material" object={glowMaterial} />
+      </mesh>
+
+      <mesh>
+        <sphereGeometry args={[size * 2.1, 48, 48]} />
+        <primitive attach="material" object={outerCoronaMaterial} />
       </mesh>
 
       <pointLight

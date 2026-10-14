@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { createGlowMaterial } from './glowMaterial';
 
 /**
  * Planeta con efectos visuales personalizados
@@ -29,6 +30,8 @@ export default function PlanetShader({
   const planetRef = useRef<THREE.Group>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
+  const worldPos = useRef(new THREE.Vector3());
+  const lightTarget = useRef(new THREE.Vector3());
 
   /** Determina el tipo de planeta según su color para aplicar efectos visuales */
   const planetType = useMemo(() => {
@@ -42,33 +45,48 @@ export default function PlanetShader({
     return 'default';
   }, [color]);
 
+  const atmosphereMaterial = useMemo(
+    () => createGlowMaterial(color, planetType === 'communication' ? 1.3 : 1, 2.5),
+    [color, planetType],
+  );
+  const focusGlowMaterial = useMemo(() => createGlowMaterial(color, 0.55, 4), [color]);
+
   // Material con shaders para el aspecto del planeta
   const shaderMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0.0 },
         baseColor: { value: new THREE.Color(color) },
+        lightDir: { value: new THREE.Vector3(1, 0.4, 0.6).normalize() },
       },
 
       vertexShader: `
         varying vec3 vNormal;
+        varying vec3 vWorldNormal;
+        varying vec3 vViewDir;
         varying vec2 vUv;
         varying vec3 vPosition;
 
         void main() {
           vNormal = normalize(normalMatrix * normal);
+          vWorldNormal = normalize(mat3(modelMatrix) * normal);
+          vec4 worldPos = modelMatrix * vec4(position, 1.0);
+          vViewDir = normalize(cameraPosition - worldPos.xyz);
           vUv = uv;
           vPosition = position;
-          
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+          gl_Position = projectionMatrix * viewMatrix * worldPos;
         }
       `,
 
       fragmentShader: `
         uniform float time;
         uniform vec3 baseColor;
-        
+        uniform vec3 lightDir;
+
         varying vec3 vNormal;
+        varying vec3 vWorldNormal;
+        varying vec3 vViewDir;
         varying vec2 vUv;
         varying vec3 vPosition;
 
@@ -126,13 +144,23 @@ export default function PlanetShader({
           // Aplicar patrón
           vec3 finalColor = mix(darkColor, lightColor, mixedPattern);
           
-          // Efecto de iluminación en los bordes
-          float fresnel = pow(1.0 - abs(dot(vNormal, vec3(0, 0, 1))), 2.0);
-          finalColor += baseColor * fresnel * 0.3;
-          
           // Brillo adicional
           finalColor += vec3(mixedPattern * 0.1);
-          
+
+          // Luz del sol: lado de día iluminado y lado de noche en penumbra,
+          // con una transición suave (terminador) como en un planeta real
+          float sunAmount = dot(normalize(vWorldNormal), normalize(lightDir));
+          float daylight = smoothstep(-0.25, 0.55, sunAmount);
+          vec3 dayColor = finalColor * 1.08;
+          vec3 nightColor = finalColor * 0.12 + baseColor * 0.03;
+          // Luz de relleno suave desde la cámara para que el lado oscuro conserve forma
+          float fill = 0.35 * pow(max(dot(normalize(vWorldNormal), normalize(vViewDir)), 0.0), 1.5);
+          finalColor = mix(nightColor, dayColor, daylight) + dayColor * fill * (1.0 - daylight);
+
+          // Atmósfera en el borde, más intensa del lado iluminado
+          float rim = pow(1.0 - max(dot(normalize(vWorldNormal), normalize(vViewDir)), 0.0), 3.0);
+          finalColor += baseColor * rim * (0.15 + 0.65 * smoothstep(-0.3, 0.6, sunAmount));
+
           gl_FragColor = vec4(finalColor, 1.0);
         }
       `,
@@ -149,6 +177,19 @@ export default function PlanetShader({
       const planetMesh = planetRef.current.children[0] as THREE.Mesh;
       if (planetMesh?.material instanceof THREE.ShaderMaterial) {
         planetMesh.material.uniforms.time.value = t;
+
+        // El sol está en el centro del sistema; en vista de detalle (sin sol visible)
+        // se usa una luz fija desde la derecha para resaltar el relieve
+        if (isFocused) {
+          lightTarget.current.set(1, 0.35, 0.8);
+        } else {
+          planetRef.current.getWorldPosition(worldPos.current);
+          lightTarget.current.copy(worldPos.current).negate();
+        }
+        if (lightTarget.current.lengthSq() > 0.0001) {
+          lightTarget.current.normalize();
+          planetMesh.material.uniforms.lightDir.value.lerp(lightTarget.current, 0.08).normalize();
+        }
       }
 
       // Rotación con velocidades diferentes según tipo
@@ -179,7 +220,7 @@ export default function PlanetShader({
 
     // Glow pulsante
     if (isFocused && glowRef.current) {
-      const pulse = Math.sin(t * 1.5) * 0.15 + 1;
+      const pulse = Math.sin(t * 1.2) * 0.04 + 1;
       glowRef.current.scale.setScalar(pulse);
     }
   });
@@ -200,7 +241,7 @@ export default function PlanetShader({
             document.body.style.cursor = 'default';
           }}
         >
-          <sphereGeometry args={[size, 128, 128]} />
+          <sphereGeometry args={[size, 64, 64]} />
           <primitive attach="material" object={shaderMaterial} />
         </mesh>
 
@@ -220,16 +261,13 @@ export default function PlanetShader({
           </points>
         )}
 
-        {/* Atmósfera - ahora dentro del grupo para moverse con el planeta */}
-        <mesh>
-          <sphereGeometry args={[size * 1.15, 64, 64]} />
-          <meshBasicMaterial
-            color={color}
-            transparent
-            opacity={isDimmed ? 0.02 : planetType === 'communication' ? 0.3 : 0.15}
-            side={THREE.BackSide}
-          />
-        </mesh>
+        {/* Atmósfera - brillo en el borde que se mueve con el planeta */}
+        {!isDimmed && (
+          <mesh>
+            <sphereGeometry args={[size * 1.18, 48, 48]} />
+            <primitive attach="material" object={atmosphereMaterial} />
+          </mesh>
+        )}
 
         {/* Anillos para planeta tipo 'ringed' */}
         {planetType === 'ringed' && (
@@ -272,14 +310,10 @@ export default function PlanetShader({
       {/* Efectos especiales cuando está enfocado */}
       {isFocused && (
         <>
-          {/* Ondas de energía expandiendo */}
-          <mesh>
-            <sphereGeometry args={[size * 1.8, 32, 32]} />
-            <meshBasicMaterial color={color} transparent opacity={0.1} side={THREE.BackSide} />
-          </mesh>
-          <mesh>
-            <sphereGeometry args={[size * 2.2, 32, 32]} />
-            <meshBasicMaterial color={color} transparent opacity={0.05} side={THREE.BackSide} />
+          {/* Halo suave alrededor del planeta enfocado */}
+          <mesh ref={glowRef}>
+            <sphereGeometry args={[size * 1.6, 48, 48]} />
+            <primitive attach="material" object={focusGlowMaterial} />
           </mesh>
 
           {/* Partículas brillantes flotantes */}

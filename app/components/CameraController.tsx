@@ -69,7 +69,9 @@ export default function CameraController({
           targetLookAt.current.set(0, 0, 0);
         } else {
           // Para planetas en órbita: cámara FRENTE al planeta
-          const angle = Math.atan2(planetZ, planetX);
+          // Girar un poco la cámara alrededor del planeta para que el sol quede
+          // a un lado (iluminándolo) en vez de quedar tapado justo detrás
+          const angle = Math.atan2(planetZ, planetX) + 0.75;
           const cameraDistance = 16;
 
           // Posicionar cámara en el lado opuesto del planeta (mirando hacia el centro)

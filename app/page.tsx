@@ -7,6 +7,7 @@
 
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
@@ -1418,6 +1419,35 @@ export default function Home() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Dispositivos táctiles: sin bloom (ahorra batería) y con gestos de deslizar
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  React.useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+  }, []);
+
+  const canBrowsePlanets = start && !overviewMode && !focusMode && !zoomMode;
+
+  const goToPlanet = (direction: 1 | -1) => {
+    setPlanetIndex((prev) => (prev + direction + planets.length) % planets.length);
+  };
+
+  // Gesto de deslizar en celular para pasar de un planeta a otro
+  const touchStart = React.useRef<{ x: number; y: number } | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart.current || !canBrowsePlanets) return;
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - touchStart.current.x;
+    const dy = touch.clientY - touchStart.current.y;
+    touchStart.current = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      goToPlanet(dx < 0 ? 1 : -1);
+    }
+  };
+
   const returnToOverview = () => {
     setFocusMode(false);
     setZoomMode(false);
@@ -1446,6 +1476,18 @@ export default function Home() {
     setZoomMode(false);
   };
 
+  // Navegación con teclado: flechas para cambiar de planeta, Enter para entrar, Escape para salir
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLElement && e.target.closest('input, textarea, select')) return;
+      if (canBrowsePlanets && e.key === 'ArrowRight') goToPlanet(1);
+      else if (canBrowsePlanets && e.key === 'ArrowLeft') goToPlanet(-1);
+      else if (e.key === 'Escape' && (focusMode || zoomMode)) exitPlanet();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  });
+
   const handlePlanetClick = (index: number) => {
     setOverviewMode(false); // Salir de vista amplia
     setPlanetIndex(index);
@@ -1463,7 +1505,11 @@ export default function Home() {
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div
+      className="relative h-screen w-full overflow-hidden"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* PANTALLA DE INICIO - Solo estrellas y botón Comenzar */}
       {!start && (
         <>
@@ -1545,7 +1591,7 @@ export default function Home() {
                 : 'animate-fadeIn translate-y-0 opacity-100'
             }`}
           >
-            <div className="space-y-5 text-center select-none">
+            <div className="w-[92vw] max-w-4xl space-y-5 text-center select-none">
               {/* CONTENEDOR CINEMÁTICO */}
               <div className="relative flex flex-col items-center">
                 {/* NEBLINA / AURORA */}
@@ -1560,7 +1606,7 @@ export default function Home() {
                 <div className="mt-3 h-[2px] w-16 animate-[lineGlow_3s_ease-in-out_infinite] rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
                 {/* SUBTITULO */}
-                <p className="xs:text-lg mt-3 animate-[fadeIn_1.6s_ease-out] bg-gradient-to-r from-purple-300 via-pink-200 to-blue-300 bg-clip-text px-4 text-center text-base font-light tracking-wide text-transparent sm:text-xl md:text-2xl">
+                <p className="xs:text-lg mt-3 animate-[fadeIn_1.6s_ease-out] bg-gradient-to-r from-purple-300 via-pink-200 to-blue-300 bg-clip-text px-4 text-center text-sm font-light tracking-wide text-balance text-transparent sm:text-xl md:text-2xl">
                   {t.subtitle}
                 </p>
               </div>
@@ -1912,6 +1958,8 @@ export default function Home() {
                 : 'transition-opacity duration-700 ease-in'
             }
             camera={{ position: [0, 8, 50], fov: 55 }}
+            dpr={[1, 1.75]}
+            gl={{ powerPreference: 'high-performance' }}
           >
             <CameraController
               start={start}
@@ -1921,7 +1969,10 @@ export default function Home() {
               focusedPlanetPos={currentPlanetPosition}
             />
 
+            {/* Solo activo en la vista de detalle: en la navegación entre planetas la cámara
+                mira al planeta elegido en vez de quedarse fija en el sol */}
             <OrbitControls
+              enabled={focusMode || zoomMode}
               enableZoom={false}
               enablePan={false}
               enableRotate={false}
@@ -1941,7 +1992,17 @@ export default function Home() {
             />
             <hemisphereLight args={['#ffffff', '#444444', 0.8]} />
 
-            {/* Efectos de post-procesamiento REMOVIDOS para evitar borrosidad */}
+            {/* Brillo (bloom) solo para lo más luminoso: el sol y su corona */}
+            {!isTouchDevice && (
+              <EffectComposer multisampling={4}>
+                <Bloom
+                  mipmapBlur
+                  luminanceThreshold={0.95}
+                  luminanceSmoothing={0.2}
+                  intensity={0.8}
+                />
+              </EffectComposer>
+            )}
 
             <OrbitingPlanets
               focusMode={focusMode}
